@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.IOException;
+
 public class Customer {
     private int socialSecurityNumber;  //Uses as username to log in
     private String firstName;
@@ -10,9 +13,24 @@ public class Customer {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;                           //Uses as username to log in
-
+        this.password = password; //Uses as password to log in
     }
+
+    public Customer() {
+    }
+
+    public void createFileWithCustomers() {
+        File file = new File("Customers.txt");
+
+        try {
+            if (file.createNewFile()) {
+                System.out.println("Filen har skapats: " + file.getName());
+            }
+        } catch (IOException e) {
+            System.out.println("Ett fel uppstod: " + e.getMessage());
+        }
+    }
+
     public int getSocialSecurityNumber() {
         return socialSecurityNumber;
     }

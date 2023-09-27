@@ -10,7 +10,7 @@ public class Login
     {
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("Welcome - Please choose which form of login you want to do:");
+        System.out.println("\nWelcome - Please choose which form of login you want to do:");
         System.out.println("----------------------------------------------------");
         System.out.println("1. Admin" +
                 "\n2. Customer");
