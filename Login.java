@@ -4,10 +4,14 @@ public class Login
     //Enter username
     //Enter password
 
-    public void loginMenu()
+    Admin admin = new Admin();
+
+    public  void loginMenu()
     {
         Scanner scan = new Scanner(System.in);
 
+        System.out.println("Welcome - Please choose which form of login you want to do:");
+        System.out.println("----------------------------------------------------");
         System.out.println("1. Admin" +
                 "\n2. Customer");
         int inputNumForChoice = scan.nextInt();
@@ -18,6 +22,11 @@ public class Login
             String inputAdminUsernameForLogin = scan.nextLine();
             System.out.println("Enter admin password:");
             String inputAdminPasswordForLogin = scan.nextLine();
+
+            if(inputAdminUsernameForLogin == admin.getName() && inputAdminPasswordForLogin == admin.getPassWord())
+            {
+                //continue to admin menu
+            }
         }
         else if (inputNumForChoice == 2)
         {
@@ -25,6 +34,8 @@ public class Login
             int inputSSNForLogin = scan.nextInt();
             System.out.println("Enter your password");
             String inputCustomerPasswordForLogin = scan.nextLine();
+
+            //if(inputSSNForLogin == )
         }
         else
         {
