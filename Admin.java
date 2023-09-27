@@ -20,7 +20,7 @@ public class Admin {
         System.out.println("Enter admin password:");
         String inputAdminPasswordForLogin = scan.nextLine().toLowerCase();
 
-        if(inputAdminUsernameForLogin == this.name && inputAdminPasswordForLogin == this.password)
+        if(inputAdminUsernameForLogin.equals(this.name) && inputAdminPasswordForLogin.equals(this.password))
         {
             boolean run = true;
             while(run){
@@ -43,13 +43,13 @@ public class Admin {
                     case "4":
                         System.out.println("Logout");
                         run = false;
+                        Login loginmenu = new Login();
+                        loginmenu.loginMenu();
                         break;
                     default:
                         System.out.println("Wrong input. Choose 1-4");
                 }
             }
-        }else {
-            System.out.println("a");
         }
     }
 }
