@@ -18,15 +18,7 @@ public class Login
 
         if (inputNumForChoice == 1)
         {
-            System.out.println("Enter admin username:");
-            String inputAdminUsernameForLogin = scan.nextLine();
-            System.out.println("Enter admin password:");
-            String inputAdminPasswordForLogin = scan.nextLine();
-
-            if(inputAdminUsernameForLogin == admin.getName() && inputAdminPasswordForLogin == admin.getPassWord())
-            {
-                //continue to admin menu
-            }
+            admin.logInAdmin();
         }
         else if (inputNumForChoice == 2)
         {
