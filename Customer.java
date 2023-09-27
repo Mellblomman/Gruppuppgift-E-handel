@@ -19,18 +19,6 @@ public class Customer {
     public Customer() {
     }
 
-    public void createFileWithCustomers() {
-        File file = new File("Customers.txt");
-
-        try {
-            if (file.createNewFile()) {
-                System.out.println("Filen har skapats: " + file.getName());
-            }
-        } catch (IOException e) {
-            System.out.println("Ett fel uppstod: " + e.getMessage());
-        }
-    }
-
     public int getSocialSecurityNumber() {
         return socialSecurityNumber;
     }
@@ -71,4 +59,7 @@ public class Customer {
         this.password = password;
     }
 
+    public String formatedStringForFile() {
+        return this.socialSecurityNumber + "," + this.firstName + "," + this.lastName + "," + this.email + "," + this.password;
+    }
 }
