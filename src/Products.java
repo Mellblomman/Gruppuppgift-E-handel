@@ -12,7 +12,7 @@ public class Products {
 
         }
         public ArrayList<Product> getProductsList() { return productsList; }
-        public boolean createFileWithProducts() {
+        public boolean createFileWithProducts() {       //Calling this method in admin when product is created.
             File file = new File("products.txt");
 
             try {
