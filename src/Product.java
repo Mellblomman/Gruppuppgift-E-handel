@@ -1,31 +1,33 @@
 package src;
 
 public class Product {
-    public String name;
-    public double price;
-    public int stock;
+    public String brand;
+    public String model;
+    public int price;
 
-    public Product(String name, double price, int stock) {
-        this.name = name;
+
+    public Product(String brand, int price, String model) {
+        this.brand = brand;
         this.price = price;
-        this.stock = stock;
-        Product p1 = new Product("mlss laptop", 10.000,50);
-        Product p2 = new Product("mlss pro laptop", 20.000,100);
+        this.model = model;
+    }
 
+    public String getBrand() {
+        return brand;
     }
-    public String getName() {
-        return name;
+
+    public String getModel() {
+        return model;
     }
+
     public double getPrice() {
         return price;
     }
 
-    public int getStock() {
-        return stock;
-    }
+    public String formatedStringForFile() {
+        return this.brand + "," + this.model + "," + this.price;
 
-    public void reduceStock(int amount) {
-        stock -= amount;
+
     }
 }
 
