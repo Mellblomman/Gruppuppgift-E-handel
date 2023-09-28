@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Customer {
-    private int socialSecurityNumber;  //Uses as username to log in
+    //Use socialSecurityNumber as username to log in
+    private static int socialSecurityNumber;  //Need to be static to make sure that this variable is owned Customer Class and not by any other class
     private String firstName;
     private String lastName;
     private String email;
@@ -29,7 +30,7 @@ public class Customer {
         String inputCustomerPasswordForLogin = scan.nextLine();
     }
 
-    public int getSocialSecurityNumber() {
+    public static int getSocialSecurityNumber() {
         return socialSecurityNumber;
     }
 
