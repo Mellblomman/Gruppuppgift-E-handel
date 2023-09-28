@@ -2,39 +2,36 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Login
 {
-    //Enter username
-    //Enter password
-
     Admin admin = new Admin();
     Customer customer = new Customer();
 
-    public  void loginMenu()
-    {
+    public  void loginMenu() {
         Scanner scan = new Scanner(System.in);
+        boolean runLoginMenu = true;
+        while(runLoginMenu){
+            System.out.println("\nWelcome - Please choose which form of login you want to do:");
+            System.out.println("----------------------------------------------------");
+            System.out.println("1. Admin" +
+                    "\n2. Customer" +
+                    "\n3. Exit");
 
-        System.out.println("\nWelcome - Please choose which form of login you want to do:");
-        System.out.println("----------------------------------------------------");
-        System.out.println("1. Admin" +
-                "\n2. Customer" +
-                "\n3. Exit");
+            String inputChoice = scan.nextLine();
 
-        try {
-            int inputNumForChoice = scan.nextInt();
-
-            if (inputNumForChoice == 1) {
-                admin.logInAdmin();
-            } else if (inputNumForChoice == 2) {
-                customer.logInCustomer();
-
-                //if(inputSSNForLogin == )
-            } else if (inputNumForChoice == 3) {
-                System.out.println("Exiting program.");
-            } else {
-                System.out.println("Please choose one of the three options above.");
+            switch(inputChoice){
+                case "1":
+                    admin.logInAdmin();
+                    break;
+                case "2":
+                    //customer class
+                    break;
+                case "3":
+                    System.out.println("Program is closing.");
+                    runLoginMenu = false;
+                    break;
+                default:
+                    System.out.println("Please enter a valid number.");
+                    break;
             }
-        }catch(InputMismatchException e){
-            System.out.println("Wrong input! Enter 1,2 or 3");
         }
     }
-
 }
