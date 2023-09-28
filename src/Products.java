@@ -9,9 +9,7 @@ public class Products {
         public ArrayList<Product> productsList = new ArrayList<Product>();
         public String productFileName = "products.txt";
         Products() {
-            if (!createFileWithProducts()) {//Control if the file product.txt exist, if not it will call createFileWithCustomers
-                createFileWithProducts();
-            }
+
         }
         public ArrayList<Product> getProductsList() { return productsList; }
         public boolean createFileWithProducts() {
