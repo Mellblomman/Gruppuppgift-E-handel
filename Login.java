@@ -6,6 +6,7 @@ public class Login
     //Enter password
 
     Admin admin = new Admin();
+    Customer customer = new Customer();
 
     public  void loginMenu()
     {
@@ -16,16 +17,14 @@ public class Login
         System.out.println("1. Admin" +
                 "\n2. Customer" +
                 "\n3. Exit");
+
         try {
             int inputNumForChoice = scan.nextInt();
 
             if (inputNumForChoice == 1) {
                 admin.logInAdmin();
             } else if (inputNumForChoice == 2) {
-                System.out.println("Enter your social security number:");
-                int inputSSNForLogin = scan.nextInt();
-                System.out.println("Enter your password");
-                String inputCustomerPasswordForLogin = scan.nextLine();
+                customer.logInCustomer();
 
                 //if(inputSSNForLogin == )
             } else if (inputNumForChoice == 3) {

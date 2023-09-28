@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Customer {
     private int socialSecurityNumber;  //Uses as username to log in
@@ -17,6 +18,13 @@ public class Customer {
     }
 
     public Customer() {
+    }
+    public void logInCustomer(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter your social security number:");
+        int inputSSNForLogin = scan.nextInt();
+        System.out.println("Enter your password");
+        String inputCustomerPasswordForLogin = scan.nextLine();
     }
 
     public int getSocialSecurityNumber() {
