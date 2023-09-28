@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Login
 {
     Admin admin = new Admin();
-    Customer customer = new Customer();
+    Customers customers = new Customers();
 
     public  void loginMenu() {
         Scanner scan = new Scanner(System.in);
@@ -24,7 +24,7 @@ public class Login
                     admin.logInAdmin();
                     break;
                 case "2":
-                    //customer class
+                    customers.verifyLogin();
                     break;
                 case "3":
                     System.out.println("Program is closing.");

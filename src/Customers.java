@@ -34,8 +34,42 @@ public class Customers {
             System.out.println("Wrong password!");
         }
     }
-    public void verifyLogin(String inputSSNForLogin, String inputCustomerPasswordForLogin){
+    public void verifyLogin()  {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Social Security Number: ");
+        String socialSecurityInput = scanner.nextLine();
+        System.out.println("Password: ");
+        String passwordInput = scanner.nextLine();
 
+
+        String tempSocialSecurityNumber = ""; // used to temporarily store values read from the file during the comparison.
+        String tempPassword = "";             //
+        String file = "Customers.txt"; // Where the customer information is stored
+
+        try {
+
+            Scanner scan = new Scanner(new File(file)); //Reads data from the Customers.txt file
+            scan.useDelimiter(","); // Delimiter set to ',' assuming the file stores information in the format  "SocialSecurityNumber,Password."
+            boolean found = false;
+            while (scan.hasNextLine() && !found) {
+                tempSocialSecurityNumber = scan.next();
+                tempPassword = scan.next();
+
+                if (tempSocialSecurityNumber.trim().equals(socialSecurityInput.trim()) && tempPassword.trim().equals(passwordInput.trim())) { // Trim removes spaces.
+                    found = true;
+                    System.out.println("Login successful!"); // If a match is found, it sets found to true and prints "Login successful!"
+                }
+            }
+
+            if (!found) {
+                System.out.println("Login failed. Invalid credentials.");
+            }
+
+            scan.close();
+        } catch (Exception e) {
+            System.out.println("Wrong");
+            // Handle exceptions here
+        }
     }
 
     boolean createFileWithCustomers() {
