@@ -7,27 +7,20 @@ import java.util.Scanner;
 public class Customer {
     //Use socialSecurityNumber as username to log in
     private static int socialSecurityNumber;  //Need to be static to make sure that this variable is owned Customer Class and not by any other class
+    private String password;    //Uses to log in
     private String firstName;
     private String lastName;
     private String email;
-    private String password;    //Uses to log in
 
-    public Customer(int socialSecurityNumber, String firstName, String lastName, String email, String password) {
+    public Customer(int socialSecurityNumber,String password, String firstName, String lastName, String email) {
         this.socialSecurityNumber = socialSecurityNumber; //Uses as username to log in
+        this.password = password; //Uses as password to log in
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password; //Uses as password to log in
     }
 
     public Customer() {
-    }
-    public void logInCustomer(){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter your social security number:");
-        int inputSSNForLogin = scan.nextInt();
-        System.out.println("Enter your password");
-        String inputCustomerPasswordForLogin = scan.nextLine();
     }
 
     public static int getSocialSecurityNumber() {
@@ -36,6 +29,14 @@ public class Customer {
 
     public void setSocialSecurityNumber(int socialSecurityNumber) {
         this.socialSecurityNumber = socialSecurityNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -62,15 +63,7 @@ public class Customer {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String formatedStringForFile() {
-        return this.socialSecurityNumber + "," + this.firstName + "," + this.lastName + "," + this.email + "," + this.password;
+        return this.socialSecurityNumber + "," + this.password + "," + this.lastName + "," + this.email + "," + this.firstName;
     }
 }
