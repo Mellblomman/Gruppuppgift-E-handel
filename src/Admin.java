@@ -6,8 +6,8 @@ public class Admin {
     Scanner scan = new Scanner(System.in);
 
 
-    private String adminUserName = "admin";
-    private String adminPassword = "mlssadmin";
+    private final String adminUserName = "admin";
+    private final String adminPassword = "mlssadmin";
 
     Admin() {
     }
