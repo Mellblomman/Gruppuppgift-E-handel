@@ -8,7 +8,9 @@ public class Customers {
     private ArrayList<Customer> customerList = new ArrayList<Customer>();
     private String customerFileName = "Customers.txt";
 
-    Customers() {}
+    Customers() {
+
+    }
 
     public ArrayList<Customer> getCustomerList() {
         return customerList;
