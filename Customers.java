@@ -16,7 +16,7 @@ public class Customers {
         return customerList;
     }
 
-    private boolean createFileWithCustomers() {
+    boolean createFileWithCustomers() {
         File file = new File("Customers.txt");
 
         try {
