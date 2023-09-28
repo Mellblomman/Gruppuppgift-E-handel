@@ -58,4 +58,7 @@ public class Order {
         this.date = date;
     }
 
+    public String formatedStringForFile() {         //Probably need to be changed after DateTime
+        return this.nameOrder + "," + this.product + "," + this.totalSumOrder + "," + this.time + "," + this.date;
+    }
 }
