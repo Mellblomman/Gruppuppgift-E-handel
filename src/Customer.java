@@ -6,13 +6,13 @@ import java.util.Scanner;
 
 public class Customer {
     //Use socialSecurityNumber as username to log in
-    private static int socialSecurityNumber;  //Need to be static to make sure that this variable is owned Customer Class and not by any other class
+    private static String socialSecurityNumber;  //Need to be static to make sure that this variable is owned Customer Class and not by any other class
     private String password;    //Uses to log in
     private String firstName;
     private String lastName;
     private String email;
 
-    public Customer(int socialSecurityNumber,String password, String firstName, String lastName, String email) {
+    public Customer(String socialSecurityNumber,String password, String firstName, String lastName, String email) {
         this.socialSecurityNumber = socialSecurityNumber; //Uses as username to log in
         this.password = password; //Uses as password to log in
         this.firstName = firstName;
@@ -23,11 +23,11 @@ public class Customer {
     public Customer() {
     }
 
-    public static int getSocialSecurityNumber() {
+    public static String getSocialSecurityNumber() {
         return socialSecurityNumber;
     }
 
-    public void setSocialSecurityNumber(int socialSecurityNumber) {
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
         this.socialSecurityNumber = socialSecurityNumber;
     }
 
