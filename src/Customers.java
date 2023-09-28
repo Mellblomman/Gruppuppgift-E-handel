@@ -5,127 +5,90 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Customers {
-    private ArrayList<Customer> customerList = new ArrayList<Customer>();
-    private String customerFileName = "Customers.txt";
+    private final ArrayList<Customer> customerList = new ArrayList<>();
+    private final String customersFileName = "Customers.txt";
 
-    Customers() {
-
+    public Customers() {
+        readCustomersFromFile(); // Load customers from file when the class is instantiated
     }
 
-    public ArrayList<Customer> getCustomerList() {
-        return customerList;
-    }
-    public void logInCustomer(){
-
+    public void logInCustomer() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter your social security number:");
         String inputSSNForLogin = scan.next();
 
-        if(getCustomerList().contains(inputSSNForLogin)) {
-            System.out.println("Enter your password");
-
-        }else{
-            System.out.println("Wrong social security number.");}
-
+        System.out.println("Enter your password:");
         String inputCustomerPasswordForLogin = scan.next();
-        if(getCustomerList().contains(inputCustomerPasswordForLogin)){
+
+        if (customerExists(inputSSNForLogin, inputCustomerPasswordForLogin)) {
             System.out.println("Welcome");
-        } else{
-            System.out.println("Wrong password!");
-        }
-    }
-    public void verifyLogin()  {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Social Security Number: ");
-        String socialSecurityInput = scanner.nextLine();
-        System.out.println("Password: ");
-        String passwordInput = scanner.nextLine();
-
-
-        String tempSocialSecurityNumber = ""; // used to temporarily store values read from the file during the comparison.
-        String tempPassword = "";             //
-        String file = "Customers.txt"; // Where the customer information is stored
-
-        try {
-
-            Scanner scan = new Scanner(new File(file)); //Reads data from the Customers.txt file
-            scan.useDelimiter(","); // Delimiter set to ',' assuming the file stores information in the format  "SocialSecurityNumber,Password."
-            boolean found = false;
-            while (scan.hasNextLine() && !found) {
-                tempSocialSecurityNumber = scan.next();
-                tempPassword = scan.next();
-
-                if (tempSocialSecurityNumber.trim().equals(socialSecurityInput.trim()) && tempPassword.trim().equals(passwordInput.trim())) { // Trim removes spaces.
-                    found = true;
-                    System.out.println("Login successful!"); // If a match is found, it sets found to true and prints "Login successful!"
-                }
-            }
-
-            if (!found) {
-                System.out.println("Login failed. Invalid credentials.");
-            }
-
-            scan.close();
-        } catch (Exception e) {
-            System.out.println("Wrong");
-            // Handle exceptions here
+        } else {
+            System.out.println("Invalid credentials. Please try again.");
         }
     }
 
-    boolean createFileWithCustomers() {
-        File file = new File("Customers.txt");
+    public boolean customerExists(String ssn, String password) {
+        for (Customer customer : customerList) {
+            if (customer.getSocialSecurityNumber().equals(ssn) && customer.getPassword().equals(password)) {
+                return true; // Customer with matching SSN and password found
+            }
+        }
+        return false; // Customer not found
+    }
+
+    public boolean createFileWithCustomers() {
+        File file = new File(customersFileName);
 
         try {
             if (file.createNewFile()) {
-                System.out.println("File have been created: " + file.getName());
+                System.out.println("File has been created: " + file.getName());
             } else {
                 System.out.println("File " + file.getName() + " already exists!");
-                return false;
             }
         } catch (IOException e) {
-            System.out.println("Something went wrong when creating a txt-file!");
+            System.out.println("Something went wrong when creating a txt-file: " + e.getMessage());
         }
         return true;
     }
 
     private void readCustomersFromFile() {
         try {
-            Scanner scan = new Scanner(new File(customerFileName));
-            while (scan.hasNextLine()) { //if file already exist, a Scanner will read every line of the file and seperate with ", "
-                String Customer = scan.nextLine();
-                String[] customerInfo = Customer.split(", ");
+            Scanner scan = new Scanner(new File(customersFileName));
+            while (scan.hasNextLine()) {
+                String customerData = scan.nextLine();
+                String[] customerInfo = customerData.split(",");
 
-                Customer tempCustomer = new Customer( //creating a customer object, with split values and this object will be added to customer list
-                        Integer.parseInt(customerInfo[0]),
-                        customerInfo[1],
-                        customerInfo[2],
-                        customerInfo[3],
-                        customerInfo[4]
-                );
-                customerList.add(tempCustomer); //added to customerList
+                if (customerInfo.length == 5) {
+                    Customer tempCustomer = new Customer(
+                            customerInfo[0],
+                            customerInfo[1],
+                            customerInfo[2],
+                            customerInfo[3],
+                            customerInfo[4]
+                    );
+                    customerList.add(tempCustomer);
+                } else {
+                    System.out.println("Invalid customer data in file: " + customerData);
+                }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Wrong!" + e.getMessage());
+            System.out.println("File not found: " + e.getMessage());
         }
     }
-    private boolean addCustomerToTextFile(Customer newCustomer)  {
 
-        try{
-            FileOutputStream fos = new FileOutputStream(this.customerFileName, true); //fos created to write data to the file customerFileName
-            PrintStream printStream = new PrintStream(fos); //append: true indicates that data should be appended to the file if it already exists
+    private boolean addCustomerToTextFile(Customer newCustomer) {
+        try {
+            FileOutputStream fos = new FileOutputStream(customersFileName, true);
+            PrintStream printStream = new PrintStream(fos);
 
-            printStream.print("\n" + newCustomer.formatedStringForFile()); //print the customers information to the file
-            System.out.println(newCustomer.formatedStringForFile());
+            printStream.println(newCustomer.formatedStringForFile());
 
             fos.close();
             printStream.close();
-            return true;                    //if it works without exceptions it will be true, else false!
-        } catch (Exception e){
+            return true;
+        } catch (IOException e) {
             System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
         }
-
         return false;
     }
 }
-
-
