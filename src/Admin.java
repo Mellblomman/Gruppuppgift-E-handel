@@ -13,10 +13,8 @@ public class Admin {
     }
 
     public void logInAdmin() {
-        Login login = new Login();
 
         boolean runAdminLogIn = true;
-
         while (runAdminLogIn) {
             System.out.println("Enter admin username:");
             String inputAdminUsernameForLogin = scan.nextLine().toLowerCase();
@@ -48,12 +46,12 @@ public class Admin {
                         case "4":
                             System.out.println("Logout");
                             runAdminMenu = false;
-                            login.loginMenu();
                             break;
                         default:
                             System.out.println("Wrong input. Choose 1-4");
                     }
                 }
+                runAdminLogIn = false; //Stops while loop to make exiting program work.
             } else {
                 System.out.println("Please enter the correct credentials for admin.");
 
