@@ -30,6 +30,9 @@ public class Customers {
     }
 
     public boolean customerExists(String ssn, String password) {
+        if (customerList.isEmpty()) {
+            readCustomersFromFile(); // Load customers from file if not already loaded
+        }
         for (Customer customer : customerList) {
             if (customer.getSocialSecurityNumber().equals(ssn) && customer.getPassword().equals(password)) {
                 return true; // Customer with matching SSN and password found
