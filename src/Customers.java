@@ -13,6 +13,41 @@ public class Customers {
     public Customers() {
 
     }
+    public void customerMenu(){ //New menu after you choose Customer in start menu.
+        Scanner scan = new Scanner(System.in);
+
+        boolean runCustomerMenu = true;
+
+        while(runCustomerMenu) {
+            System.out.println("1. Login" +
+                    "\n2. Register new account" +
+                    "\n3. Go back.");
+            String loginOrRegisterChoice = scan.next();
+
+            switch (loginOrRegisterChoice) {
+
+                case "1":
+                    logInCustomer();
+                    runCustomerMenu = false;
+                    break;
+
+                case "2":
+                    System.out.println("Register new account Not finished");
+
+                    break;
+
+                case "3":
+                    System.out.println("Going back to menu");
+                    runCustomerMenu = false;
+                    break;
+
+                default:
+                    System.out.println("Choose 1,2 or 3");
+                    break;
+            }
+        }
+    }
+
 
     public void logInCustomer() {
         Scanner scan = new Scanner(System.in);

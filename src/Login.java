@@ -24,7 +24,7 @@ public class Login
                     admin.logInAdmin();
                     break;
                 case "2":
-                    customers.logInCustomer();
+                    customers.customerMenu(); // customerMenu instead of logInCustomer
                     break;
                 case "3":
                     System.out.println("Program is closing.");
