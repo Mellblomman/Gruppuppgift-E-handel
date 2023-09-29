@@ -6,10 +6,11 @@ public class Product {
     public int price;
 
 
-    public Product(String brand, int price, String model) {
+    public Product(String brand, String model,int price) {
         this.brand = brand;
-        this.price = price;
         this.model = model;
+        this.price = price;
+
     }
 
     public String getBrand() {

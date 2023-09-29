@@ -28,7 +28,7 @@ public class Products {
             return true;
         }
 
-        private void readProductsFromFile() {
+        public void readProductsFromFile() {
             try {
                 Scanner scan = new Scanner(new File(productFileName));
                 while (scan.hasNextLine()) { //if file already exist, a Scanner will read every line of the file and seperate with ", "
@@ -37,8 +37,9 @@ public class Products {
 
                     Product tempProducts = new Product( //creating a product object, with split values and this object will be added to products list
                             productsInfo[0],
-                            Integer.parseInt(productsInfo[1]),
-                            productsInfo[2]
+                            productsInfo[1],
+                            Integer.parseInt(productsInfo[2])
+
                     );
                     productsList.add(tempProducts); //added to productList
                 }
@@ -47,7 +48,7 @@ public class Products {
             }
         }
 
-        private boolean addProductToTextFile(Product newProduct)  {
+        public boolean addProductToTextFile(Product newProduct)  {
 
             try{
                 FileOutputStream fos = new FileOutputStream(this.productFileName, true); //fos created to write data to the file productFileName
@@ -60,12 +61,42 @@ public class Products {
                 printStream.close();
                 return true;                    //if it works without exceptions it will be true, else false!
             } catch (Exception e){
-                System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
+                System.out.println("Product added successfully." + e.getMessage());
             }
 
             return false;
         }
+    public void removeProductFromTextFile(Product product) {
+        try {
+            Scanner reader = new Scanner(new File(productFileName));
+            ArrayList<String> lines = new ArrayList<>();
+            boolean found = false;
+            while (reader.hasNextLine()) {
+                String line = reader.nextLine();
+                if (line.equals(product.getBrand() + ";" + product.getModel() + ";" + product.getPrice())) {
+                    found = true;
+                } else {
+                    lines.add(line);
+                }
+            }
+            reader.close();
+            if (found) {
+                PrintWriter writer = new PrintWriter(new FileWriter(productFileName));
+                for (String line : lines) {
+                    writer.println(line);
+                }
+                writer.close();
+                System.out.println("Product removed.");
+            } else {
+                System.out.println("product not found");
+            }
+        } catch (Exception e) {
+            System.out.println("Something went wrong when we removed Product from the file ");
+            e.printStackTrace();
+        }
     }
+}
+
 
 
 
