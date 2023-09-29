@@ -8,8 +8,10 @@ public class Customers {
     private final ArrayList<Customer> customerList = new ArrayList<>();
     private final String customersFileName = "Customers.txt";
 
+
+
     public Customers() {
-        readCustomersFromFile(); // Load customers from file when the class is instantiated
+
     }
 
     public void logInCustomer() {
@@ -51,7 +53,7 @@ public class Customers {
         return true;
     }
 
-    private void readCustomersFromFile() {
+    public void readCustomersFromFile() {
         try {
             Scanner scan = new Scanner(new File(customersFileName));
             while (scan.hasNextLine()) {
@@ -75,6 +77,7 @@ public class Customers {
             System.out.println("File not found: " + e.getMessage());
         }
     }
+
 
     private boolean addCustomerToTextFile(Customer newCustomer) {
         try {
