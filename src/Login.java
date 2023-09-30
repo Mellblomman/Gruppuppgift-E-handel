@@ -11,8 +11,17 @@ public class Login
         Scanner scan = new Scanner(System.in);
         boolean runLoginMenu = true;
         while(runLoginMenu){
-            System.out.println("\nWelcome - Please choose which form of login you want to do:");
+            System.out.println("\nWelcome To MLSS - Computers");
+            System.out.println("" +
+                    "                __\n" +
+                    "    ..=====..  |==|\n" +
+                    "    ||     ||  |= |\n" +
+                    "    ||     ||  |^*| \n" +
+                    "    o=,===,=o  |__|\n" +
+                    "     _______\n" +
+                    "    [=======]  () ");
             System.out.println("----------------------------------------------------");
+            System.out.println("\nPlease choose which form of login you want to do:");
             System.out.println("1. Admin" +
                     "\n2. Customer" +
                     "\n3. Exit");
