@@ -64,6 +64,6 @@ public class Customer {
     }
 
     public String formatedStringForFile() {
-        return this.socialSecurityNumber + "," + this.password + "," + this.lastName + "," + this.email + "," + this.firstName;
+        return this.socialSecurityNumber + "," + this.password + "," + this.firstName + "," + this.lastName + "," + this.email;
     }
 }
