@@ -1,10 +1,12 @@
 package src;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Admin {
     Scanner scan = new Scanner(System.in);
-
+    Products products = new Products();
 
     private final String adminUserName = "admin";
     private final String adminPassword = "mlssadmin";
@@ -17,12 +19,12 @@ public class Admin {
         boolean runAdminLogIn = true;
         while (runAdminLogIn) {
             System.out.println("Enter admin username:");
-            String inputAdminUsernameForLogin = scan.nextLine().toLowerCase();
+            String inputAdminUsernameForLogin = scan.nextLine();
             System.out.println("Enter admin password:");
-            String inputAdminPasswordForLogin = scan.nextLine().toLowerCase();
+            String inputAdminPasswordForLogin = scan.nextLine();
 
 
-            if (inputAdminUsernameForLogin.equals(adminUserName) && inputAdminPasswordForLogin.equals(adminPassword)) {
+            if (inputAdminUsernameForLogin.equalsIgnoreCase(adminUserName) && inputAdminPasswordForLogin.equalsIgnoreCase(adminPassword)) {
 
                 boolean runAdminMenu = true;
 
@@ -58,4 +60,39 @@ public class Admin {
             }
         }
     }
+
+
+    public void manageProductsAsAdmin(){
+
+        boolean runAdminProductManagementMenu = true;
+
+        while(runAdminProductManagementMenu){
+
+            System.out.println("What do you want to do?");
+            String choiceInProductMenu = scan.nextLine();
+
+            System.out.println("1. View all the products." +
+                    "\n2. Add a product." +
+                    "\n3. Remove a product.");
+
+            switch(choiceInProductMenu){
+                case "1":
+                    System.out.println("View all the products.");
+                    products.printProducts();
+                    break;
+                case "2":
+                    System.out.println("Add a product.");
+                    break;
+                case "3":
+                    System.out.println("Remove a product.");
+                    //products.removeProductFromTextFile();
+                    break;
+                case "4":
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
 }

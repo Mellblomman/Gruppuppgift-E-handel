@@ -95,6 +95,31 @@ public class Products {
             e.printStackTrace();
         }
     }
+
+    public void printProducts() {
+        try {
+            // Specify the path to the products.txt file
+            String filePath = "products.txt";
+
+            // Create a File object to represent the file
+            File file = new File(filePath);
+
+            // Create a Scanner to read the file
+            Scanner fileScanner = new Scanner(file);
+
+            // Read and print each line from the file
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                System.out.println(line);
+            }
+
+            // Close the file scanner
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: products.txt");
+
+        }
+    }
 }
 
 
