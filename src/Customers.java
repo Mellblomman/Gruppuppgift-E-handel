@@ -32,7 +32,7 @@ public class Customers {
                     break;
 
                 case "2":
-                    System.out.println("Register new account Not finished");
+                    registerNewAccount();
 
                     break;
 
@@ -117,19 +117,35 @@ public class Customers {
     }
 
 
-    private boolean addCustomerToTextFile(Customer newCustomer) {
+    private boolean registerNewAccount() {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Enter Your Social Security Number (this will be your username): ");
+        String socialSecurityNumber = scan.next();
+        System.out.println("Enter Password: ");
+        String password = scan.next();
+        System.out.println("Enter First Name: ");
+        String firstName = scan.next();
+        System.out.println("Enter Last Name: ");
+        String lastName = scan.next();
+        System.out.println("Enter Your Email: ");
+        String email = scan.next();
+
+        Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //Creating new Customer
+        customerList.add(newCustomer);                                                                   //Adding to list
+
         try {
-            FileOutputStream fos = new FileOutputStream(customersFileName, true);
-            PrintStream printStream = new PrintStream(fos);
+            FileOutputStream fos = new FileOutputStream(customersFileName, true); //Open a file to append to customersFileName
+            PrintStream printStream = new PrintStream(fos);                               //Creating printstream to write to file
 
-            printStream.println(newCustomer.formatedStringForFile());
+            printStream.println(newCustomer.formatedStringForFile());                     //Writing the formated customer info to file
 
-            fos.close();
-            printStream.close();
+            fos.close();            //Closing file output stream
+            printStream.close();    //Closing printstream
             return true;
         } catch (IOException e) {
             System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
         }
-        return false;
+        return false;               //If registration doesn't work, it will return false
     }
 }
