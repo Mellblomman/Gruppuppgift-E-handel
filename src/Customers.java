@@ -69,8 +69,6 @@ public class Customers {
             }
         }
     }
-
-
     public void logInCustomer() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter your social security number:");
@@ -82,7 +80,6 @@ public class Customers {
             System.out.println("Invalid credentials. Please try again.");
         }
     }
-
     public boolean createFileWithCustomers() {
         File file = new File(customersFileName);
 
@@ -97,45 +94,67 @@ public class Customers {
         }
         return true;
     }
-
     private boolean registerNewAccount() {
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("Enter Your Social Security Number (this will be your username): ");
-        String socialSecurityNumber = scan.next();
+        while (true) {                                 // loop to check if the user enter right Social Security Number
+            System.out.println("Enter Your Social Security Number (YYYY-MM-DD-****) (this will be your username): ");
+            String socialSecurityNumber = scan.next();
+            if (!validSocialSecurityNumber(socialSecurityNumber)) {
+                System.out.println("Invalid Social Security Number!"); //if not right Social Security Number
+            } else {
+                if (customerExists(socialSecurityNumber)) {      //Checks if the account already exists on Social Security Number
+                    System.out.println("Account already exists! Please log in.");
+                    return false;
+                }
+                System.out.println("Enter Password: ");
+                String password = scan.next();
+                System.out.println("Enter First Name: ");
+                String firstName = scan.next();
+                System.out.println("Enter Last Name: ");
+                String lastName = scan.next();
+                System.out.println("Enter Your Email: ");
+                String email = scan.next();
 
+                Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //Creating new Customer
+                customerList.add(newCustomer); //adding to list
+                try {
+                    FileOutputStream fos = new FileOutputStream(customersFileName, true); //Open a file to append to customersFileName
+                    PrintStream printStream = new PrintStream(fos);                               //Creating printstream to write to file
 
-        if(customerExists(socialSecurityNumber)) {      //Check if the account already exists on Social Security Number
-            System.out.println("Account already exists! Please log in.");
+                    printStream.println(newCustomer.formatedStringForFile());                     //Writing the formatted customer info to file
+                    fos.close();            //Closing file output stream
+                    printStream.close();    //Closing printstream
+                    return true;
+                } catch (IOException e) {
+                    System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
+                }
+            }
+        }
+    }
+    private boolean validSocialSecurityNumber(String socialSecurityNumber) {
+        if (socialSecurityNumber.length() != 15) { //Checking if Social Security Number holds 15 characters
             return false;
         }
-        System.out.println("Enter Password: ");
-        String password = scan.next();
-        System.out.println("Enter First Name: ");
-        String firstName = scan.next();
-        System.out.println("Enter Last Name: ");
-        String lastName = scan.next();
-        System.out.println("Enter Your Email: ");
-        String email = scan.next();
-
-        Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //Creating new Customer
-        customerList.add(newCustomer);                                                                   //Adding to list
-
-        try {
-            FileOutputStream fos = new FileOutputStream(customersFileName, true); //Open a file to append to customersFileName
-            PrintStream printStream = new PrintStream(fos);                               //Creating printstream to write to file
-
-            printStream.println(newCustomer.formatedStringForFile());                     //Writing the formated customer info to file
-
-            fos.close();            //Closing file output stream
-            printStream.close();    //Closing printstream
-            return true;
-        } catch (IOException e) {
-            System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
+        String[] partsSocialSecurityNumber = socialSecurityNumber.split("-"); //splits the Social Security Number into different parts with - between
+        if (partsSocialSecurityNumber.length !=4) {
+            return false;
         }
-        return false;               //If registration doesn't work, it will return false
-    }
+        try {
+            int year = Integer.parseInt(partsSocialSecurityNumber[0]);              //1st part
+            int month = Integer.parseInt(partsSocialSecurityNumber[1]);             //2nd part
+            int day = Integer.parseInt(partsSocialSecurityNumber[2]);               //3rd part
+            int lastDigits = Integer.parseInt(partsSocialSecurityNumber[3]);        //4th part
 
+            if (year < 1900 || year > 9999 || month < 1 || month > 12               //set up to 9999 cause of last digits!
+                || day < 1 || day > 31 || lastDigits < 0 || lastDigits > 9999) {
+                return false;
+            }
+        } catch (NumberFormatException e) {                                         //Catch when trying to convert a string with improper format into a numeric value
+            return false;
+        }
+        return true;
+    }
     public boolean customerExists(String socialSecurityNumber) {
         for (Customer customer : customerList) {
             if (customer.getSocialSecurityNumber().equals(socialSecurityNumber)) {
