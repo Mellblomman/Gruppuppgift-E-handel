@@ -141,36 +141,37 @@ public class Customers {
             String socialSecurityNumber = scan.next();
             if (!validSocialSecurityNumber(socialSecurityNumber)) {
                 System.out.println("Invalid Social Security Number!"); //if not right Social Security Number
-            } else {
-                if (customerExists(socialSecurityNumber)) {      //Checks if the account already exists on Social Security Number
-                    System.out.println("Account already exists! Please log in.");
-                    return false;
-                }
-                System.out.println("Enter Password: ");
-                String password = scan.next();
-                System.out.println("Enter First Name: ");
-                String firstName = scan.next();
-                System.out.println("Enter Last Name: ");
-                String lastName = scan.next();
-                System.out.println("Enter Your Email: ");
-                String email = scan.next();
+            }
+            if (customerExists(socialSecurityNumber)) {      //Checks if the account already exists on Social Security Number
+                System.out.println("Account already exists! Please log in.");
+                return false;
+            }
 
-                Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //Creating new Customer
-                customerList.add(newCustomer); //adding to list
-                try {
-                    FileOutputStream fos = new FileOutputStream(customersFileName, true); //Open a file to append to customersFileName
-                    PrintStream printStream = new PrintStream(fos);                               //Creating printstream to write to file
+            System.out.println("Enter Password: ");
+            String password = scan.next();
+            System.out.println("Enter First Name: ");
+            String firstName = scan.next();
+            System.out.println("Enter Last Name: ");
+            String lastName = scan.next();
+            System.out.println("Enter Your Email: ");
+            String email = scan.next();
 
-                    printStream.println(newCustomer.formatedStringForFile());                     //Writing the formatted customer info to file
-                    fos.close();            //Closing file output stream
-                    printStream.close();    //Closing printstream
-                    return true;
-                } catch (IOException e) {
-                    System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
+            Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //Creating new Customer
+            customerList.add(newCustomer); //adding to list
+
+            try {
+                FileOutputStream fos = new FileOutputStream(customersFileName, true); //Open a file to append to customersFileName
+                PrintStream printStream = new PrintStream(fos);                               //Creating printstream to write to file
+
+                printStream.println(newCustomer.formatedStringForFile());                     //Writing the formatted customer info to file
+                fos.close();            //Closing file output stream
+                printStream.close();    //Closing printstream
+                return true;
+            } catch (IOException e) {
+                System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
                 }
             }
         }
-    }
     private boolean validSocialSecurityNumber(String socialSecurityNumber) {
         if (socialSecurityNumber.length() != 15) { //Checking if Social Security Number holds 15 characters
             return false;
