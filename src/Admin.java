@@ -10,9 +10,6 @@ public class Admin {
 
     Customers customers = new Customers();
 
-    private final String adminUserName = "admin";
-    private final String adminPassword = "mlssadmin";
-
     Admin(){
     }
 
@@ -26,6 +23,8 @@ public class Admin {
             String inputAdminPasswordForLogin = scan.nextLine();
 
 
+            String adminUserName = "admin";
+            String adminPassword = "mlssadmin";
             if (inputAdminUsernameForLogin.equalsIgnoreCase(adminUserName) && inputAdminPasswordForLogin.equalsIgnoreCase(adminPassword)) {
 
                 boolean runAdminMenu = true;
@@ -42,7 +41,7 @@ public class Admin {
                             manageProductsAsAdmin();
                             break;
                         case "2":
-                            System.out.println("Insert Customer Information Method");
+                            manageCustomersAsAdmin();
                             break;
                         case "3":
                             System.out.println("Insert Order/Transactions Method");
@@ -100,18 +99,19 @@ public class Admin {
         boolean runAdminCustomerMenu = true;
 
         while(runAdminCustomerMenu){
-            String choiceForCustomerMenu = "";
+            System.out.println("What do you want to do?");
+            String choiceForCustomerMenu = scan.nextLine();
             System.out.println("Customer menu:" +
                     "\n1. View all." +
                     "\n2. Edit a specific customer." +
                     "\n3. Go back.");
-            if(choiceForCustomerMenu == "1"){
+            if(choiceForCustomerMenu.equals("1")){
                 customers.printAllCustomers();
             }
-            else if(choiceForCustomerMenu == "2"){
+            else if(choiceForCustomerMenu.equals("2")){
                 //Get the arrayList shit working......
             }
-            else if(choiceForCustomerMenu == "3"){
+            else if(choiceForCustomerMenu.equals("3")){
                 runAdminCustomerMenu = false;
             }
             else {
