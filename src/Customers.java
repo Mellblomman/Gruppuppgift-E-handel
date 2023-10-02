@@ -69,6 +69,21 @@ public class Customers {
             }
         }
     }
+    public void printAllCustomers(){
+
+        try {
+            String filePath = "Customers.txt";
+            File file = new File(filePath);
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                System.out.println(line);
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: Customers.txt");
+        }
+    }
     public void logInCustomer() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter your social security number:");
