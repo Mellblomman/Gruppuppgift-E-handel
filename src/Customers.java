@@ -54,26 +54,11 @@ public class Customers {
         System.out.println("Enter your social security number:");
         String inputSSNForLogin = scan.next();
 
-        System.out.println("Enter your password:");
-        String inputCustomerPasswordForLogin = scan.next();
-
-        if (customerExists(inputSSNForLogin, inputCustomerPasswordForLogin)) {
+        if (customerExists(inputSSNForLogin)) {
             System.out.println("Welcome");
         } else {
             System.out.println("Invalid credentials. Please try again.");
         }
-    }
-
-    public boolean customerExists(String ssn, String password) {
-        if (customerList.isEmpty()) {
-            readCustomersFromFile(); // Load customers from file if not already loaded
-        }
-        for (Customer customer : customerList) {
-            if (customer.getSocialSecurityNumber().equals(ssn) && customer.getPassword().equals(password)) {
-                return true; // Customer with matching SSN and password found
-            }
-        }
-        return false; // Customer not found
     }
 
     public boolean createFileWithCustomers() {
@@ -116,12 +101,18 @@ public class Customers {
         }
     }
 
-
     private boolean registerNewAccount() {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Enter Your Social Security Number (this will be your username): ");
         String socialSecurityNumber = scan.next();
+
+        readCustomersFromFile();                        //Reading from txt-file Customers.txt to see if it's already registered
+
+        if(customerExists(socialSecurityNumber)) {      //Check if the account already exists on Social Security Number
+            System.out.println("Account already exists! Please log in.");
+            return false;
+        }
         System.out.println("Enter Password: ");
         String password = scan.next();
         System.out.println("Enter First Name: ");
@@ -147,5 +138,14 @@ public class Customers {
             System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
         }
         return false;               //If registration doesn't work, it will return false
+    }
+
+    public boolean customerExists(String socialSecurityNumber) {
+        for (Customer customer : customerList) {
+            if (customer.getSocialSecurityNumber().equals(socialSecurityNumber)) {
+                return true; // Customer with matching Social Security Number found
+            }
+        }
+        return false; // Customer not found, no matching Social Security Number
     }
 }
