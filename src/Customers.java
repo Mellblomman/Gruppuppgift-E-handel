@@ -21,7 +21,8 @@ public class Customers {
         while(runCustomerMenu) {
             System.out.println("1. Login" +
                     "\n2. Register new account" +
-                    "\n3. Go back.");
+                    "\n3. Go back." +
+                    "\n\nChoice: ");
             String loginOrRegisterChoice = scan.next();
 
             switch (loginOrRegisterChoice) {
