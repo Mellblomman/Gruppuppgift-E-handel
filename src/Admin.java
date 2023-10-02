@@ -8,10 +8,12 @@ public class Admin {
     Scanner scan = new Scanner(System.in);
     Products products = new Products();
 
+    Customers customers = new Customers();
+
     private final String adminUserName = "admin";
     private final String adminPassword = "mlssadmin";
 
-    Admin() {
+    Admin(){
     }
 
     public void logInAdmin() {
@@ -37,7 +39,7 @@ public class Admin {
                     String menuChoice = scan.next();
                     switch (menuChoice) {
                         case "1":
-                            System.out.println("Insert Product Management Method");
+                            manageProductsAsAdmin();
                             break;
                         case "2":
                             System.out.println("Insert Customer Information Method");
@@ -68,29 +70,52 @@ public class Admin {
 
         while(runAdminProductManagementMenu){
 
-            System.out.println("What do you want to do?");
-            String choiceInProductMenu = scan.nextLine();
-
-            System.out.println("1. View all the products." +
+            System.out.println("What do you want to do?" +
+                    "\n1. View all the products." +
                     "\n2. Add a product." +
-                    "\n3. Remove a product.");
+                    "\n3. Remove a product." +
+                    "\n4. Go back.");
+            String choiceInProductMenu = scan.nextLine();
 
             switch(choiceInProductMenu){
                 case "1":
-                    System.out.println("View all the products.");
                     products.printProducts();
                     break;
                 case "2":
-                    System.out.println("Add a product.");
                     break;
                 case "3":
-                    System.out.println("Remove a product.");
                     //products.removeProductFromTextFile();
                     break;
                 case "4":
+                    runAdminProductManagementMenu = false;
                     break;
                 default:
+                    System.out.println("Please choose one of the options above.");
                     break;
+            }
+        }
+    }
+
+    public void manageCustomersAsAdmin(){
+        boolean runAdminCustomerMenu = true;
+
+        while(runAdminCustomerMenu){
+            String choiceForCustomerMenu = "";
+            System.out.println("Customer menu:" +
+                    "\n1. View all." +
+                    "\n2. Edit a specific customer." +
+                    "\n3. Go back.");
+            if(choiceForCustomerMenu == "1"){
+                customers.printAllCustomers();
+            }
+            else if(choiceForCustomerMenu == "2"){
+                //Get the arrayList shit working......
+            }
+            else if(choiceForCustomerMenu == "3"){
+                runAdminCustomerMenu = false;
+            }
+            else {
+                System.out.println("Please choose one of the two options above.");
             }
         }
     }
