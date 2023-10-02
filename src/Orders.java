@@ -9,27 +9,6 @@ public class Orders {
     private String ordersFileName = Customer.getSocialSecurityNumber() + "Orders.txt";
 
     Orders() {
-
-    }
-
-    public ArrayList<Order> getOrderList() {
-        return orderList;
-    }
-
-    static boolean createFileForOrders() {
-        File file = new File("Orders.txt");
-
-        try {
-            if (file.createNewFile()) {
-                System.out.println("File have been created: " + file.getName());
-            } else {
-                System.out.println("File " + file.getName() + " already exists!");
-                return false;
-            }
-        } catch (IOException e) {
-            System.out.println("Something went wrong when creating a txt-file!");
-        }
-        return true;
     }
 
     private void readOrdersFromFile() {
@@ -37,14 +16,13 @@ public class Orders {
             Scanner scan = new Scanner(new File(ordersFileName));
             while (scan.hasNextLine()) { //if file already exist, a Scanner will read every line of the file and separate with ", "
                 String Order = scan.nextLine();
-                String[] orderInfo = Order.split(", ");
+                String[] orderInfo = Order.split(",");
 
                 Order tempOrder = new Order( //creating a customer object, with split values and this object will be added to customer list
                         orderInfo[0],
                         orderInfo[1],
                         Double.parseDouble(orderInfo[2]),
-                        Double.parseDouble(orderInfo[3]),       //OBS!!! Fix later if we only get one variable from DateTime!!!!!!
-                        Double.parseDouble(orderInfo[4])
+                        Double.parseDouble(orderInfo[3])
                 );
                 orderList.add(tempOrder); //added to customerList
             }
@@ -52,22 +30,39 @@ public class Orders {
             System.out.println("Wrong!" + e.getMessage());
         }
     }
-    private boolean addCustomerToTextFile(Customer newCustomer)  {
 
-        try{
-            FileOutputStream fos = new FileOutputStream(this.ordersFileName, true); //fos created to write data to the file customerFileName
-            PrintStream printStream = new PrintStream(fos); //append: true indicates that data should be appended to the file if it already exists
+    public ArrayList<Order> getOrderList() {
+        return orderList;
+    }
 
-            printStream.print("\n" + newCustomer.formatedStringForFile()); //print the customers information to the file
-            System.out.println(newCustomer.formatedStringForFile());
+    boolean createFileForAllOrders() {
+        File file = new File("Orders.txt");
 
-            fos.close();
-            printStream.close();
-            return true;                    //if it works without exceptions it will be true, else false!
-        } catch (Exception e){
-            System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File has been created: " + file.getName());
+            } else {
+                System.out.println("File " + file.getName() + " already exists!");
+                return false;
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong when creating a txt-file:" + e.getMessage());
         }
+        return true;
+    }
 
-        return false;
+    public void createFileWithCustomerOrders(String ssn) {
+        // Construct the file name with the customer's SSN and "orders" as the extension
+        File customerOrdersFile = new File(ssn + "orders.txt");
+
+        try {
+            if (customerOrdersFile.createNewFile()) {
+                System.out.println("Customer orders file has been created: " + customerOrdersFile.getName());
+            } else {
+                System.out.println("File " + customerOrdersFile.getName() + " already exists!");
+            }
+        } catch (IOException e) {
+            System.err.println("Something went wrong when creating the txt-file: " + e.getMessage());
+        }
     }
 }
