@@ -24,7 +24,8 @@ public class Login
             System.out.println("\nPlease choose which form of login you want to do:");
             System.out.println("1. Admin" +
                     "\n2. Customer" +
-                    "\n3. Exit");
+                    "\n3. Exit" +
+                    "\n\nChoice: ");
 
             String inputChoice = scan.nextLine();
 
