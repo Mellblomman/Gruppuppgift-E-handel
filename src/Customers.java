@@ -8,8 +8,6 @@ public class Customers {
     private final ArrayList<Customer> customerList = new ArrayList<>();
     private final String customersFileName = "Customers.txt";
 
-
-
     public Customers() {
         if (!createFileWithCustomers()){
             try {
@@ -28,11 +26,10 @@ public class Customers {
                     customerList.add(tempCustomer);
                 }
             } catch (FileNotFoundException e) {
-                System.out.println(" FEL!!! " + e.getMessage());;
+                System.out.println(" FEL!!! " + e.getMessage());
             }
 
         }
-
     }
     public void customerMenu(){ //New menu after you choose Customer in start menu.
         Scanner scan = new Scanner(System.in);
@@ -50,7 +47,6 @@ public class Customers {
 
                 case "1":
                     logInCustomer();
-
                     break;
 
                 case "2":
@@ -69,6 +65,45 @@ public class Customers {
             }
         }
     }
+    public void logInCustomer() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter your social security number:");
+        String inputSSNForLogin = scan.next();
+
+        boolean run = true;
+        while(run){
+
+            if (customerExists(inputSSNForLogin)) {
+                Products products = new Products();
+                System.out.println("Welcome" +
+                        "\n1. Shop" +
+                        "\n2. Transaction History" +
+                        "\n3. Logout" +
+                        "\n\nChoice: ");
+                String shopOrHistory = scan.next();
+
+                switch(shopOrHistory){
+
+                    case "1":
+                        System.out.println("You picked shop." +
+                                "\nProducts: ");
+                        products.printProducts();
+                        break;
+
+                    case "2":
+                        System.out.println("Transaction History method");
+                        break;
+
+                    case "3":
+                        System.out.println("Logging out..");
+                        break;
+                }
+
+            } else {
+                System.out.println("Invalid credentials. Please try again.");
+            }   break;
+        }
+    }
     public void printAllCustomers(){
 
         try {
@@ -84,17 +119,7 @@ public class Customers {
             System.out.println("File not found: Customers.txt");
         }
     }
-    public void logInCustomer() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter your social security number:");
-        String inputSSNForLogin = scan.next();
 
-        if (customerExists(inputSSNForLogin)) {
-            System.out.println("Welcome");
-        } else {
-            System.out.println("Invalid credentials. Please try again.");
-        }
-    }
     public boolean createFileWithCustomers() {
         File file = new File(customersFileName);
 
