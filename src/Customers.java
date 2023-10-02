@@ -11,6 +11,27 @@ public class Customers {
 
 
     public Customers() {
+        if (!createFileWithCustomers()){
+            try {
+                Scanner scan = new Scanner(new File(customersFileName));
+                while (scan.hasNextLine()){
+                    String customer = scan.nextLine();
+                    String[] customerInfo = customer.split(",");
+
+                    Customer tempCustomer = new Customer(
+                            customerInfo[0],
+                            customerInfo[1],
+                            customerInfo[2],
+                            customerInfo[3],
+                            customerInfo[4]
+                    );
+                    customerList.add(tempCustomer);
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println(" FEL!!! " + e.getMessage());;
+            }
+
+        }
 
     }
     public void customerMenu(){ //New menu after you choose Customer in start menu.
@@ -29,7 +50,7 @@ public class Customers {
 
                 case "1":
                     logInCustomer();
-                    runCustomerMenu = false;
+
                     break;
 
                 case "2":
@@ -77,38 +98,12 @@ public class Customers {
         return true;
     }
 
-    public void readCustomersFromFile() {
-        try {
-            Scanner scan = new Scanner(new File(customersFileName));
-            while (scan.hasNextLine()) {
-                String customerData = scan.nextLine();
-                String[] customerInfo = customerData.split(",");
-
-                if (customerInfo.length == 5) {
-                    Customer tempCustomer = new Customer(
-                            customerInfo[0],
-                            customerInfo[1],
-                            customerInfo[2],
-                            customerInfo[3],
-                            customerInfo[4]
-                    );
-                    customerList.add(tempCustomer);
-                } else {
-                    System.out.println("Invalid customer data in file: " + customerData);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
-        }
-    }
-
     private boolean registerNewAccount() {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Enter Your Social Security Number (this will be your username): ");
         String socialSecurityNumber = scan.next();
 
-        readCustomersFromFile();                        //Reading from txt-file Customers.txt to see if it's already registered
 
         if(customerExists(socialSecurityNumber)) {      //Check if the account already exists on Social Security Number
             System.out.println("Account already exists! Please log in.");
