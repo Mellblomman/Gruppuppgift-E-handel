@@ -96,12 +96,13 @@ public class Customers {
 
                     case "3":
                         System.out.println("Logging out..");
+                        run = false;
+                        break;
+                    default:
+                        System.out.println("Choose 1,2 or 3.");
                         break;
                 }
-
-            } else {
-                System.out.println("Invalid credentials. Please try again.");
-            }   break;
+            }
         }
     }
     public void printAllCustomers(){
