@@ -101,8 +101,6 @@ public class Customers {
         try {
             if (file.createNewFile()) {
                 System.out.println("File has been created: " + file.getName());
-            } else {
-                System.out.println("File " + file.getName() + " already exists!");
             }
         } catch (IOException e) {
             System.out.println("Something went wrong when creating a txt-file: " + e.getMessage());
