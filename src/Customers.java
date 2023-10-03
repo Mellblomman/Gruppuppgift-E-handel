@@ -128,12 +128,9 @@ public class Customers {
         while (true) {                                 // loop to check if the user enter right Social Security Number
             System.out.println("Enter Your Social Security Number (YYYY-MM-DD-****) (this will be your username): ");
             String socialSecurityNumber = scan.next();
-            if (!validSocialSecurityNumber(socialSecurityNumber)) {
-                System.out.println("Invalid Social Security Number!"); //if not right Social Security Number
-            }
-            if (customerExistsInList(socialSecurityNumber, scan.nextLine())) {      //Checks if the account already exists on Social Security Number
-                System.out.println("Account already exists! Please log in.");
-                return false;
+            while (!validSocialSecurityNumber(socialSecurityNumber)) {
+                System.out.println("Invalid Social Security Number, try again with this format (YYYY-MM-DD-****): "); //if not right Social Security Number
+                socialSecurityNumber = scan.next();
             }
 
             System.out.println("Enter Password: ");
@@ -144,11 +141,16 @@ public class Customers {
             String lastName = scan.next();
             System.out.println("Enter Your Email: ");
             String email = scan.next();
+            if (customerExistsInList(socialSecurityNumber, scan.nextLine())) {      //Checks if the account already exists on Social Security Number
+                System.out.println("Account already exists! Please log in.");
+                return false;
+            }
 
             Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //Creating new Customer
             customerList.add(newCustomer); //adding to list
-
             updateCustomersTextFile();
+            System.out.println("Account registered! Welcome " + firstName);
+            return true;
         }
     }
 
