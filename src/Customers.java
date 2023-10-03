@@ -9,10 +9,10 @@ public class Customers {
     private final String customersFileName = "Customers.txt";
 
     public Customers() {
-        if (!createFileWithCustomers()){
+        if (!createFileWithCustomers()) {
             try {
                 Scanner scan = new Scanner(new File(customersFileName));
-                while (scan.hasNextLine()){
+                while (scan.hasNextLine()) {
                     String customer = scan.nextLine();
                     String[] customerInfo = customer.split(",");
 
@@ -30,12 +30,27 @@ public class Customers {
             }
         }
     }
-    public void customerMenu(){ //New menu after you choose Customer in start menu.
+
+    public boolean createFileWithCustomers() {
+        File file = new File(customersFileName);
+
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File has been created: " + file.getName());
+                return true;
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong when creating a txt-file: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public void customerMenu() { //New menu after you choose Customer in start menu.
         Scanner scan = new Scanner(System.in);
 
         boolean runCustomerMenu = true;
 
-        while(runCustomerMenu) {
+        while (runCustomerMenu) {
             System.out.println("1. Login" +
                     "\n2. Register new account" +
                     "\n3. Go back." +
@@ -64,6 +79,7 @@ public class Customers {
             }
         }
     }
+
     public void logInCustomer() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter your social security number:");
@@ -105,35 +121,7 @@ public class Customers {
             }
         }
     }
-    public void printAllCustomers(){
 
-        try {
-            String filePath = "Customers.txt";
-            File file = new File(filePath);
-            Scanner fileScanner = new Scanner(file);
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                System.out.println(line);
-            }
-            fileScanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: Customers.txt");
-        }
-    }
-
-    public boolean createFileWithCustomers() {
-        File file = new File(customersFileName);
-
-        try {
-            if (file.createNewFile()) {
-                System.out.println("File has been created: " + file.getName());
-                return true;
-            }
-        } catch (IOException e) {
-            System.out.println("Something went wrong when creating a txt-file: " + e.getMessage());
-        }
-        return false;
-    }
     private boolean registerNewAccount() {
         Scanner scan = new Scanner(System.in);
 
@@ -173,12 +161,13 @@ public class Customers {
             }
         }
     }
+
     private boolean validSocialSecurityNumber(String socialSecurityNumber) {
         if (socialSecurityNumber.length() != 15) { //Checking if Social Security Number holds 15 characters
             return false;
         }
         String[] partsSocialSecurityNumber = socialSecurityNumber.split("-"); //splits the Social Security Number into different parts with - between
-        if (partsSocialSecurityNumber.length !=4) {
+        if (partsSocialSecurityNumber.length != 4) {
             return false;
         }
         try {
@@ -188,10 +177,11 @@ public class Customers {
             int lastDigits = Integer.parseInt(partsSocialSecurityNumber[3]);        //4th part
 
             if (year < 1900 || year > 9999 || month < 1 || month > 12               //set up to 9999 cause of last digits!
-                || day < 1 || day > 31 || lastDigits < 0 || lastDigits > 9999) {
+                    || day < 1 || day > 31 || lastDigits < 0 || lastDigits > 9999) {
                 return false;
             }
-        } catch (NumberFormatException e) {                                         //Catch when trying to convert a string with improper format into a numeric value
+        } catch (
+                NumberFormatException e) {                                         //Catch when trying to convert a string with improper format into a numeric value
             return false;
         }
         return true;
@@ -203,5 +193,21 @@ public class Customers {
             }
         }
         return false; // Customer not found, no matching Social Security Number
+    }
+
+    public void printAllCustomers() {
+
+        try {
+            String filePath = "Customers.txt";
+            File file = new File(filePath);
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                System.out.println(line);
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: Customers.txt");
+        }
     }
 }
