@@ -1,5 +1,4 @@
 package src;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,6 +7,7 @@ import java.util.Scanner;
 public class Products {
     public ArrayList<Product> productList = new ArrayList<Product>();
     public String productFileName = "products.txt";
+
 
     public Products() {
         if (!createFileWithProducts()) {
@@ -67,45 +67,42 @@ public class Products {
             return true;
         }
     }
-    public void removeProductFromTextFile(Product product) {
-        try {
-            Scanner reader = new Scanner(new File(productFileName));
-            ArrayList<String> lines = new ArrayList<>();
-            boolean found = false;
-            while (reader.hasNextLine()) {
-                String line = reader.nextLine();
-                if (line.equals(product.getBrand() + ";" + product.getModel() + ";" + product.getPrice())) {
-                    found = true;
-                } else {
-                    lines.add(line);
-                }
-            }
-            reader.close();
-            if (found) {
-                PrintWriter writer = new PrintWriter(new FileWriter(productFileName));
-                for (String line : lines) {
-                    writer.println(line);
-                }
-                writer.close();
-                System.out.println("Product removed.");
-            } else {
-                System.out.println("product not found");
-            }
-        } catch (Exception e) {
-            System.out.println("Something went wrong when we removed Product from the file" + e.getMessage());
-        }
-    }
-
-    public void printAllProducts() {
-
+    public void pickAProductToRemoveFromList() {
+        // Create a scanner to read input from the user
+        Scanner scan = new Scanner(System.in);
+        // Print the list of products
         for (int i = 0; i < this.productList.size(); i++) {
             System.out.println((i + 1) + ". " +
                     this.productList.get(i).getBrand() + ", " +
                     this.productList.get(i).getModel() + ", " +
                     this.productList.get(i).getPrice());
         }
+        // Ask the user which product they want to remove
+        System.out.println("Which product do you want to remove? Enter a number between 1 and " + this.productList.size());
+        // Read the user's choice and check that it is valid
+        int choice = scan.nextInt();
+        if (choice >= 1 && choice <= this.productList.size()) {
+            // Remove the product from the list using the remove method
+            Product removed = this.productList.remove(choice - 1);
+            // Print a confirmation message
+            System.out.println("You have removed " + removed.getBrand() + ", " + removed.getModel() + ", " + removed.getPrice());
+        } else {
+            // Print an error message
+            System.out.println("Invalid choice. You must enter a number between 1 and " + this.productList.size());
+        }
     }
-}
+
+        public void printAllProducts() {
+
+            for (int i = 0; i < this.productList.size(); i++) {
+                System.out.println((i + 1) + ". " +
+                        this.productList.get(i).getBrand() + ", " +
+                        this.productList.get(i).getModel() + ", " +
+                        this.productList.get(i).getPrice());
+            }
+        }
+    }
+
 
 
 
