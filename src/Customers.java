@@ -103,7 +103,7 @@ public class Customers {
                     case "1":
                         System.out.println("You picked shop." +
                                 "\nProducts: ");
-                        products.printProducts();
+                        products.printAllProducts();
                         break;
 
                     case "2":
