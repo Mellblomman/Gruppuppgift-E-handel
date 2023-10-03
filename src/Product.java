@@ -1,12 +1,13 @@
 package src;
 
 public class Product {
+
     public String brand;
     public String model;
-    public int price;
+    public String price;
 
 
-    public Product(String brand, String model,int price) {
+    public Product(String brand, String model,String price) {
         this.brand = brand;
         this.model = model;
         this.price = price;
@@ -21,8 +22,20 @@ public class Product {
         return model;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String formatedStringForFile() {
@@ -30,5 +43,6 @@ public class Product {
 
 
     }
+
 }
 
