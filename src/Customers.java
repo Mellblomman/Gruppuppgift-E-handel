@@ -148,17 +148,7 @@ public class Customers {
             Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //Creating new Customer
             customerList.add(newCustomer); //adding to list
 
-            try {
-                FileOutputStream fos = new FileOutputStream(customersFileName, true); //Open a file to append to customersFileName
-                PrintStream printStream = new PrintStream(fos);                               //Creating printstream to write to file
-
-                printStream.println(newCustomer.formatedStringForFile());                     //Writing the formatted customer info to file
-                fos.close();            //Closing file output stream
-                printStream.close();    //Closing printstream
-                return true;
-            } catch (IOException e) {
-                System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
-            }
+            updateCustomersTextFile();
         }
     }
 
@@ -197,17 +187,92 @@ public class Customers {
 
     public void printAllCustomers() {
 
-        try {
-            String filePath = "Customers.txt";
-            File file = new File(filePath);
-            Scanner fileScanner = new Scanner(file);
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                System.out.println(line);
+        for (int i = 0; i < this.customerList.size(); i++) {
+            System.out.println((i + 1) + ". " +
+                    this.customerList.get(i).getSocialSecurityNumber() + ", " +
+                    this.customerList.get(i).getPassword() + ", " +
+                    this.customerList.get(i).getFirstName() + ", " +
+                    this.customerList.get(i).getLastName() + ", " +
+                    this.customerList.get(i).getEmail());
+        }
+    }
+
+    public void editCustomerInformation() {
+        Scanner scan = new Scanner(System.in);
+
+        // Display the list of customers with their index numbers
+        printAllCustomers();
+
+        // Prompt the user to select a customer to edit
+        System.out.print("Enter the index of the customer you want to edit: ");
+        int customerIndex = scan.nextInt();
+
+        // Check if the provided index is valid
+        if (customerIndex >= 1 && customerIndex <= customerList.size()) {
+            Customer customerToEdit = customerList.get(customerIndex - 1);
+
+            // Prompt the user to choose which information to edit
+            System.out.println("\nEdit Customer Information for " + customerToEdit.getFirstName() + " " + customerToEdit.getLastName() + ":");
+            System.out.println("\n1. Social security number (Current: " + customerToEdit.getSocialSecurityNumber() + ")");
+            System.out.println("2. Password (Current: " + customerToEdit.getPassword() + ")");
+            System.out.println("3. First name (Current: " + customerToEdit.getFirstName() + ")");
+            System.out.println("4. Last name (Current: " + customerToEdit.getLastName() + ")");
+            System.out.println("5. Email (Current: " + customerToEdit.getEmail() + ")");
+            System.out.print("\nEnter the number of the information to edit: ");
+            String infoChoice = scan.nextLine();
+
+            // Prompt the user for the updated value based on their choice
+            String newValue = "";
+            switch (infoChoice) {
+                case "1":
+                    System.out.print("Enter new social security number: ");
+                    newValue = scan.next();
+                    customerToEdit.setSocialSecurityNumber(newValue);
+                    break;
+                case "2":
+                    System.out.print("Enter new password: ");
+                    newValue = scan.next();
+                    customerToEdit.setPassword(newValue);
+                    break;
+                case "3":
+                    System.out.print("Enter new first name: ");
+                    newValue = scan.next();
+                    customerToEdit.setFirstName(newValue);
+                    break;
+                case "4":
+                    System.out.print("Enter new last name: ");
+                    newValue = scan.next();
+                    customerToEdit.setLastName(newValue);
+                    break;
+                case "5":
+                    System.out.print("Enter new email: ");
+                    newValue = scan.next();
+                    customerToEdit.setEmail(newValue);
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. No changes made.");
             }
-            fileScanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: Customers.txt");
+
+            if (!newValue.isEmpty()) {
+                System.out.println("Customer information updated.");
+            }
+        } else {
+            System.out.println("Invalid customer index. Please enter a valid index.");
+        }
+
+
+    }
+
+    public void updateCustomersTextFile(){
+        try (PrintStream printStream = new PrintStream(new FileOutputStream(customersFileName))) {
+            for (Customer customer : customerList) {
+                // Format customer data as a string and write it to the file
+                String customerData = customer.formatedStringForFile();
+                printStream.println(customerData);
+            }
+        } catch(IOException e) {
+            System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
         }
     }
 }

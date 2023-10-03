@@ -23,8 +23,8 @@ public class Admin {
             String inputAdminPasswordForLogin = scan.nextLine();
 
 
-            String adminUserName = "admin";
-            String adminPassword = "mlssadmin";
+            String adminUserName = "a";
+            String adminPassword = "a";
             if (inputAdminUsernameForLogin.equalsIgnoreCase(adminUserName) && inputAdminPasswordForLogin.equalsIgnoreCase(adminPassword)) {
 
                 boolean runAdminMenu = true;
@@ -99,9 +99,9 @@ public class Admin {
         boolean runAdminCustomerMenu = true;
 
         while(runAdminCustomerMenu){
-            System.out.println("What do you want to do?");
+            System.out.println("\nWhat do you want to do?");
             String choiceForCustomerMenu = scan.nextLine();
-            System.out.println("Customer menu:" +
+            System.out.println("\nCustomer menu:" +
                     "\n1. View all." +
                     "\n2. Edit a specific customer." +
                     "\n3. Go back.");
@@ -109,7 +109,7 @@ public class Admin {
                 customers.printAllCustomers();
             }
             else if(choiceForCustomerMenu.equals("2")){
-                //Get the arrayList shit working......
+                customers.editCustomerInformation();
             }
             else if(choiceForCustomerMenu.equals("3")){
                 runAdminCustomerMenu = false;

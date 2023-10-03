@@ -52,6 +52,24 @@ public class Orders {
     }
 
     public void createFileWithCustomerOrders(String ssn) {
+
+        // Specify the directory where we want to store customer orders files
+        String directoryPath = "customer_orders";
+
+        // Ensure the directory exists; create it if it doesn't
+        File directory = new File(directoryPath);
+
+        if (!directory.exists()) {
+            // Create the directory if it doesn't exist
+            if (directory.mkdir()) {
+                System.out.println("Directory created: " + directoryPath);
+            } else {
+                // Print an error message if directory creation fails
+                System.err.println("Failed to create directory: " + directoryPath);
+                return; // Exit the method
+            }
+        }
+
         // Construct the file name with the customer's SSN and "orders" as the extension
         File customerOrdersFile = new File(ssn + "orders.txt");
 
