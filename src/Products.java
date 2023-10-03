@@ -2,12 +2,11 @@ package src;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 
 public class Products {
-    public ArrayList<Product> productsList = new ArrayList<Product>();
+    public ArrayList<Product> productList = new ArrayList<Product>();
     public String productFileName = "products.txt";
 
     public Products() {
@@ -21,8 +20,8 @@ public class Products {
                     Product tempProducts = new Product( //creating a product object, with split values and this object will be added to products list
                             productsInfo[0],
                             productsInfo[1],
-                            Integer.parseInt(productsInfo[2]));
-                    productsList.add(tempProducts); //added to productList
+                            productsInfo[2]);
+                    productList.add(tempProducts); //added to productList
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("Wrong!" + e.getMessage());
@@ -45,23 +44,28 @@ public class Products {
     }
 
 
-    public boolean addProductToTextFile (Product newProduct){
+    private boolean addNewProduct() {
+        Scanner scan = new Scanner(System.in);
 
-        try {
-            FileOutputStream fos = new FileOutputStream(this.productFileName, true); //fos created to write data to the file productFileName
-            PrintStream printStream = new PrintStream(fos); //append: true indicates that data should be appended to the file if it already exists
+        while (true) {                                 // loop to check if the user enter right Social Security Number
+            System.out.println("Enter the brand of the product: ");
+            String brandOfProduct = scan.next();
+            System.out.println("Enter the model of the produect: ");
+            String modelOfProduct = scan.next();
+            System.out.println("Set the price for the product: ");
+            String priceProduct = scan.next();
+            !!!!!!!!!!!!!!!!!!!
+            if (customerExistsInList(socialSecurityNumber, scan.nextLine())) {      //Checks if the account already exists on Social Security Number
+                System.out.println("Account already exists! Please log in.");
+                return false;
+            }
 
-            printStream.print("\n" + newProduct.formatedStringForFile()); //print the products information to the file
-            System.out.println(newProduct.formatedStringForFile());
-
-            fos.close();
-            printStream.close();
-            return true;                    //if it works without exceptions it will be true, else false!
-        } catch (Exception e) {
-            System.out.println("Product added successfully." + e.getMessage());
+            Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //Creating new Customer
+            customerList.add(newCustomer); //adding to list
+            updateCustomersTextFile();
+            System.out.println("Account registered! Welcome " + firstName);
+            return true;
         }
-
-        return false;
     }
     public void removeProductFromTextFile(Product product) {
         try {
@@ -92,28 +96,13 @@ public class Products {
         }
     }
 
-    public void printProducts () {
-        try {
-            // Specify the path to the products.txt file
-            String filePath = "products.txt";
+    public void printAllProducts() {
 
-            // Create a File object to represent the file
-            File file = new File(filePath);
-
-            // Create a Scanner to read the file
-            Scanner fileScanner = new Scanner(file);
-
-            // Read and print each line from the file
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                System.out.println(line);
-            }
-
-            // Close the file scanner
-            fileScanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: products.txt");
-
+        for (int i = 0; i < this.productList.size(); i++) {
+            System.out.println((i + 1) + ". " +
+                    this.productList.get(i).getBrand() + ", " +
+                    this.productList.get(i).getModel() + ", " +
+                    this.productList.get(i).getPrice());
         }
     }
 }
