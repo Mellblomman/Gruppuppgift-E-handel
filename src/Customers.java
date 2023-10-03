@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Customers {
-    private final ArrayList<Customer> customerList = new ArrayList<>();
+    private ArrayList<Customer> customerList = new ArrayList<>();
     private final String customersFileName = "Customers.txt";
 
     public Customers() {
@@ -28,7 +28,6 @@ public class Customers {
             } catch (FileNotFoundException e) {
                 System.out.println(" FEL!!! " + e.getMessage());
             }
-
         }
     }
     public void customerMenu(){ //New menu after you choose Customer in start menu.
@@ -68,12 +67,13 @@ public class Customers {
     public void logInCustomer() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter your social security number:");
-        String inputSSNForLogin = scan.next();
+        String inputSSNForLogin = scan.nextLine();
+        System.out.println("Enter password: ");
+        String inputPassword = scan.nextLine();
 
-        boolean run = true;
-        while(run){
-
-            if (customerExists(inputSSNForLogin)) {
+        if (customerExistsInList(inputSSNForLogin, inputPassword)) {
+            boolean run = true;
+            while (run) {
                 Products products = new Products();
                 System.out.println("Welcome" +
                         "\n1. Shop" +
@@ -82,7 +82,7 @@ public class Customers {
                         "\n\nChoice: ");
                 String shopOrHistory = scan.next();
 
-                switch(shopOrHistory){
+                switch (shopOrHistory) {
 
                     case "1":
                         System.out.println("You picked shop." +
@@ -127,11 +127,12 @@ public class Customers {
         try {
             if (file.createNewFile()) {
                 System.out.println("File has been created: " + file.getName());
+                return true;
             }
         } catch (IOException e) {
             System.out.println("Something went wrong when creating a txt-file: " + e.getMessage());
         }
-        return true;
+        return false;
     }
     private boolean registerNewAccount() {
         Scanner scan = new Scanner(System.in);
@@ -142,7 +143,7 @@ public class Customers {
             if (!validSocialSecurityNumber(socialSecurityNumber)) {
                 System.out.println("Invalid Social Security Number!"); //if not right Social Security Number
             }
-            if (customerExists(socialSecurityNumber)) {      //Checks if the account already exists on Social Security Number
+            if (customerExistsInList(socialSecurityNumber, scan.nextLine())) {      //Checks if the account already exists on Social Security Number
                 System.out.println("Account already exists! Please log in.");
                 return false;
             }
@@ -169,9 +170,9 @@ public class Customers {
                 return true;
             } catch (IOException e) {
                 System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
-                }
             }
         }
+    }
     private boolean validSocialSecurityNumber(String socialSecurityNumber) {
         if (socialSecurityNumber.length() != 15) { //Checking if Social Security Number holds 15 characters
             return false;
@@ -195,9 +196,9 @@ public class Customers {
         }
         return true;
     }
-    public boolean customerExists(String socialSecurityNumber) {
+    public boolean customerExistsInList(String socialSecurityNumber, String inputPassword) {
         for (Customer customer : customerList) {
-            if (customer.getSocialSecurityNumber().equals(socialSecurityNumber)) {
+            if (Customer.getSocialSecurityNumber().equals(socialSecurityNumber) && customer.getPassword().equals(inputPassword)) {
                 return true; // Customer with matching Social Security Number found
             }
         }
