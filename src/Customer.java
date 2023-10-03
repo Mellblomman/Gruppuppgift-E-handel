@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Customer {
     //Use socialSecurityNumber as username to log in
-    private static String socialSecurityNumber;  //Need to be static to make sure that this variable is owned Customer Class and not by any other class
+    private String socialSecurityNumber;  //Need to be static to make sure that this variable is owned Customer Class and not by any other class
     private String password;    //Uses to log in
     private String firstName;
     private String lastName;
@@ -23,7 +23,7 @@ public class Customer {
     public Customer() {
     }
 
-    public static String getSocialSecurityNumber() {
+    public String getSocialSecurityNumber() {
         return socialSecurityNumber;
     }
 

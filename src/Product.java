@@ -40,8 +40,6 @@ public class Product {
 
     public String formatedStringForFile() {
         return this.brand + "," + this.model + "," + this.price;
-
     }
-
-    }
+}
 

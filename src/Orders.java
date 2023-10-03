@@ -5,12 +5,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Orders {
+
     private ArrayList<Order> orderList = new ArrayList<Order>();
-    private String ordersFileName = Customer.getSocialSecurityNumber() + "Orders.txt";
+
+    //private String ordersFileName = customer.getSocialSecurityNumber() + "Orders.txt";
 
     Orders() {
     }
 
+
+
+/*
     private void readOrdersFromFile() {
         try {
             Scanner scan = new Scanner(new File(ordersFileName));
@@ -30,6 +35,8 @@ public class Orders {
             System.out.println("Wrong!" + e.getMessage());
         }
     }
+
+ */
 
     public ArrayList<Order> getOrderList() {
         return orderList;

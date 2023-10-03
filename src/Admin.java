@@ -18,9 +18,9 @@ public class Admin {
         boolean runAdminLogIn = true;
         while (runAdminLogIn) {
             System.out.println("Enter admin username:");
-            String inputAdminUsernameForLogin = scan.nextLine();
+            String inputAdminUsernameForLogin = scan.next();
             System.out.println("Enter admin password:");
-            String inputAdminPasswordForLogin = scan.nextLine();
+            String inputAdminPasswordForLogin = scan.next();
 
 
             String adminUserName = "a";
@@ -73,19 +73,24 @@ public class Admin {
                     "\n1. View all the products." +
                     "\n2. Add a product." +
                     "\n3. Remove a product." +
-                    "\n4. Go back.");
-            String choiceInProductMenu = scan.nextLine();
+                    "\n4. Edit products." +
+                    "\n5. Go back.");
+            String choiceInProductMenu = scan.next();
 
             switch(choiceInProductMenu){
                 case "1":
-                    products.printProducts();
+                    products.printAllProducts();
                     break;
                 case "2":
+                    products.addNewProduct();
                     break;
                 case "3":
-                    //products.removeProductFromTextFile();
+                    products.pickAProductToRemoveFromList();
                     break;
                 case "4":
+                    products.editProductInformation();
+                    break;
+                case "5":
                     runAdminProductManagementMenu = false;
                     break;
                 default:

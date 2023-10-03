@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Customers {
     private ArrayList<Customer> customerList = new ArrayList<>();
     private final String customersFileName = "Customers.txt";
+    Products products = new Products();
 
     public Customers() {
         if (!createFileWithCustomers()) {
@@ -88,10 +89,11 @@ public class Customers {
         String inputPassword = scan.nextLine();
 
         if (customerExistsInList(inputSSNForLogin, inputPassword)) {
+
             boolean run = true;
+
             while (run) {
-                Products products = new Products();
-                System.out.println("Welcome" +
+                System.out.println("Welcome!" +
                         "\n1. Shop" +
                         "\n2. Transaction History" +
                         "\n3. Logout" +
@@ -105,7 +107,6 @@ public class Customers {
                                 "\nProducts: ");
                         products.printAllProducts();
                         break;
-
                     case "2":
                         System.out.println("Transaction History method");
                         break;
@@ -148,8 +149,8 @@ public class Customers {
 
             Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //Creating new Customer
             customerList.add(newCustomer); //adding to list
-            updateCustomersTextFile();
             System.out.println("Account registered! Welcome " + firstName);
+            updateCustomersTextFile();
             return true;
         }
     }
@@ -180,7 +181,7 @@ public class Customers {
     }
     public boolean customerExistsInList(String socialSecurityNumber, String inputPassword) {
         for (Customer customer : customerList) {
-            if (Customer.getSocialSecurityNumber().equals(socialSecurityNumber) && customer.getPassword().equals(inputPassword)) {
+            if (customer.getSocialSecurityNumber().equals(socialSecurityNumber) && customer.getPassword().equals(inputPassword)) {
                 return true; // Customer with matching Social Security Number found
             }
         }
@@ -188,7 +189,6 @@ public class Customers {
     }
 
     public void printAllCustomers() {
-
         for (int i = 0; i < this.customerList.size(); i++) {
             System.out.println((i + 1) + ". " +
                     this.customerList.get(i).getSocialSecurityNumber() + ", " +
@@ -196,6 +196,7 @@ public class Customers {
                     this.customerList.get(i).getFirstName() + ", " +
                     this.customerList.get(i).getLastName() + ", " +
                     this.customerList.get(i).getEmail());
+            System.out.println("--------------------------------");
         }
     }
 
@@ -269,7 +270,6 @@ public class Customers {
     public void updateCustomersTextFile(){
         try (PrintStream printStream = new PrintStream(new FileOutputStream(customersFileName))) {
             for (Customer customer : customerList) {
-                // Format customer data as a string and write it to the file
                 String customerData = customer.formatedStringForFile();
                 printStream.println(customerData);
             }
