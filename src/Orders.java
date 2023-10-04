@@ -1,6 +1,8 @@
 package src;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,33 +10,40 @@ public class Orders {
 
     private ArrayList<Order> orderList = new ArrayList<>();
 
-    //private String ordersFileName = customer.getSocialSecurityNumber() + "Orders.txt";
+    private String ordersFileName = "Orders.txt";
 
-  /*  Orders() {
+    Orders() {
         readOrdersFromFile();
     }
-
-
     public void readOrdersFromFile() {
-        try {
-            Scanner scan = new Scanner(new File(ordersFileName));
-            while (scan.hasNextLine()) { //if file already exist, a Scanner will read every line of the file and separate with ", "
-                String Order = scan.nextLine();
-                String[] orderInfo = Order.split(",");
+        if (!createFileForAllOrders()) {
+            try {
+                Scanner scan = new Scanner(new File(ordersFileName));
+                while (scan.hasNextLine()) { //if file already exist, a Scanner will read every line of the file and separate with ", "
+                    String Order = scan.nextLine();
+                    String[] orderInfo = Order.split(",");
 
-                Order tempOrder = new Order( //creating a customer object, with split values and this object will be added to customer list
-                        orderInfo[0],
-                        orderInfo[1],
-                        Double.parseDouble(orderInfo[2]),
-                        Double.parseDouble(orderInfo[3])
-                );
-                orderList.add(tempOrder); //added to customerList
+                    Order tempOrder = new Order( //creating a customer object, with split values and this object will be added to customer list
+                            orderInfo[0],
+                            orderInfo[1],
+                            orderInfo[2],
+                            Double.parseDouble(orderInfo[3]),
+                            Double.parseDouble(orderInfo[4])
+                    );
+                    orderList.add(tempOrder); //added to customerList
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("Wrong!" + e.getMessage());
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("Wrong!" + e.getMessage());
         }
     }
- */
+    public void dateTime(){
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = myDateObj.format(myFormatObj);
+
+    }
+
 
     public ArrayList<Order> getOrderList() {
         return orderList;
@@ -55,37 +64,56 @@ public class Orders {
         }
         return true;
     }
-
-    public void createFileWithCustomerOrders(String ssn) {
-
-        // Specify the directory where we want to store customer orders files
-        String directoryPath = "customer_orders";
-
-        // Ensure the directory exists; create it if it doesn't
-        File directory = new File(directoryPath);
-
-        if (!directory.exists()) {
-            // Create the directory if it doesn't exist
-            if (directory.mkdir()) {
-                System.out.println("Directory created: " + directoryPath);
-            } else {
-                // Print an error message if directory creation fails
-                System.err.println("Failed to create directory: " + directoryPath);
-                return; // Exit the method
-            }
-        }
-
-        // Construct the file name with the customer's SSN and "orders" as the extension
-        File customerOrdersFile = new File(ssn + "orders.txt");
-
-        try {
-            if (customerOrdersFile.createNewFile()) {
-                System.out.println("Customer orders file has been created: " + customerOrdersFile.getName());
-            } else {
-                System.out.println("File " + customerOrdersFile.getName() + " already exists!");
-            }
-        } catch (IOException e) {
-            System.err.println("Something went wrong when creating the txt-file: " + e.getMessage());
+    public void printAllTransaktion() {
+        for (int i = 0; i < this.orderList.size(); i++) {
+            System.out.println((i + 1) + ". " +
+                    this.orderList.get(i).getCustomerSSN() + ", " +
+                    this.orderList.get(i).getNameOrder() + ", " +
+                    this.orderList.get(i).getProduct() + ", " +
+                    this.orderList.get(i).getTotalSumOrder() + ", " +
+                    this.orderList.get(i).getDateAndTime());
+            System.out.println("----------------------------------------------------");
         }
     }
+
+    public void printOrdersByCustomer(String customerSSN) {
+        System.out.println("Orders for Customer with SSN: " + customerSSN);
+        for (Order order : orderList) {
+            if (order.getCustomerSSN().equals(customerSSN)) {
+                System.out.println("Name of Order: " + order.getNameOrder());
+                System.out.println("Product: " + order.getProduct());
+                System.out.println("Total Sum: " + order.getTotalSumOrder());
+                System.out.println("Date and Time: " + order.getDateAndTime());
+                System.out.println("--------------------");
+            }
+        }
+    }
+    private boolean validSocialSecurityNumber(String socialSecurityNumber) {
+        if (socialSecurityNumber.length() != 15) { //Checking if Social Security Number holds 15 characters
+            return false;
+        }
+        String[] partsSocialSecurityNumber = socialSecurityNumber.split("-"); //splits the Social Security Number into different parts with - between
+        if (partsSocialSecurityNumber.length != 4) {
+            return false;
+        }
+        try {
+            int year = Integer.parseInt(partsSocialSecurityNumber[0]);              //1st part
+            int month = Integer.parseInt(partsSocialSecurityNumber[1]);             //2nd part
+            int day = Integer.parseInt(partsSocialSecurityNumber[2]);               //3rd part
+            int lastDigits = Integer.parseInt(partsSocialSecurityNumber[3]);        //4th part
+
+            if (year < 1900 || year > 9999 || month < 1 || month > 12               //set up to 9999 cause of last digits!
+                    || day < 1 || day > 31 || lastDigits < 0 || lastDigits > 9999) {
+                return false;
+            }
+        } catch (
+                NumberFormatException e) {                                         //Catch when trying to convert a string with improper format into a numeric value
+            return false;
+        }
+        return true;
+    }
 }
+// en som printar alla transationer.
+// en som printar alla transationer kopplat till varje kund.
+// en metod som skapar ett köp där lägger produktobjekt i en temporär arraylist
+// skapa en varukorg

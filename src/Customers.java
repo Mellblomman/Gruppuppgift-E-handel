@@ -8,6 +8,7 @@ public class Customers {
     private ArrayList<Customer> customerList = new ArrayList<>();
     private final String customersFileName = "Customers.txt";
     Products products = new Products();
+    Orders orders = new Orders();
 
     public Customers() {
         readCustomersFromFile();
@@ -117,8 +118,9 @@ public class Customers {
                         products.printAllProducts();
                         break;
                     case "2":
-                        Customer customer = new Customer();
-                        customer.showTransactionHistory();
+                        orders.printOrdersByCustomer(inputSSNForLogin);
+
+
                         break;
 
                     case "3":
