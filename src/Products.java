@@ -55,7 +55,7 @@ public String productFileName = "products.txt";
             System.out.println("Set the price for the product: ");
             String priceProduct = scan.next();
             if (productExistsInList(modelOfProduct, scan.nextLine())) {
-                System.out.println("Account already exists! Please log in.");
+                System.out.println("Product already exists! Please log in.");
                 return false;
             }
 
@@ -74,7 +74,7 @@ public String productFileName = "products.txt";
         printAllProducts();
 
         // Prompt the user to select a customer to edit
-        System.out.print("\nEnter the index of the customer you want to edit: ");
+        System.out.print("\nEnter the index of the product you want to edit: ");
         int productIndex = scan.nextInt();
 
         // Check if the provided index is valid
@@ -82,12 +82,12 @@ public String productFileName = "products.txt";
             Product productToEdit = productList.get(productIndex - 1);
 
             // Prompt the user to choose which information to edit
-            System.out.println("\nEdit Customer Information for " + productToEdit.getBrand() + " " + productToEdit.getModel() + ":");
+            System.out.println("\nEdit Product Information for " + productToEdit.getBrand() + " " + productToEdit.getModel() + ":");
             System.out.println("\n1. Name of brand (Current: " + productToEdit.getBrand() + ")");
             System.out.println("2. Name of model (Current: " + productToEdit.getModel() + ")");
             System.out.println("3. Product price (Current: " + productToEdit.getPrice() + ")");
             System.out.print("\nEnter the number of the information to edit: ");
-            String infoChoice = scan.nextLine();
+            String infoChoice = scan.next();
 
             // Prompt the user for the updated value based on their choice
             String newValue = "";
@@ -166,11 +166,11 @@ public String productFileName = "products.txt";
     public void updateProductsTextFile () {
         try (PrintStream printStream = new PrintStream(new FileOutputStream(productFileName))) {
             for (Product product : productList) {
-                String customerData = product.formatedStringForFile();
-                printStream.println(customerData);
+                String productData = product.formatedStringForFile();
+                printStream.println(productData);
             }
         } catch (IOException e) {
-            System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
+            System.out.println("Something went wrong when we added Products to file " + e.getMessage());
         }
     }
 }
