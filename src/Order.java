@@ -5,17 +5,27 @@ public class Order {
     Want to find the order with the customers social security number, can we make an inheritance from the class
     customer?
     */
+    private String customerSSN;
     private String nameOrder;
     private String product;
     private double totalSumOrder;
     private double dateAndTime;
 
 
-    public Order(String nameOrder, String product, double totalSumOrder, double dateAndTime) {
+    public Order(String customerSSN, String nameOrder, String product, double totalSumOrder, double dateAndTime) {
+        this.customerSSN = customerSSN;
         this.nameOrder = nameOrder;
         this.product = product;
         this.totalSumOrder = totalSumOrder;
         this.dateAndTime = dateAndTime;
+    }
+
+    public String getCustomerSSN() {
+        return customerSSN;
+    }
+
+    public void setCustomerSSN(String customerSSN) {
+        this.customerSSN = customerSSN;
     }
 
     public String getNameOrder() {

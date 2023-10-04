@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Orders {
 
-    private ArrayList<Order> orderList = new ArrayList<Order>();
+    private ArrayList<Order> orderList = new ArrayList<>();
 
     //private String ordersFileName = customer.getSocialSecurityNumber() + "Orders.txt";
 
