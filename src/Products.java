@@ -9,6 +9,9 @@ public ArrayList<Product> productList = new ArrayList<>();
 public String productFileName = "products.txt";
 
     public Products(){
+        readProductsFromFile();
+    }
+    public void readProductsFromFile(){
         if (!createFileWithProducts()) {
             try {
                 Scanner scan = new Scanner(new File(productFileName));
@@ -24,7 +27,7 @@ public String productFileName = "products.txt";
                     productList.add(tempProducts); //added to productList
                 }
             } catch (FileNotFoundException e) {
-                  System.out.println("Wrong!" + e.getMessage());
+                System.out.println("Wrong!" + e.getMessage());
             }
         }
     }

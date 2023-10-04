@@ -1,8 +1,7 @@
 package src;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Customer {
     //Use socialSecurityNumber as username to log in
@@ -63,7 +62,31 @@ public class Customer {
         this.email = email;
     }
 
-    public String formatedStringForFile() {
+    public String formattedStringForFile() {
         return this.socialSecurityNumber + "," + this.password + "," + this.firstName + "," + this.lastName + "," + this.email;
     }
+
+
+
+    private List<Order> transactionHistory = new ArrayList<>();
+
+    public void addTransaction(String nameOrder, String product, double totalSumOrder, double dateAndTime) {
+        Order transaction = new Order(this.socialSecurityNumber, nameOrder, product, totalSumOrder, dateAndTime);
+        transactionHistory.add(transaction);
+    }
+    public List<Order> getTransactionHistory() {
+        return transactionHistory;
+    }
+    public void showTransactionHistory() {
+        if (transactionHistory.isEmpty()) {
+            System.out.println("You have no previous transactions.");
+        } else {
+            System.out.println("Transaction history for " + this.firstName + " " + this.lastName + " " + this.socialSecurityNumber + ":");
+            for (Order order : transactionHistory) {
+                System.out.println("Name: " + order.getNameOrder() + ", Product: " + order.getProduct() + ", Sum: " + order.getTotalSumOrder() +
+                        "Date/Time: " + order.getDateAndTime());
+            }
+        }
+    }
 }
+

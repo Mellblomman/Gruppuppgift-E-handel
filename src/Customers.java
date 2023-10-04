@@ -10,6 +10,9 @@ public class Customers {
     Products products = new Products();
 
     public Customers() {
+        readCustomersFromFile();
+    }
+    public void readCustomersFromFile(){
         if (!createFileWithCustomers()) {
             try {
                 Scanner scan = new Scanner(new File(customersFileName));
@@ -52,10 +55,12 @@ public class Customers {
         boolean runCustomerMenu = true;
 
         while (runCustomerMenu) {
-            System.out.println("1. Login" +
+            System.out.println("\n----------------------------------------------------" +
+                    "\n1. Login" +
                     "\n2. Register new account" +
                     "\n3. Go back." +
-                    "\n\nChoice: ");
+                    "\n----------------------------------------------------" +
+                    "\nChoice: ");
             String loginOrRegisterChoice = scan.next();
 
             switch (loginOrRegisterChoice) {
@@ -83,9 +88,10 @@ public class Customers {
 
     public void logInCustomer() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter your social security number:");
+        System.out.println("\n----------------------------------------------------" +
+                "\nEnter your social security number:");
         String inputSSNForLogin = scan.nextLine();
-        System.out.println("Enter password: ");
+        System.out.println("\nEnter password: ");
         String inputPassword = scan.nextLine();
 
         if (customerExistsInList(inputSSNForLogin, inputPassword)) {
@@ -93,22 +99,26 @@ public class Customers {
             boolean run = true;
 
             while (run) {
-                System.out.println("Welcome!" +
+                System.out.println("----------------------------------------------------" +
+                        "\nWelcome!" +
                         "\n1. Shop" +
                         "\n2. Transaction History" +
                         "\n3. Logout" +
-                        "\n\nChoice: ");
+                        "\n----------------------------------------------------" +
+                        "\nChoice: ");
                 String shopOrHistory = scan.next();
 
                 switch (shopOrHistory) {
 
                     case "1":
-                        System.out.println("You picked shop." +
-                                "\nProducts: ");
+                        System.out.println("\n----------------------------------------------------" +
+                                "\nYou picked shop" +
+                                "\n\nProducts: ");
                         products.printAllProducts();
                         break;
                     case "2":
-                        System.out.println("Transaction History method");
+                        Customer customer = new Customer();
+                        customer.showTransactionHistory();
                         break;
 
                     case "3":
@@ -120,6 +130,8 @@ public class Customers {
                         break;
                 }
             }
+        }else{
+            System.out.println("Wrong login credentials.");
         }
     }
 
@@ -149,7 +161,7 @@ public class Customers {
 
             Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //Creating new Customer
             customerList.add(newCustomer); //adding to list
-            System.out.println("Account registered! Welcome " + firstName);
+            System.out.println("Account registered! Welcome " + firstName + lastName);
             updateCustomersTextFile();
             return true;
         }
@@ -196,7 +208,7 @@ public class Customers {
                     this.customerList.get(i).getFirstName() + ", " +
                     this.customerList.get(i).getLastName() + ", " +
                     this.customerList.get(i).getEmail());
-            System.out.println("--------------------------------");
+            System.out.println("----------------------------------------------------");
         }
     }
 
@@ -270,7 +282,7 @@ public class Customers {
     public void updateCustomersTextFile(){
         try (PrintStream printStream = new PrintStream(new FileOutputStream(customersFileName))) {
             for (Customer customer : customerList) {
-                String customerData = customer.formatedStringForFile();
+                String customerData = customer.formattedStringForFile();
                 printStream.println(customerData);
             }
         } catch(IOException e) {

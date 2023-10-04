@@ -10,13 +10,12 @@ public class Orders {
 
     //private String ordersFileName = customer.getSocialSecurityNumber() + "Orders.txt";
 
-    Orders() {
+  /*  Orders() {
+        readOrdersFromFile();
     }
 
 
-
-/*
-    private void readOrdersFromFile() {
+    public void readOrdersFromFile() {
         try {
             Scanner scan = new Scanner(new File(ordersFileName));
             while (scan.hasNextLine()) { //if file already exist, a Scanner will read every line of the file and separate with ", "
@@ -35,7 +34,6 @@ public class Orders {
             System.out.println("Wrong!" + e.getMessage());
         }
     }
-
  */
 
     public ArrayList<Order> getOrderList() {
