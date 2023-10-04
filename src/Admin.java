@@ -31,7 +31,7 @@ public class Admin {
 
                 while (runAdminMenu) {
                     System.out.println("\n----------------------------------------------------" +
-                            "\nPick a number: " +
+                            "\nAdmin menu " +
                             "\n1. Product Management" +
                             "\n2. Customer Information" +
                             "\n3. Order/Transactions" +
@@ -73,7 +73,7 @@ public class Admin {
         while(runAdminProductManagementMenu){
 
             System.out.println("\n----------------------------------------------------" +
-                    "\nPick a number: " +
+                    "\nProduct menu " +
                     "\n1. View all the products." +
                     "\n2. Add a product." +
                     "\n3. Remove a product." +
@@ -110,25 +110,27 @@ public class Admin {
         boolean runAdminCustomerMenu = true;
 
         while(runAdminCustomerMenu){
-            System.out.println("\nPick a number: ");
-            String choiceForCustomerMenu = scan.nextLine();
-            System.out.println("\nCustomer menu" +
+
+            System.out.println("\nManage customers menu" +
                     "\n1. View all." +
                     "\n2. Edit a specific customer." +
                     "\n3. Go back." +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
-            if(choiceForCustomerMenu.equals("1")){
-                customers.printAllCustomers();
-            }
-            else if(choiceForCustomerMenu.equals("2")){
-                customers.editCustomerInformation();
-            }
-            else if(choiceForCustomerMenu.equals("3")){
-                runAdminCustomerMenu = false;
-            }
-            else {
-                System.out.println("Please choose one of the two options above.");
+            String choiceForCustomerMenu = scan.next();
+            switch (choiceForCustomerMenu) {
+                case "1":
+                    customers.printAllCustomers();
+                    break;
+                case "2":
+                    customers.editCustomerInformation();
+                    break;
+                case "3":
+                    runAdminCustomerMenu = false;
+                    break;
+                default:
+                    System.out.println("Please choose one of the two options above.");
+                    break;
             }
         }
     }
