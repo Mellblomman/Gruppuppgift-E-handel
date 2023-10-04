@@ -30,11 +30,14 @@ public class Admin {
                 boolean runAdminMenu = true;
 
                 while (runAdminMenu) {
-                    System.out.println("Pick a number:" +
+                    System.out.println("\n----------------------------------------------------" +
+                            "\nPick a number: " +
                             "\n1. Product Management" +
                             "\n2. Customer Information" +
                             "\n3. Order/Transactions" +
-                            "\n4. Logout");
+                            "\n4. Logout" +
+                            "\n----------------------------------------------------" +
+                            "\nChoice: ");
                     String menuChoice = scan.next();
                     switch (menuChoice) {
                         case "1":
@@ -69,12 +72,15 @@ public class Admin {
 
         while(runAdminProductManagementMenu){
 
-            System.out.println("What do you want to do?" +
+            System.out.println("\n----------------------------------------------------" +
+                    "\nPick a number: " +
                     "\n1. View all the products." +
                     "\n2. Add a product." +
                     "\n3. Remove a product." +
                     "\n4. Edit products." +
-                    "\n5. Go back.");
+                    "\n5. Go back." +
+                    "\n----------------------------------------------------" +
+                    "\nChoice: ");
             String choiceInProductMenu = scan.next();
 
             switch(choiceInProductMenu){
@@ -104,12 +110,14 @@ public class Admin {
         boolean runAdminCustomerMenu = true;
 
         while(runAdminCustomerMenu){
-            System.out.println("\nWhat do you want to do?");
+            System.out.println("\nPick a number: ");
             String choiceForCustomerMenu = scan.nextLine();
-            System.out.println("\nCustomer menu:" +
+            System.out.println("\nCustomer menu" +
                     "\n1. View all." +
                     "\n2. Edit a specific customer." +
-                    "\n3. Go back.");
+                    "\n3. Go back." +
+                    "\n----------------------------------------------------" +
+                    "\nChoice: ");
             if(choiceForCustomerMenu.equals("1")){
                 customers.printAllCustomers();
             }

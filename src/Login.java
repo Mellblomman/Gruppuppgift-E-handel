@@ -21,11 +21,12 @@ public class Login
                     "     _______\n" +
                     "    [=======]  () ");
             System.out.println("----------------------------------------------------");
-            System.out.println("\nPlease choose which form of login you want to do:");
+            System.out.println("Please choose which form of login you want to do:");
             System.out.println("1. Admin" +
                     "\n2. Customer" +
                     "\n3. Exit" +
-                    "\n\nChoice: ");
+                    "\n----------------------------------------------------" +
+                    "\nChoice: ");
 
             String inputChoice = scan.nextLine();
 
