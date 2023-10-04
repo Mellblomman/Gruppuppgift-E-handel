@@ -236,7 +236,7 @@ public class Customers {
             System.out.println("4. Last name (Current: " + customerToEdit.getLastName() + ")");
             System.out.println("5. Email (Current: " + customerToEdit.getEmail() + ")");
             System.out.print("\nEnter the number of the information to edit: ");
-            String infoChoice = scan.nextLine();
+            String infoChoice = scan.next();
 
             // Prompt the user for the updated value based on their choice
             String newValue = "";
