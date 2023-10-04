@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 
 public class Products {
-public ArrayList<Product> productList = new ArrayList<Product>();
+public ArrayList<Product> productList = new ArrayList<>();
 public String productFileName = "products.txt";
 
     public Products(){
@@ -44,10 +44,10 @@ public String productFileName = "products.txt";
     }
 
 
-    public boolean addNewProduct() {
+    public void addNewProduct() {
         Scanner scan = new Scanner(System.in);
-
-        while (true) {
+        boolean run = true;
+        while (run) {
             System.out.println("Enter the brand of the product: ");
             String brandOfProduct = scan.next();
             System.out.println("Enter the model of the product: ");
@@ -56,14 +56,25 @@ public String productFileName = "products.txt";
             String priceProduct = scan.next();
             if (productExistsInList(modelOfProduct, scan.nextLine())) {
                 System.out.println("Product already exists! Please log in.");
-                return false;
-            }
 
-            Product newProduct = new Product(brandOfProduct, modelOfProduct, priceProduct); //Creating new Customer
-            productList.add(newProduct); //adding to list
-            updateProductsTextFile();
-            System.out.println("Product added! " + brandOfProduct + ", " + modelOfProduct + ", " + priceProduct);
-            return true;
+            }else {
+                Product newProduct = new Product(brandOfProduct, modelOfProduct, priceProduct); //Creating new Customer
+                productList.add(newProduct); //adding to list
+                updateProductsTextFile();
+                System.out.println("Product added! " + brandOfProduct + ", " + modelOfProduct + ", " + priceProduct);
+            }
+            while(true) {
+                System.out.println("Do you want to add another product? (Yes/No)");
+                String yesOrNo = scan.next();
+                if (yesOrNo.equalsIgnoreCase("Yes")) {
+                    break;
+                } else if (yesOrNo.equalsIgnoreCase("No")) {
+                    run = false;
+                    break;
+                }else{
+                    System.out.println("Invalid input. Input Yes or No");
+                }
+            }
         }
     }
 
@@ -166,7 +177,7 @@ public String productFileName = "products.txt";
     public void updateProductsTextFile () {
         try (PrintStream printStream = new PrintStream(new FileOutputStream(productFileName))) {
             for (Product product : productList) {
-                String productData = product.formatedStringForFile();
+                String productData = product.formattedStringForFile();
                 printStream.println(productData);
             }
         } catch (IOException e) {

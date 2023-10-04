@@ -38,7 +38,7 @@ public class Product {
         this.price = price;
     }
 
-    public String formatedStringForFile() {
+    public String formattedStringForFile() {
         return this.brand + "," + this.model + "," + this.price;
     }
 }
