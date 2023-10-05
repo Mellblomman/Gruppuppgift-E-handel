@@ -83,65 +83,76 @@ public String productFileName = "products.txt";
             updateProductsTextFile();
         }
     }
-
-    public void editProductInformation () {
+    public void editProductInformation() {
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("\n----------------------------------------------------" +
+        System.out.println("----------------------------------------------------" +
                 "\nProduct List");// Display the list of customers with their index numbers
         printAllProducts();
 
         // Prompt the user to select a customer to edit
-        System.out.print("\n----------------------------------------------------" +
-                "\nEnter the index of the product you want to edit" +
-                "\nChoice: ");
-        int productIndex = scan.nextInt();
+        boolean run = true;
+        while (run) {
+            System.out.print("\nEnter the number of the product you want to edit in product list" +
+                    "\nPress 0 to back" +
+                    "\nChoice: ");
+            int productIndex = scan.nextInt();
 
-        // Check if the provided index is valid
-        if (productIndex >= 1 && productIndex <= productList.size()) {
-            Product productToEdit = productList.get(productIndex - 1);
-
-            // Prompt the user to choose which information to edit
-            System.out.println("\n----------------------------------------------------" +
-                    "\nEdit Product Information for " + productToEdit.getBrand() + " " + productToEdit.getModel());
-            System.out.println("\n1. Name of brand (Current: " + productToEdit.getBrand() + ")");
-            System.out.println("2. Name of model (Current: " + productToEdit.getModel() + ")");
-            System.out.println("3. Product price (Current: " + productToEdit.getPrice() + ")");
-            System.out.print("\nChoice: ");
-            String infoChoice = scan.next();
-
-            // Prompt the user for the updated value based on their choice
-            String newValue = "";
-            switch (infoChoice) {
-                case "1":
-                    System.out.print("\n----------------------------------------------------" +
-                            "\nEnter new brand name: ");
-                    newValue = scan.next();
-                    productToEdit.setBrand(newValue);
-                    break;
-                case "2":
-                    System.out.print("\n----------------------------------------------------" +
-                            "\nEnter new model name: ");
-                    newValue = scan.next();
-                    productToEdit.setModel(newValue);
-                    break;
-                case "3":
-                    System.out.print("\n----------------------------------------------------" +
-                            "\nEnter new price: ");
-                    newValue = scan.next();
-                    productToEdit.setPrice(newValue);
-                    break;
-                default:
-                    System.out.println("\nInvalid choice. No changes made.");
+            if (productIndex == 0) {
+                run = false;
             }
-            if (!newValue.isEmpty()) {
-                System.out.println("\nProduct information updated.");
+
+            // Check if the provided index is valid
+            else if (productIndex >= 1 && productIndex <= productList.size()) {
+                Product productToEdit = productList.get(productIndex - 1);
+
+                // Prompt the user to choose which information to edit
+                System.out.println("\n----------------------------------------------------" +
+                        "\nEdit Product Information for " + productToEdit.getBrand() + " " + productToEdit.getModel());
+                System.out.println("\n1. Name of brand (Current: " + productToEdit.getBrand() + ")");
+                System.out.println("2. Name of model (Current: " + productToEdit.getModel() + ")");
+                System.out.println("3. Product price (Current: " + productToEdit.getPrice() + ")");
+                System.out.println("4. Go back");
+                System.out.print("\nChoice: ");
+                String infoChoice = scan.next();
+
+                // Prompt the user for the updated value based on their choice
+                String newValue = "";
+                switch (infoChoice) {
+                    case "1":
+                        System.out.print("\n----------------------------------------------------" +
+                                "\nEnter new brand name: ");
+                        newValue = scan.next();
+                        productToEdit.setBrand(newValue);
+                        break;
+                    case "2":
+                        System.out.print("\n----------------------------------------------------" +
+                                "\nEnter new model name: ");
+                        newValue = scan.next();
+                        productToEdit.setModel(newValue);
+                        break;
+                    case "3":
+                        System.out.print("\n----------------------------------------------------" +
+                                "\nEnter new price: ");
+                        newValue = scan.next();
+                        productToEdit.setPrice(newValue);
+                        break;
+                    case "4":
+                        System.out.println("Go back");
+                        break;
+                    default:
+                        System.out.println("\nInvalid choice. No changes made.");
+                        break;
+                }
+                if (!newValue.isEmpty()) {
+                    System.out.println("\nProduct information updated.");
+                }
+
+            } else {
+                System.out.println("Invalid product index. Please enter a valid index.");
             }
-        } else {
-            System.out.println("Invalid product index. Please enter a valid index.");
         }
     }
-
 
     public void pickAProductToRemoveFromList(){
         // Create a scanner to read input from the user
