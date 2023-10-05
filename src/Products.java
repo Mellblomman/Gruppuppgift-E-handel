@@ -58,7 +58,7 @@ public String productFileName = "products.txt";
             String modelOfProduct = scan.next();
             System.out.println("\nSet the price for the product: ");
             String priceProduct = scan.next();
-            if (productExistsInList(modelOfProduct, scan.nextLine())) {
+            if (productExistsInList(brandOfProduct, modelOfProduct)) {
                 System.out.println("Product already exists! Please log in.");
 
             }else {
