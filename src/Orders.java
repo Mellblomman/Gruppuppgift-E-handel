@@ -106,8 +106,9 @@ public class Orders {
         products.printAllProducts();
 
         while(true) {
-            System.out.print("\n1. Enter the index of the product you want to buy" +
-                    "\n2. Input 0 to go back" +
+            System.out.print("\nEnter the number of the product you want to add to your cart" +
+                    "\nOr input 0 to go back" +
+                    "\n----------------------------------------------------" +
                     "\nChoice:");
             int productIndex = scan.nextInt();
 
@@ -117,8 +118,8 @@ public class Orders {
             if (productIndex >= 1 && productIndex <= products.productList.size()) {
                 Product productToAdd = products.productList.get(productIndex - 1);
                 cart.add(productToAdd);
-                System.out.println("Product added to cart: " + productToAdd.getBrand() + " " + productToAdd.getModel());
-                System.out.println("Cart contents: ");
+                System.out.println("\nProduct added to cart: " + productToAdd.getBrand() + " " + productToAdd.getModel());
+                System.out.println("\nCart contents: ");
                 for (int i = 0; i < cart.size(); i++) {
                     System.out.println(cart.get(i).formattedToShoppingCart());
                 }
