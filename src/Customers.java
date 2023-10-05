@@ -115,7 +115,7 @@ public class Customers {
                         System.out.println("\n----------------------------------------------------" +
                                 "\nYou picked shop" +
                                 "\n\nProducts: ");
-                        products.printAllProducts();
+                        orders.addToShoppingCart();
                         break;
                     case "2":
                         orders.printOrdersByCustomer(inputSSNForLogin);

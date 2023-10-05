@@ -99,6 +99,34 @@ public class Orders {
         }
         return true;
     }
+    public void addToShoppingCart() {
+        Products products = new Products();
+        Scanner scan = new Scanner(System.in);
+        ArrayList<Product> cart = new ArrayList<>();
+        products.printAllProducts();
+
+        while(true) {
+            System.out.print("\n1. Enter the index of the product you want to buy" +
+                    "\n2. Input 0 to go back" +
+                    "\nChoice:");
+            int productIndex = scan.nextInt();
+
+            if (productIndex == 0){
+                break;
+            }
+            if (productIndex >= 1 && productIndex <= products.productList.size()) {
+                Product productToAdd = products.productList.get(productIndex - 1);
+                cart.add(productToAdd);
+                System.out.println("Product added to cart: " + productToAdd.getBrand() + " " + productToAdd.getModel());
+                System.out.println("Cart contents: ");
+                for (int i = 0; i < cart.size(); i++) {
+                    System.out.println(cart.get(i).formattedToShoppingCart());
+                }
+            } else {
+                System.out.println("Invalid product index.");
+            }
+        }
+    }
 }
 // en som printar alla transationer.
 // en som printar alla transationer kopplat till varje kund.
