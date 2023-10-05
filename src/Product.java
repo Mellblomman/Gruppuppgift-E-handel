@@ -41,5 +41,8 @@ public class Product {
     public String formattedStringForFile() {
         return this.brand + "," + this.model + "," + this.price;
     }
+    public String formattedToShoppingCart() {
+        return this.brand + ", " + this.model + ", " + this.price;
+    }
 }
 
