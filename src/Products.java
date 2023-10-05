@@ -64,7 +64,6 @@ public String productFileName = "products.txt";
             }else {
                 Product newProduct = new Product(brandOfProduct, modelOfProduct, priceProduct); //Creating new Customer
                 productList.add(newProduct); //adding to list
-                updateProductsTextFile();
                 System.out.println("\nProduct added! " + brandOfProduct + ", " + modelOfProduct + ", " + priceProduct);
             }
             while(true) {
@@ -81,6 +80,7 @@ public String productFileName = "products.txt";
                     System.out.println("\nInvalid input");
                 }
             }
+            updateProductsTextFile();
         }
     }
 

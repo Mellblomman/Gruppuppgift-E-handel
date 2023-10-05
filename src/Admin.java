@@ -6,9 +6,12 @@ import java.util.Scanner;
 
 public class Admin {
     Scanner scan = new Scanner(System.in);
+
     Products products = new Products();
 
     Customers customers = new Customers();
+
+    Orders orders = new Orders();
 
     Admin(){
     }
@@ -47,8 +50,7 @@ public class Admin {
                             manageCustomersAsAdmin();
                             break;
                         case "3":
-                            System.out.println("Insert Order/Transactions Method");
-                            break;
+                            System.out.println("testing");
                         case "4":
                             System.out.println("Logout");
                             runAdminMenu = false;
@@ -128,6 +130,31 @@ public class Admin {
                 case "3":
                     runAdminCustomerMenu = false;
                     break;
+                default:
+                    System.out.println("Please choose one of the two options above.");
+                    break;
+            }
+        }
+    }
+
+    public void manageOrdersAsAdmin(){
+        boolean runAdminOrdersMenu = true;
+
+        while(runAdminOrdersMenu){
+
+            System.out.println("\nManage customers menu" +
+                    "\n1. View all." +
+                    "\n2. Edit a specific customer." +
+                    "\n3. Go back." +
+                    "\n----------------------------------------------------" +
+                    "\nChoice: ");
+            String choiceForCustomerMenu = scan.next();
+            switch (choiceForCustomerMenu) {
+                case "1":
+                    orders.printAllTransactions();
+                    break;
+                case "2":
+                    //orders.printOrdersByCustomer();
                 default:
                     System.out.println("Please choose one of the two options above.");
                     break;

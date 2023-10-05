@@ -119,10 +119,7 @@ public class Customers {
                         break;
                     case "2":
                         orders.printOrdersByCustomer(inputSSNForLogin);
-
-
                         break;
-
                     case "3":
                         System.out.println("Logging out..");
                         run = false;

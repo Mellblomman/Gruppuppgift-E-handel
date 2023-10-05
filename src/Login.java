@@ -4,9 +4,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Login
 {
-    Admin admin = new Admin();
-    Customers customers = new Customers();
-
     public  void loginMenu() {
         Scanner scan = new Scanner(System.in);
         boolean runLoginMenu = true;
@@ -32,9 +29,11 @@ public class Login
 
             switch(inputChoice){
                 case "1":
+                    Admin admin = new Admin();
                     admin.logInAdmin();
                     break;
                 case "2":
+                    Customers customers = new Customers();
                     customers.customerMenu(); // customerMenu instead of logInCustomer
                     break;
                 case "3":

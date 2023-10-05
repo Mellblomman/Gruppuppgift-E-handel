@@ -6,18 +6,15 @@ public class Order {
     customer?
     */
     private String customerSSN;
-    private String nameOrder;
-    private String product;
-    private double totalSumOrder;
-    private double dateAndTime;
 
 
-    public Order(String customerSSN, String nameOrder, String product, double totalSumOrder, double dateAndTime) {
+
+    private String restOfOrderInfo;
+
+
+    public Order(String customerSSN, String restOfOrderInfo) {
         this.customerSSN = customerSSN;
-        this.nameOrder = nameOrder;
-        this.product = product;
-        this.totalSumOrder = totalSumOrder;
-        this.dateAndTime = dateAndTime;
+        this.restOfOrderInfo = restOfOrderInfo;
     }
 
     public String getCustomerSSN() {
@@ -28,39 +25,15 @@ public class Order {
         this.customerSSN = customerSSN;
     }
 
-    public String getNameOrder() {
-        return nameOrder;
+    public String getRestOfOrderInfo() {
+        return restOfOrderInfo;
     }
 
-    public void setNameOrder(String nameOrder) {
-        this.nameOrder = nameOrder;
-    }
-
-    public String getProduct() {
-        return product;
-    }
-
-    public void setProduct(String product) {
-        this.product = product;
-    }
-
-    public double getTotalSumOrder() {
-        return totalSumOrder;
-    }
-
-    public void setTotalSumOrder(double totalSumOrder) {
-        this.totalSumOrder = totalSumOrder;
-    }
-
-    public double getDateAndTime() {
-        return dateAndTime;
-    }
-
-    public void setDateAndTime(double dateAndTime) {
-        this.dateAndTime = dateAndTime;
+    public void setRestOfOrderInfo(String restOfOrderInfo) {
+        this.restOfOrderInfo = restOfOrderInfo;
     }
 
     public String formattedStringsForFile() {
-        return this.nameOrder + "," + this.product + "," + this.totalSumOrder + "," + this.dateAndTime;
+        return this.customerSSN + "," + this.restOfOrderInfo;
     }
 }

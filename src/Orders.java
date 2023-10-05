@@ -15,6 +15,7 @@ public class Orders {
     Orders() {
         readOrdersFromFile();
     }
+
     public void readOrdersFromFile() {
         if (!createFileForAllOrders()) {
             try {
@@ -25,10 +26,7 @@ public class Orders {
 
                     Order tempOrder = new Order( //creating a customer object, with split values and this object will be added to customer list
                             orderInfo[0],
-                            orderInfo[1],
-                            orderInfo[2],
-                            Double.parseDouble(orderInfo[3]),
-                            Double.parseDouble(orderInfo[4])
+                            orderInfo[1]
                     );
                     orderList.add(tempOrder); //added to customerList
                 }
@@ -37,16 +35,12 @@ public class Orders {
             }
         }
     }
+
     public void dateTime(){
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDate = myDateObj.format(myFormatObj);
 
-    }
-
-
-    public ArrayList<Order> getOrderList() {
-        return orderList;
     }
 
     boolean createFileForAllOrders() {
@@ -56,7 +50,6 @@ public class Orders {
             if (file.createNewFile()) {
                 System.out.println("File has been created: " + file.getName());
             } else {
-                System.out.println("File " + file.getName() + " already exists!");
                 return false;
             }
         } catch (IOException e) {
@@ -64,14 +57,11 @@ public class Orders {
         }
         return true;
     }
-    public void printAllTransaktion() {
+    public void printAllTransactions() {
         for (int i = 0; i < this.orderList.size(); i++) {
             System.out.println((i + 1) + ". " +
                     this.orderList.get(i).getCustomerSSN() + ", " +
-                    this.orderList.get(i).getNameOrder() + ", " +
-                    this.orderList.get(i).getProduct() + ", " +
-                    this.orderList.get(i).getTotalSumOrder() + ", " +
-                    this.orderList.get(i).getDateAndTime());
+                    this.orderList.get(i).getRestOfOrderInfo());
             System.out.println("----------------------------------------------------");
         }
     }
@@ -80,10 +70,7 @@ public class Orders {
         System.out.println("Orders for Customer with SSN: " + customerSSN);
         for (Order order : orderList) {
             if (order.getCustomerSSN().equals(customerSSN)) {
-                System.out.println("Name of Order: " + order.getNameOrder());
-                System.out.println("Product: " + order.getProduct());
-                System.out.println("Total Sum: " + order.getTotalSumOrder());
-                System.out.println("Date and Time: " + order.getDateAndTime());
+                System.out.println("Name: " + order.getRestOfOrderInfo());
                 System.out.println("--------------------");
             }
         }
@@ -107,7 +94,7 @@ public class Orders {
                 return false;
             }
         } catch (
-                NumberFormatException e) {                                         //Catch when trying to convert a string with improper format into a numeric value
+                NumberFormatException e) { //Catch when trying to convert a string with improper format into a numeric value
             return false;
         }
         return true;
