@@ -22,7 +22,7 @@ public String productFileName = "products.txt";
                     Product tempProducts = new Product( //creating a product object, with split values and this object will be added to products list
                             productsInfo[0],
                             productsInfo[1],
-                            productsInfo[2]
+                            Double.parseDouble(productsInfo[2])
                     );
                     productList.add(tempProducts); //added to productList
                 }
@@ -62,7 +62,7 @@ public String productFileName = "products.txt";
                 System.out.println("Product already exists! Please log in.");
 
             }else {
-                Product newProduct = new Product(brandOfProduct, modelOfProduct, priceProduct); //Creating new Customer
+                Product newProduct = new Product(brandOfProduct, modelOfProduct, Double.parseDouble(priceProduct)); //Creating new Customer
                 productList.add(newProduct); //adding to list
                 System.out.println("\nProduct added! " + brandOfProduct + ", " + modelOfProduct + ", " + priceProduct);
             }
@@ -135,7 +135,7 @@ public String productFileName = "products.txt";
                         System.out.print("\n----------------------------------------------------" +
                                 "\nEnter new price: ");
                         newValue = scan.next();
-                        productToEdit.setPrice(newValue);
+                        productToEdit.setPrice(Double.parseDouble(newValue));
                         break;
                     case "4":
                         System.out.println("Go back");

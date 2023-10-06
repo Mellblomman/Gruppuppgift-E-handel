@@ -4,10 +4,10 @@ public class Product {
 
     public String brand;
     public String model;
-    public String price;
+    public double price;
 
 
-    public Product(String brand, String model,String price) {
+    public Product(String brand, String model,double price) {
         this.brand = brand;
         this.model = model;
         this.price = price;
@@ -22,7 +22,7 @@ public class Product {
         return model;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -34,7 +34,7 @@ public class Product {
         this.model = model;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
