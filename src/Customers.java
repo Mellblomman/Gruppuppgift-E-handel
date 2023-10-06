@@ -88,14 +88,17 @@ public class Customers {
     }
 
     public void logInCustomer() {
+        Customer customer = new Customer();
         Scanner scan = new Scanner(System.in);
         System.out.println("\n----------------------------------------------------" +
                 "\nEnter your social security number:");
-        String inputSSNForLogin = scan.nextLine();
+        customer.setSocialSecurityNumber(scan.nextLine());
         System.out.println("\nEnter password: ");
-        String inputPassword = scan.nextLine();
+        customer.setPassword(scan.nextLine());
 
-        if (customerExistsInList(inputSSNForLogin, inputPassword)) {
+
+
+        if (customerExistsInList(customer.getSocialSecurityNumber(), customer.getPassword())) {
 
             boolean run = true;
 
@@ -118,7 +121,7 @@ public class Customers {
                         orders.addToShoppingCart();
                         break;
                     case "2":
-                        orders.printOrdersByCustomer(inputSSNForLogin);
+                        orders.printOrdersByCustomer(customer.getSocialSecurityNumber());
                         break;
                     case "3":
                         System.out.println("Logging out..");
