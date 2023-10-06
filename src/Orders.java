@@ -103,9 +103,9 @@ public class Orders {
         Products products = new Products();
         Scanner scan = new Scanner(System.in);
         ArrayList<Product> cart = new ArrayList<>();
-        products.printAllProducts();
 
         while(true) {
+            products.printAllProducts();
             System.out.print("\nEnter the number of the product you want to add to your cart" +
                     "\nOr input 0 to go back" +
                     "\n----------------------------------------------------" +
@@ -123,6 +123,8 @@ public class Orders {
                 for (int i = 0; i < cart.size(); i++) {
                     System.out.println(cart.get(i).formattedToShoppingCart());
                 }
+                System.out.println("----------------------------------------------------" +
+                        "\nProducts");
             } else {
                 System.out.println("Invalid product index.");
             }
