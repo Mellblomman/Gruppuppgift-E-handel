@@ -160,12 +160,8 @@ public String productFileName = "products.txt";
         // Print the list of products
         System.out.println("\n----------------------------------------------------" +
                 "\nProduct List\n");
-        for (int i = 0; i < this.productList.size(); i++) {
-            System.out.println((i + 1) + ". " +
-                    this.productList.get(i).getBrand() + ", " +
-                    this.productList.get(i).getModel() + ", " +
-                    this.productList.get(i).getPrice());
-        }
+        printAllProducts();
+
         // Ask the user which product they want to remove
         System.out.println("\n----------------------------------------------------" +
                 "\nWhich product do you want to remove? Enter a number between 1 and " + this.productList.size() +
