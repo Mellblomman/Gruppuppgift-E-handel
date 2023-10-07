@@ -59,7 +59,7 @@ public class Customers {
             System.out.println("\n----------------------------------------------------" +
                     "\n1. Login" +
                     "\n2. Register new account" +
-                    "\n3. Go back." +
+                    "\n0. Go back." +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
             String loginOrRegisterChoice = scan.next();
@@ -75,7 +75,7 @@ public class Customers {
 
                     break;
 
-                case "3":
+                case "0":
                     System.out.println("Going back to menu");
                     runCustomerMenu = false;
                     break;
@@ -107,7 +107,7 @@ public class Customers {
                         "\nWelcome!" +
                         "\n1. Shop" +
                         "\n2. Transaction History" +
-                        "\n3. Logout" +
+                        "\n0. Logout" +
                         "\n----------------------------------------------------" +
                         "\nChoice: ");
                 String shopOrHistory = scan.next();
@@ -123,7 +123,7 @@ public class Customers {
                     case "2":
                         orders.printOrdersByCustomer(customer.getSocialSecurityNumber());
                         break;
-                    case "3":
+                    case "0":
                         System.out.println("Logging out..");
                         run = false;
                         break;
@@ -221,7 +221,7 @@ public class Customers {
         printAllCustomers();
 
         // Prompt the user to select a customer to edit
-        System.out.print("Enter the index of the customer you want to edit: ");
+        System.out.print("Enter the number of the customer you want to edit: ");
         int customerIndex = scan.nextInt();
 
         // Check if the provided index is valid
@@ -235,7 +235,8 @@ public class Customers {
             System.out.println("3. First name (Current: " + customerToEdit.getFirstName() + ")");
             System.out.println("4. Last name (Current: " + customerToEdit.getLastName() + ")");
             System.out.println("5. Email (Current: " + customerToEdit.getEmail() + ")");
-            System.out.print("\nEnter the number of the information to edit: ");
+            System.out.println("0. Go back");
+            System.out.print("\nEnter the number of the information to edit or press 0 to go back: ");
             String infoChoice = scan.next();
 
             // Prompt the user for the updated value based on their choice
@@ -266,6 +267,8 @@ public class Customers {
                     newValue = scan.next();
                     customerToEdit.setEmail(newValue);
                     break;
+                case "0":
+                    break;  //Going back
 
                 default:
                     System.out.println("Invalid choice. No changes made.");

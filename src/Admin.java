@@ -38,7 +38,7 @@ public class Admin {
                             "\n1. Product Management" +
                             "\n2. Customer Information" +
                             "\n3. Order/Transactions" +
-                            "\n4. Logout" +
+                            "\n0. Logout" +
                             "\n----------------------------------------------------" +
                             "\nChoice: ");
                     String menuChoice = scan.next();
@@ -51,7 +51,7 @@ public class Admin {
                             break;
                         case "3":
                             System.out.println("testing");
-                        case "4":
+                        case "0":
                             System.out.println("Logout");
                             runAdminMenu = false;
                             break;
@@ -80,7 +80,7 @@ public class Admin {
                     "\n2. Add a product." +
                     "\n3. Remove a product." +
                     "\n4. Edit products." +
-                    "\n5. Go back." +
+                    "\n0. Go back." +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
             String choiceInProductMenu = scan.next();
@@ -98,7 +98,7 @@ public class Admin {
                 case "4":
                     products.editProductInformation();
                     break;
-                case "5":
+                case "0":
                     runAdminProductManagementMenu = false;
                     break;
                 default:
@@ -116,7 +116,7 @@ public class Admin {
             System.out.println("\nManage customers menu" +
                     "\n1. View all." +
                     "\n2. Edit a specific customer." +
-                    "\n3. Go back." +
+                    "\n0. Go back." +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
             String choiceForCustomerMenu = scan.next();
@@ -127,7 +127,7 @@ public class Admin {
                 case "2":
                     customers.editCustomerInformation();
                     break;
-                case "3":
+                case "0":
                     runAdminCustomerMenu = false;
                     break;
                 default:
@@ -145,7 +145,7 @@ public class Admin {
             System.out.println("\nManage customers menu" +
                     "\n1. View all." +
                     "\n2. Edit a specific customer." +
-                    "\n3. Go back." +
+                    "\n0. Go back." +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
             String choiceForCustomerMenu = scan.next();
@@ -155,6 +155,8 @@ public class Admin {
                     break;
                 case "2":
                     //orders.printOrdersByCustomer();
+                case "0":
+                    break; //Going back
                 default:
                     System.out.println("Please choose one of the two options above.");
                     break;

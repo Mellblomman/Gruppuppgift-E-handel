@@ -114,7 +114,7 @@ public String productFileName = "products.txt";
                 System.out.println("\n1. Name of brand (Current: " + productToEdit.getBrand() + ")");
                 System.out.println("2. Name of model (Current: " + productToEdit.getModel() + ")");
                 System.out.println("3. Product price (Current: " + productToEdit.getPrice() + ")");
-                System.out.println("4. Go back");
+                System.out.println("0. Go back");
                 System.out.print("\nChoice: ");
                 String infoChoice = scan.next();
 
@@ -139,7 +139,7 @@ public String productFileName = "products.txt";
                         newValue = scan.next();
                         productToEdit.setPrice(Double.parseDouble(newValue));
                         break;
-                    case "4":
+                    case "0":
                         System.out.println("Go back");
                         break;
                     default:

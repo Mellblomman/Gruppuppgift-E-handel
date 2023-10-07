@@ -21,7 +21,7 @@ public class Login
             System.out.println("Please choose which form of login you want to do:");
             System.out.println("1. Admin" +
                     "\n2. Customer" +
-                    "\n3. Exit" +
+                    "\n0. Exit" +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
 
@@ -36,7 +36,7 @@ public class Login
                     Customers customers = new Customers();
                     customers.customerMenu(); // customerMenu instead of logInCustomer
                     break;
-                case "3":
+                case "0":
                     System.out.println("Program is closing.");
                     runLoginMenu = false;
                     break;
