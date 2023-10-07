@@ -98,7 +98,7 @@ public class Orders {
         return true;
     }
 
-    public void addToShoppingCart() {
+    public void addToShoppingCart(String customerSSN) {
         Products products = new Products();
         Scanner scan = new Scanner(System.in);
         ArrayList<Product> cart = new ArrayList<>();
@@ -129,18 +129,18 @@ public class Orders {
             }
 
         }
-        makePurchase(cart);
+        makePurchase(cart, customerSSN);
     }
 
     private String generateReceipt(ArrayList<Product> products, double totalCost) {
         String receipt = "";
 
         LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("\tdd-MM-yyyy HH:mm:ss");
         String formattedDate = myDateObj.format(myFormatObj);
 
         for (Product product : products) {
-            receipt += product.getBrand() + "-" + product.getModel() + "-$" + product.getPrice();
+            receipt += product.getBrand() + " - " + product.getModel() + ", - ";
         }
 
         receipt += totalCost;
@@ -149,7 +149,7 @@ public class Orders {
         return receipt;
     }
 
-    public void makePurchase(ArrayList<Product> cart) {
+    public void makePurchase(ArrayList<Product> cart, String customerSSN) {
         if (cart.isEmpty()) {
             System.out.println("The shopping cart is empty.");
             return;
@@ -173,7 +173,7 @@ public class Orders {
 
 
         if (confirmation.equalsIgnoreCase("yes")) {
-            Order newOrder = new Order(customer.getSocialSecurityNumber(), generateReceipt(cart, totalCost));
+            Order newOrder = new Order(customerSSN, generateReceipt(cart, totalCost));
             orderList.add(newOrder);
             updateOrdersTextFile();
             System.out.println("Purchase completed successfully!");
@@ -189,9 +189,9 @@ public class Orders {
 
     public void printOrdersByCustomer(String customerSSN) {
         System.out.println("Orders for Customer with SSN: " + customerSSN);
-        for (int i = 0; i < orderList.size(); i++) {
-            if (orderList.get(0).formattedStringsForFile().equals(customerSSN)) {
-                System.out.println(orderList.get(i).getRestOfOrderInfo());
+        for (Order order : orderList) {
+            if (order.getCustomerSSN().equals(customerSSN)) {
+                System.out.println(order.getRestOfOrderInfo());
                 System.out.println("--------------------");
             }
         }

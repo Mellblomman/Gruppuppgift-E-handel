@@ -19,12 +19,14 @@ public String productFileName = "products.txt";
                     String Products = scan.nextLine();
                     String[] productsInfo = Products.split(",");
 
-                    Product tempProducts = new Product( //creating a product object, with split values and this object will be added to products list
-                            productsInfo[0],
-                            productsInfo[1],
-                            Double.parseDouble(productsInfo[2])
-                    );
-                    productList.add(tempProducts); //added to productList
+                    if(productsInfo.length>=3) {
+                        Product tempProducts = new Product( //creating a product object, with split values and this object will be added to products list
+                                productsInfo[0],
+                                productsInfo[1],
+                                Double.parseDouble(productsInfo[2])
+                        );
+                        productList.add(tempProducts); //added to productList
+                    }
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("Wrong!" + e.getMessage());
