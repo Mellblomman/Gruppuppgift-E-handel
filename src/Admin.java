@@ -51,6 +51,7 @@ public class Admin {
                             manageCustomersAsAdmin();
                             break;
                         case "3":
+                            manageOrdersAsAdmin();
                             System.out.println("testing");
                         case "0":
                             System.out.println("Logout");

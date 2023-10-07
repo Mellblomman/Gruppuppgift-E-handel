@@ -53,12 +53,18 @@ public class Orders {
     }
 
     public void printAllTransactions() {
-        for (int i = 0; i < this.orderList.size(); i++) {
-            System.out.println((i + 1) + ". " +
-                    this.orderList.get(i).getCustomerSSN() + ", " +
-                    this.orderList.get(i).getRestOfOrderInfo());
-            System.out.println("----------------------------------------------------");
+
+        File transactionsFileReader = new File(ordersFileName); // Reading from orders.txt instead of orderList.
+        Scanner scan = null;
+        try {
+            scan = new Scanner(transactionsFileReader);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
+        while(scan.hasNextLine()){
+            System.out.println(scan.nextLine());
+        }
+        scan.close();
     }
     public void addToShoppingCart(String customerSSN) {
         Products products = new Products();
@@ -83,9 +89,9 @@ public class Orders {
                 System.out.println("\nCart contents: ");
                 for (int i = 0; i < cart.size(); i++) {
                     System.out.println(cart.get(i).formattedToShoppingCart());
-                    System.out.println("----------------------------------------------------");
-                    System.out.println("\nProducts");
                 }
+                System.out.println("----------------------------------------------------");
+                System.out.println("\nProducts");
             } else {
                 System.out.println("Invalid product index.");
             }
@@ -105,8 +111,7 @@ public class Orders {
             receipt += product.getBrand() + " - " + product.getModel() + ", - ";
         }
 
-        receipt += totalCost;
-        receipt += formattedDate;
+        receipt += totalCost + " " + formattedDate;
 
         return receipt;
     }
@@ -168,11 +173,11 @@ public class Orders {
     }
 
     public void updateOrdersTextFile() {
-        try (PrintStream printStream = new PrintStream(new FileOutputStream(ordersFileName))) {
-            for (Order order : orderList) {
-                String orderData = order.formattedStringsForFile();
-                printStream.println(orderData);
-            }
+        try (PrintStream printStream = new PrintStream(new FileOutputStream(ordersFileName, true))) {
+                Order lastOrder = orderList.get(orderList.size() - 1); //Append After last token on that line.
+                                                                        //Now it won't overwrite date,time,totalcost
+                printStream.print(lastOrder.formattedStringsForFile());
+
         } catch (IOException e) {
             System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
         }

@@ -6,9 +6,6 @@ public class Order {
     customer?
     */
     private String customerSSN;
-
-
-
     private String restOfOrderInfo;
 
 
