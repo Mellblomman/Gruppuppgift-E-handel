@@ -16,7 +16,7 @@ public class Admin {
     Admin(){
     }
 
-    public void logInAdmin() {
+    public void logInAdmin() {  //(1) Log in as admin
 
         boolean runAdminLogIn = true;
         while (runAdminLogIn) {
@@ -28,6 +28,7 @@ public class Admin {
 
             String adminUserName = "a";
             String adminPassword = "a";
+            //(2) If inputAdminUserName and Password equals adminUserName and adminPassword = logged in as admin
             if (inputAdminUsernameForLogin.equalsIgnoreCase(adminUserName) && inputAdminPasswordForLogin.equalsIgnoreCase(adminPassword)) {
 
                 boolean runAdminMenu = true;
@@ -44,7 +45,7 @@ public class Admin {
                     String menuChoice = scan.next();
                     switch (menuChoice) {
                         case "1":
-                            manageProductsAsAdmin();
+                            manageProductsAsAdmin(); // (3) FORTSÄTT MED FLÖDET HÄR när case "3" är klart!!!
                             break;
                         case "2":
                             manageCustomersAsAdmin();

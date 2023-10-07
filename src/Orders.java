@@ -4,13 +4,10 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Orders {
-
-    Order order = new Order("", "");
-
-    Customer customer = new Customer();
 
     public ArrayList<Order> orderList = new ArrayList<>();
 
@@ -40,13 +37,6 @@ public class Orders {
         }
     }
 
-    public void dateTime() {
-        LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String formattedDate = myDateObj.format(myFormatObj);
-
-    }
-
     boolean createFileForAllOrders() {
         File file = new File("Orders.txt");
 
@@ -70,34 +60,6 @@ public class Orders {
             System.out.println("----------------------------------------------------");
         }
     }
-
-
-
-    private boolean validSocialSecurityNumber(String socialSecurityNumber) {
-        if (socialSecurityNumber.length() != 15) { //Checking if Social Security Number holds 15 characters
-            return false;
-        }
-        String[] partsSocialSecurityNumber = socialSecurityNumber.split("-"); //splits the Social Security Number into different parts with - between
-        if (partsSocialSecurityNumber.length != 4) {
-            return false;
-        }
-        try {
-            int year = Integer.parseInt(partsSocialSecurityNumber[0]);              //1st part
-            int month = Integer.parseInt(partsSocialSecurityNumber[1]);             //2nd part
-            int day = Integer.parseInt(partsSocialSecurityNumber[2]);               //3rd part
-            int lastDigits = Integer.parseInt(partsSocialSecurityNumber[3]);        //4th part
-
-            if (year < 1900 || year > 9999 || month < 1 || month > 12               //set up to 9999 cause of last digits!
-                    || day < 1 || day > 31 || lastDigits < 0 || lastDigits > 9999) {
-                return false;
-            }
-        } catch (
-                NumberFormatException e) { //Catch when trying to convert a string with improper format into a numeric value
-            return false;
-        }
-        return true;
-    }
-
     public void addToShoppingCart(String customerSSN) {
         Products products = new Products();
         Scanner scan = new Scanner(System.in);
@@ -108,7 +70,7 @@ public class Orders {
             System.out.print("\nEnter the number of the product you want to add to your cart" +
                     "\nOr input 0 to go back" +
                     "\n----------------------------------------------------" +
-                    "\nChoice:");
+                    "\nChoice: ");
             int productIndex = scan.nextInt();
 
             if (productIndex == 0) {
@@ -121,9 +83,9 @@ public class Orders {
                 System.out.println("\nCart contents: ");
                 for (int i = 0; i < cart.size(); i++) {
                     System.out.println(cart.get(i).formattedToShoppingCart());
+                    System.out.println("----------------------------------------------------");
+                    System.out.println("\nProducts");
                 }
-                System.out.println("----------------------------------------------------" +
-                        "\nProducts");
             } else {
                 System.out.println("Invalid product index.");
             }
@@ -136,7 +98,7 @@ public class Orders {
         String receipt = "";
 
         LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("\tdd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("\tdd-MM-yyyy HH:mm:ss"); //Date and time
         String formattedDate = myDateObj.format(myFormatObj);
 
         for (Product product : products) {
@@ -154,7 +116,7 @@ public class Orders {
             System.out.println("The shopping cart is empty.");
             return;
         }
-        System.out.println("The product in your cart are:");
+        System.out.println("The products in your cart are: ");
         for (Product product : cart) {
             System.out.println(product.brand + "-" + product.getModel() + " -  $" + product.getPrice());
         }
@@ -163,11 +125,11 @@ public class Orders {
         double totalCost = calculateTotalCost(cart);
 
         // Display the total cost to the user
-        System.out.println("Total cost of the items in the cart: $" + totalCost);
+        System.out.println("\nTotal cost of the items in the cart: $" + totalCost);
 
         // Ask the user to confirm the purchase
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Do you want to confirm the purchase? (yes/no): ");
+        System.out.print("\nDo you want to confirm the purchase? (yes/no): ");
         String confirmation = scanner.nextLine();
 
 
@@ -192,11 +154,10 @@ public class Orders {
         for (Order order : orderList) {
             if (order.getCustomerSSN().equals(customerSSN)) {
                 System.out.println(order.getRestOfOrderInfo());
-                System.out.println("--------------------");
+                System.out.println("----------------------------------------------------");
             }
         }
     }
-
 
     private double calculateTotalCost(ArrayList<Product> cart) {
         double totalCost = 0.0;

@@ -11,12 +11,12 @@ public class Customers {
     Orders orders = new Orders();
 
     public Customers() {
-        readCustomersFromFile();
+        readCustomersFromFile(); //(1) Starting to read customers from txt file Customers
     }
-    public void readCustomersFromFile(){
-        if (!createFileWithCustomers()) {
+    public void readCustomersFromFile(){ //(1) Starting to read customers from txt file Customers
+        if (!createFileWithCustomers()) { //(2) Check if creating a file with customers was unsuccessful
             try {
-                Scanner scan = new Scanner(new File(customersFileName));
+                Scanner scan = new Scanner(new File(customersFileName)); //If file already exists, it will get scanned
                 while (scan.hasNextLine()) {
                     String customer = scan.nextLine();
                     String[] customerInfo = customer.split(",");
@@ -36,7 +36,7 @@ public class Customers {
         }
     }
 
-    public boolean createFileWithCustomers() {
+    public boolean createFileWithCustomers() { //(2) Creating a file
         File file = new File(customersFileName);
 
         try {
@@ -50,7 +50,7 @@ public class Customers {
         return false;
     }
 
-    public void customerMenu() { //New menu after you choose Customer in start menu.
+    public void customerMenu() { //(3) Customer start menu.
         Scanner scan = new Scanner(System.in);
 
         boolean runCustomerMenu = true;
@@ -67,11 +67,11 @@ public class Customers {
             switch (loginOrRegisterChoice) {
 
                 case "1":
-                    logInCustomer();
+                    logInCustomer(); //(5)
                     break;
 
                 case "2":
-                    registerNewAccount();
+                    registerNewAccount(); //(4)
 
                     break;
 
@@ -81,24 +81,56 @@ public class Customers {
                     break;
 
                 default:
-                    System.out.println("Choose 1,2 or 3");
+                    System.out.println("Choose 1,2 or 0");
                     break;
             }
         }
     }
+    private boolean registerNewAccount() { //(4) Register new account
+        Scanner scan = new Scanner(System.in);
 
-    public void logInCustomer() {
+        while (true) {
+            System.out.println("Enter your social security number (YYYY-MM-DD-****) (this will be your username): ");
+            String socialSecurityNumber = scan.next();
+            System.out.println("Enter Password: ");
+            String password = scan.next();
+            System.out.println("Enter First Name: ");
+            String firstName = scan.next();
+            System.out.println("Enter Last Name: ");
+            String lastName = scan.next();
+            System.out.println("Enter Your Email: ");
+            String email = scan.next();
+            if (customerExistsInList(socialSecurityNumber, password)) { //(4) Checks if the account already exists on SSN and password
+                System.out.println("Account already exists! Please log in.");
+                return false;
+            }
+
+            Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //(4) Creating new Customer
+            customerList.add(newCustomer); //adding to list
+            System.out.println("Account registered! \nWelcome " + firstName + " " + lastName);
+            updateCustomersTextFile();
+            return true;
+        }
+    }
+    public boolean customerExistsInList(String socialSecurityNumber, String inputPassword) { //(step: (4, 5) Checks if the customer already exist in list
+        for (Customer customer : customerList) {
+            if (customer.getSocialSecurityNumber().equals(socialSecurityNumber) && customer.getPassword().equals(inputPassword)) {
+                return true; // Customer found with matching Social Security Number and Password
+            }
+        }
+        return false; // Customer not found, no matching Social Security Number or Password
+    }
+
+    public void logInCustomer() { //(5) Asking for log in information,
         Customer customer = new Customer();
         Scanner scan = new Scanner(System.in);
-        System.out.println("\n----------------------------------------------------" +
-                "\nEnter your social security number:");
+        System.out.println("\n----------------------------------------------------");
+        System.out.println("Enter your social security number (YYYY-MM-DD-****): ");
         customer.setSocialSecurityNumber(scan.nextLine());
         System.out.println("\nEnter password: ");
         customer.setPassword(scan.nextLine());
 
-
-
-        if (customerExistsInList(customer.getSocialSecurityNumber(), customer.getPassword())) {
+        if (customerExistsInList(customer.getSocialSecurityNumber(), customer.getPassword())) { //(5) Calling customerExistInList method to see if socialsecurity and password is correct
 
             boolean run = true;
 
@@ -118,10 +150,10 @@ public class Customers {
                         System.out.println("\n----------------------------------------------------" +
                                 "\nYou picked shop" +
                                 "\n\nProducts: ");
-                        orders.addToShoppingCart(customer.getSocialSecurityNumber());
+                        orders.addToShoppingCart(customer.getSocialSecurityNumber()); //(6)
                         break;
                     case "2":
-                        orders.printOrdersByCustomer(customer.getSocialSecurityNumber());
+                        orders.printOrdersByCustomer(customer.getSocialSecurityNumber()); //(7)
                         break;
                     case "0":
                         System.out.println("Logging out..");
@@ -135,71 +167,6 @@ public class Customers {
         }else{
             System.out.println("Wrong login credentials.");
         }
-    }
-
-    private boolean registerNewAccount() {
-        Scanner scan = new Scanner(System.in);
-
-        while (true) {                                 // loop to check if the user enter right Social Security Number
-            System.out.println("Enter Your Social Security Number (YYYY-MM-DD-****) (this will be your username): ");
-            String socialSecurityNumber = scan.next();
-            while (!validSocialSecurityNumber(socialSecurityNumber)) {
-                System.out.println("Invalid Social Security Number, try again with this format (YYYY-MM-DD-****): "); //if not right Social Security Number
-                socialSecurityNumber = scan.next();
-            }
-
-            System.out.println("Enter Password: ");
-            String password = scan.next();
-            System.out.println("Enter First Name: ");
-            String firstName = scan.next();
-            System.out.println("Enter Last Name: ");
-            String lastName = scan.next();
-            System.out.println("Enter Your Email: ");
-            String email = scan.next();
-            if (customerExistsInList(socialSecurityNumber, scan.nextLine())) {      //Checks if the account already exists on Social Security Number
-                System.out.println("Account already exists! Please log in.");
-                return false;
-            }
-
-            Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //Creating new Customer
-            customerList.add(newCustomer); //adding to list
-            System.out.println("Account registered! Welcome " + firstName + lastName);
-            updateCustomersTextFile();
-            return true;
-        }
-    }
-
-    private boolean validSocialSecurityNumber(String socialSecurityNumber) {
-        if (socialSecurityNumber.length() != 15) { //Checking if Social Security Number holds 15 characters
-            return false;
-        }
-        String[] partsSocialSecurityNumber = socialSecurityNumber.split("-"); //splits the Social Security Number into different parts with - between
-        if (partsSocialSecurityNumber.length != 4) {
-            return false;
-        }
-        try {
-            int year = Integer.parseInt(partsSocialSecurityNumber[0]);              //1st part
-            int month = Integer.parseInt(partsSocialSecurityNumber[1]);             //2nd part
-            int day = Integer.parseInt(partsSocialSecurityNumber[2]);               //3rd part
-            int lastDigits = Integer.parseInt(partsSocialSecurityNumber[3]);        //4th part
-
-            if (year < 1900 || year > 9999 || month < 1 || month > 12               //set up to 9999 cause of last digits!
-                    || day < 1 || day > 31 || lastDigits < 0 || lastDigits > 9999) {
-                return false;
-            }
-        } catch (
-                NumberFormatException e) {                                         //Catch when trying to convert a string with improper format into a numeric value
-            return false;
-        }
-        return true;
-    }
-    public boolean customerExistsInList(String socialSecurityNumber, String inputPassword) {
-        for (Customer customer : customerList) {
-            if (customer.getSocialSecurityNumber().equals(socialSecurityNumber) && customer.getPassword().equals(inputPassword)) {
-                return true; // Customer with matching Social Security Number found
-            }
-        }
-        return false; // Customer not found, no matching Social Security Number
     }
 
     public void printAllCustomers() {
