@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Customers {
     private ArrayList<Customer> customerList = new ArrayList<>();
     private final String customersFileName = "Customers.txt";
-    Products products = new Products();
+
     Orders orders = new Orders();
 
     public Customers() {
@@ -118,7 +118,7 @@ public class Customers {
                         System.out.println("\n----------------------------------------------------" +
                                 "\nYou picked shop" +
                                 "\n\nProducts: ");
-                        orders.addToShoppingCart();
+                        orders.addToShoppingCart(customer.getSocialSecurityNumber());
                         break;
                     case "2":
                         orders.printOrdersByCustomer(customer.getSocialSecurityNumber());
