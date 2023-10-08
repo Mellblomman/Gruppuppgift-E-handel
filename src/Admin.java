@@ -1,7 +1,5 @@
 package src;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Admin {
@@ -13,7 +11,7 @@ public class Admin {
 
     Orders orders = new Orders();
 
-    Admin(){
+    Admin() {
     }
 
     public void logInAdmin() {  //(1) Log in as admin
@@ -37,21 +35,22 @@ public class Admin {
                     System.out.println("\n----------------------------------------------------" +
                             "\nAdmin menu " +
                             "\n1. Product Management" +
-                            "\n2. Customer Information" +
-                            "\n3. Order/Transactions" +
+                            "\n2. Manage Customer Information" +
+                            "\n3. Transactions" +
                             "\n0. Logout" +
                             "\n----------------------------------------------------" +
                             "\nChoice: ");
                     String menuChoice = scan.next();
                     switch (menuChoice) {
                         case "1":
-                            manageProductsAsAdmin(); // (3) FORTSÄTT MED FLÖDET HÄR när case "3" är klart!!!
+                            productManagement(); // (3) FORTSÄTT MED FLÖDET HÄR när case "3" är klart!!!
                             break;
                         case "2":
                             manageCustomersAsAdmin(); // (4)
                             break;
                         case "3":
-                            manageOrdersAsAdmin(); // (5)
+                            customerTransactions(); // (5)
+                            break;
                         case "0":
                             System.out.println("Logout");
                             runAdminMenu = false;
@@ -69,24 +68,24 @@ public class Admin {
     }
 
 
-    public void manageProductsAsAdmin(){ // (3)
+    public void productManagement() { // (3)
 
-        boolean runAdminProductManagementMenu = true;
+        boolean run = true;
 
-        while(runAdminProductManagementMenu){
+        while (run) {
 
             System.out.println("\n----------------------------------------------------" +
-                    "\nProduct menu " +
-                    "\n1. View all the products." +
-                    "\n2. Add a product." +
-                    "\n3. Remove a product." +
-                    "\n4. Edit products." +
-                    "\n0. Go back." +
+                    "\nAdmin Product Management Menu " +
+                    "\n1. Print all products" +
+                    "\n2. Add new product" +
+                    "\n3. Remove a product from list" +
+                    "\n4. Edit Products Information" +
+                    "\n0. Go back" +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
             String choiceInProductMenu = scan.next();
 
-            switch(choiceInProductMenu){
+            switch (choiceInProductMenu) {
                 case "1":
                     products.printAllProducts();
                     break;
@@ -94,25 +93,25 @@ public class Admin {
                     products.addNewProduct();
                     break;
                 case "3":
-                    products.pickAProductToRemoveFromList();
+                    products.removeProductFromList();
                     break;
                 case "4":
                     products.editProductInformation();
                     break;
                 case "0":
-                    runAdminProductManagementMenu = false;
+                    run = false;
                     break;
                 default:
-                    System.out.println("Please choose one of the options above.");
+                    System.out.println("Choose 1-4 or 0");
                     break;
             }
         }
     }
 
-    public void manageCustomersAsAdmin(){ // (4)
+    public void manageCustomersAsAdmin() { // (4)
         boolean runAdminCustomerMenu = true;
 
-        while(runAdminCustomerMenu){
+        while (runAdminCustomerMenu) {
 
             System.out.println("\nManage customers menu" +
                     "\n1. View all." +
@@ -138,14 +137,13 @@ public class Admin {
         }
     }
 
-    public void manageOrdersAsAdmin(){ // (5)
+    public void customerTransactions() { // (5)
         boolean runAdminOrdersMenu = true;
 
-        while(runAdminOrdersMenu){
+        while (runAdminOrdersMenu) {
 
             System.out.println("\nManage customers menu" +
                     "\n1. View all." +
-                    "\n2. Edit a specific customer." +
                     "\n0. Go back." +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
@@ -154,9 +152,8 @@ public class Admin {
                 case "1":
                     orders.printAllTransactions();
                     break;
-                case "2":
-                    //orders.printOrdersByCustomer(); // behövs denna?
                 case "0":
+                    runAdminOrdersMenu = false;
                     break; //Going back
                 default:
                     System.out.println("Please choose one of the two options above.");
@@ -164,5 +161,4 @@ public class Admin {
             }
         }
     }
-
 }
