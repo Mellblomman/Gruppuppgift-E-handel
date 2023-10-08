@@ -4,7 +4,6 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Orders {
@@ -53,20 +52,13 @@ public class Orders {
     }
 
     public void printAllTransactions() {
-
-        File transactionsFileReader = new File(ordersFileName); // Reading from orders.txt instead of orderList.
-        Scanner scan = null;
-        try {
-            scan = new Scanner(transactionsFileReader);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        for (int i = 0; i < this.orderList.size(); i++) {
+            System.out.println((i + 1) + ". " +
+                    this.orderList.get(i).getCustomerSSN() + ", " +
+                    this.orderList.get(i).getRestOfOrderInfo());
+            System.out.println("----------------------------------------------------");
         }
-        while (scan.hasNextLine()) {
-            System.out.println(scan.nextLine());
-        }
-        scan.close();
     }
-
     public void addToShoppingCart(String customerSSN) {
         Products products = new Products();
         Scanner scan = new Scanner(System.in);
@@ -109,7 +101,7 @@ public class Orders {
         String formattedDate = myDateObj.format(myFormatObj);
 
         for (Product product : products) {
-            receipt += product.getBrand() + " - " + product.getModel() + ", - ";
+            receipt += product.getBrand() + " - " + product.getModel() + " - ";
         }
 
         receipt += totalCost + " " + formattedDate;
@@ -143,10 +135,12 @@ public class Orders {
             Order newOrder = new Order(customerSSN, generateReceipt(cart, totalCost));
             orderList.add(newOrder);
             updateOrdersTextFile();
-            System.out.println("Purchase completed successfully. We hope to see you again soon!");
-            System.out.println("--------");
-            showReceipt();
+            System.out.println("Purchase completed successfully!");
 
+            System.out.println("Purchased items:");
+            for (Product product : cart) {
+                System.out.println(product.getBrand() + " - " + product.getModel() + " - $" + product.getPrice());
+            }
         } else {
             System.out.println("Purchase cancelled.");
         }
@@ -171,21 +165,12 @@ public class Orders {
     }
 
     public void updateOrdersTextFile() {
-        try (PrintStream printStream = new PrintStream(new FileOutputStream(ordersFileName, true))) {
-            Order lastOrder = orderList.get(orderList.size() - 1); //Append After last token on that line.
-            //Now it won't overwrite date,time,totalcost
-            printStream.print(lastOrder.formattedStringsForFile());
-
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter(ordersFileName, true))) {
+            Order lastOrder = orderList.get(orderList.size() - 1);
+            printWriter.print(lastOrder.formattedStringsForFile());
         } catch (IOException e) {
-            System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
-        }
-    }
-    public void showReceipt() {
-        for (Order order : orderList) {
-
-            System.out.println("Receipt:\n " + order.getRestOfOrderInfo());
-            System.out.println("Customer with SSN: " + order.getCustomerSSN());
-            System.out.println("---------------------------------------");
+            System.out.println("Something went wrong when we added Orders to file: " + e.getMessage());
         }
     }
 }
+

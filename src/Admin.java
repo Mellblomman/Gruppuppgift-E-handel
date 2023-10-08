@@ -48,11 +48,10 @@ public class Admin {
                             manageProductsAsAdmin(); // (3) FORTSÄTT MED FLÖDET HÄR när case "3" är klart!!!
                             break;
                         case "2":
-                            manageCustomersAsAdmin();
+                            manageCustomersAsAdmin(); // (4)
                             break;
                         case "3":
-                            manageOrdersAsAdmin();
-                            System.out.println("testing");
+                            manageOrdersAsAdmin(); // (5)
                         case "0":
                             System.out.println("Logout");
                             runAdminMenu = false;
@@ -70,7 +69,7 @@ public class Admin {
     }
 
 
-    public void manageProductsAsAdmin(){
+    public void manageProductsAsAdmin(){ // (3)
 
         boolean runAdminProductManagementMenu = true;
 
@@ -110,7 +109,7 @@ public class Admin {
         }
     }
 
-    public void manageCustomersAsAdmin(){
+    public void manageCustomersAsAdmin(){ // (4)
         boolean runAdminCustomerMenu = true;
 
         while(runAdminCustomerMenu){
@@ -139,7 +138,7 @@ public class Admin {
         }
     }
 
-    public void manageOrdersAsAdmin(){
+    public void manageOrdersAsAdmin(){ // (5)
         boolean runAdminOrdersMenu = true;
 
         while(runAdminOrdersMenu){
@@ -156,7 +155,7 @@ public class Admin {
                     orders.printAllTransactions();
                     break;
                 case "2":
-                    //orders.printOrdersByCustomer();
+                    //orders.printOrdersByCustomer(); // behövs denna?
                 case "0":
                     break; //Going back
                 default:
