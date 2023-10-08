@@ -61,11 +61,12 @@ public class Orders {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        while(scan.hasNextLine()){
+        while (scan.hasNextLine()) {
             System.out.println(scan.nextLine());
         }
         scan.close();
     }
+
     public void addToShoppingCart(String customerSSN) {
         Products products = new Products();
         Scanner scan = new Scanner(System.in);
@@ -138,17 +139,14 @@ public class Orders {
         String confirmation = scanner.nextLine();
 
 
-
         if (confirmation.equalsIgnoreCase("yes")) {
             Order newOrder = new Order(customerSSN, generateReceipt(cart, totalCost));
             orderList.add(newOrder);
             updateOrdersTextFile();
-            System.out.println("Purchase completed successfully!");
+            System.out.println("Purchase completed successfully. We hope to see you again soon!");
+            System.out.println("--------");
+            showReceipt();
 
-            System.out.println("Purchased items:");
-            for (Product product : cart) {
-                System.out.println(product.getBrand() + " - " + product.getModel() + " - $" + product.getPrice());
-            }
         } else {
             System.out.println("Purchase cancelled.");
         }
@@ -174,12 +172,20 @@ public class Orders {
 
     public void updateOrdersTextFile() {
         try (PrintStream printStream = new PrintStream(new FileOutputStream(ordersFileName, true))) {
-                Order lastOrder = orderList.get(orderList.size() - 1); //Append After last token on that line.
-                                                                        //Now it won't overwrite date,time,totalcost
-                printStream.print(lastOrder.formattedStringsForFile());
+            Order lastOrder = orderList.get(orderList.size() - 1); //Append After last token on that line.
+            //Now it won't overwrite date,time,totalcost
+            printStream.print(lastOrder.formattedStringsForFile());
 
         } catch (IOException e) {
             System.out.println("Something went wrong when we added Customers to file " + e.getMessage());
+        }
+    }
+    public void showReceipt() {
+        for (Order order : orderList) {
+
+            System.out.println("Receipt:\n " + order.getRestOfOrderInfo());
+            System.out.println("Customer with SSN: " + order.getCustomerSSN());
+            System.out.println("---------------------------------------");
         }
     }
 }
