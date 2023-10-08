@@ -54,7 +54,9 @@ public class Orders {
     public void printAllTransactions() {
         for (int i = 0; i < this.orderList.size(); i++) {
             System.out.println((i + 1) + ". " +
+                    "Social Security Number - Username: " +
                     this.orderList.get(i).getCustomerSSN() + ", " +
+                    "Order info: " +
                     this.orderList.get(i).getRestOfOrderInfo());
             System.out.println("----------------------------------------------------");
         }
@@ -104,7 +106,7 @@ public class Orders {
             receipt += product.getBrand() + " - " + product.getModel() + " - ";
         }
 
-        receipt += totalCost + " " + formattedDate;
+        receipt += "$" + totalCost + " " + formattedDate;
 
         return receipt;
     }
@@ -135,9 +137,9 @@ public class Orders {
             Order newOrder = new Order(customerSSN, generateReceipt(cart, totalCost));
             orderList.add(newOrder);
             updateOrdersTextFile();
-            System.out.println("Purchase completed successfully!");
+            System.out.println("\nPurchase completed successfully!");
 
-            System.out.println("Purchased items:");
+            System.out.println("\nPurchased items:");
             for (Product product : cart) {
                 System.out.println(product.getBrand() + " - " + product.getModel() + " - $" + product.getPrice());
             }
