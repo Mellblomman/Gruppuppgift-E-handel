@@ -58,7 +58,7 @@ public class Orders {
                     this.orderList.get(i).getCustomerSSN() + ", " +
                     "Order info: " +
                     this.orderList.get(i).getRestOfOrderInfo());
-            System.out.println("----------------------------------------------------");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
         }
     }
     public void addToShoppingCart(String customerSSN) {
@@ -169,7 +169,7 @@ public class Orders {
     public void updateOrdersTextFile() {
         try (PrintWriter printWriter = new PrintWriter(new FileWriter(ordersFileName, true))) {
             Order lastOrder = orderList.get(orderList.size() - 1);
-            printWriter.print(lastOrder.formattedStringsForFile());
+            printWriter.println(lastOrder.formattedStringsForFile());
         } catch (IOException e) {
             System.out.println("Something went wrong when we added Orders to file: " + e.getMessage());
         }
