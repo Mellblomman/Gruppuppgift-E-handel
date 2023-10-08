@@ -53,18 +53,19 @@ public class Customers {
     public void customerMenu() { //(3) Customer start menu.
         Scanner scan = new Scanner(System.in);
 
-        boolean runCustomerMenu = true;
+        boolean run = true;
 
-        while (runCustomerMenu) {
+        while (run) {
             System.out.println("\n----------------------------------------------------" +
+                    "\nCustomer Menu" +
                     "\n1. Login" +
                     "\n2. Register new account" +
                     "\n0. Go back." +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
-            String loginOrRegisterChoice = scan.next();
+            String loginOrRegister = scan.next();
 
-            switch (loginOrRegisterChoice) {
+            switch (loginOrRegister) {
 
                 case "1":
                     logInCustomer(); //(5)
@@ -77,7 +78,7 @@ public class Customers {
 
                 case "0":
                     System.out.println("Going back to menu");
-                    runCustomerMenu = false;
+                    run = false;
                     break;
 
                 default:
@@ -160,7 +161,7 @@ public class Customers {
                         run = false;
                         break;
                     default:
-                        System.out.println("Choose 1,2 or 3.");
+                        System.out.println("Choose 1,2 or 0.");
                         break;
                 }
             }
@@ -170,14 +171,20 @@ public class Customers {
     }
 
     public void printAllCustomers() {
+        System.out.println("All customers: ");
         for (int i = 0; i < this.customerList.size(); i++) {
             System.out.println((i + 1) + ". " +
+                    "Social Security Number - Username: " +
                     this.customerList.get(i).getSocialSecurityNumber() + ", " +
+                    "Password: " +
                     this.customerList.get(i).getPassword() + ", " +
+                    "First name: " +
                     this.customerList.get(i).getFirstName() + ", " +
+                    "Last name: " +
                     this.customerList.get(i).getLastName() + ", " +
+                    "Email: " +
                     this.customerList.get(i).getEmail());
-            System.out.println("----------------------------------------------------");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
         }
     }
 
@@ -188,67 +195,76 @@ public class Customers {
         printAllCustomers();
 
         // Prompt the user to select a customer to edit
-        System.out.print("Enter the number of the customer you want to edit: ");
-        int customerIndex = scan.nextInt();
+        boolean run = true;
+        while(run) {
+            System.out.print("Enter the number of the customer you want to edit: " +
+                    "\nPress 0 to go back" +
+                    "\nChoice: ");
+            int customerIndex = scan.nextInt();
 
-        // Check if the provided index is valid
-        if (customerIndex >= 1 && customerIndex <= customerList.size()) {
-            Customer customerToEdit = customerList.get(customerIndex - 1);
-
-            // Prompt the user to choose which information to edit
-            System.out.println("\nEdit Customer Information for " + customerToEdit.getFirstName() + " " + customerToEdit.getLastName() + ":");
-            System.out.println("\n1. Social security number (Current: " + customerToEdit.getSocialSecurityNumber() + ")");
-            System.out.println("2. Password (Current: " + customerToEdit.getPassword() + ")");
-            System.out.println("3. First name (Current: " + customerToEdit.getFirstName() + ")");
-            System.out.println("4. Last name (Current: " + customerToEdit.getLastName() + ")");
-            System.out.println("5. Email (Current: " + customerToEdit.getEmail() + ")");
-            System.out.println("0. Go back");
-            System.out.print("\nEnter the number of the information to edit or press 0 to go back: ");
-            String infoChoice = scan.next();
-
-            // Prompt the user for the updated value based on their choice
-            String newValue = "";
-            switch (infoChoice) {
-                case "1":
-                    System.out.print("Enter new social security number: ");
-                    newValue = scan.next();
-                    customerToEdit.setSocialSecurityNumber(newValue);
-                    break;
-                case "2":
-                    System.out.print("Enter new password: ");
-                    newValue = scan.next();
-                    customerToEdit.setPassword(newValue);
-                    break;
-                case "3":
-                    System.out.print("Enter new first name: ");
-                    newValue = scan.next();
-                    customerToEdit.setFirstName(newValue);
-                    break;
-                case "4":
-                    System.out.print("Enter new last name: ");
-                    newValue = scan.next();
-                    customerToEdit.setLastName(newValue);
-                    break;
-                case "5":
-                    System.out.print("Enter new email: ");
-                    newValue = scan.next();
-                    customerToEdit.setEmail(newValue);
-                    break;
-                case "0":
-                    break;  //Going back
-
-                default:
-                    System.out.println("Invalid choice. No changes made.");
+            if(customerIndex == 0) {
+                run = false;
             }
 
-            if (!newValue.isEmpty()) {
-                System.out.println("Customer information updated.");
+            // Check if the provided index is valid
+            if (customerIndex >= 1 && customerIndex <= customerList.size()) {
+                Customer customerToEdit = customerList.get(customerIndex - 1);
+
+                // Prompt the user to choose which information to edit
+                System.out.println("\nEdit Customer Information ");
+                System.out.println("\n1. Social security number (Current: " + customerToEdit.getSocialSecurityNumber() + ")");
+                System.out.println("2. Password (Current: " + customerToEdit.getPassword() + ")");
+                System.out.println("3. First name (Current: " + customerToEdit.getFirstName() + ")");
+                System.out.println("4. Last name (Current: " + customerToEdit.getLastName() + ")");
+                System.out.println("5. Email (Current: " + customerToEdit.getEmail() + ")");
+                System.out.println("0. Go back");
+                System.out.print("\nEnter the number of the information to edit or press 0 to go back: ");
+                String infoChoice = scan.next();
+
+                // Prompt the user for the updated value based on their choice
+                String newValue = "";
+                switch (infoChoice) {
+                    case "1":
+                        System.out.print("Enter new social security number: ");
+                        newValue = scan.next();
+                        customerToEdit.setSocialSecurityNumber(newValue);
+                        break;
+                    case "2":
+                        System.out.print("Enter new password: ");
+                        newValue = scan.next();
+                        customerToEdit.setPassword(newValue);
+                        break;
+                    case "3":
+                        System.out.print("Enter new first name: ");
+                        newValue = scan.next();
+                        customerToEdit.setFirstName(newValue);
+                        break;
+                    case "4":
+                        System.out.print("Enter new last name: ");
+                        newValue = scan.next();
+                        customerToEdit.setLastName(newValue);
+                        break;
+                    case "5":
+                        System.out.print("Enter new email: ");
+                        newValue = scan.next();
+                        customerToEdit.setEmail(newValue);
+                        break;
+                    case "0":
+                        break;  //Going back
+
+                    default:
+                        System.out.println("Invalid choice. No changes made.");
+                        break;
+                }
+
+                if (!newValue.isEmpty()) {
+                    System.out.println("Customer information updated.");
+                }
+
+            } else if (customerIndex > customerList.size()) {
+                System.out.println("Invalid customer index. Please enter a valid index.");
             }
-        } else {
-            System.out.println("Invalid customer index. Please enter a valid index.");
         }
-
-
     }
 
     public void updateCustomersTextFile(){
