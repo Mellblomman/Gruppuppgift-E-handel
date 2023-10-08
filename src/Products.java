@@ -58,7 +58,7 @@ public String productFileName = "products.txt";
             String brandOfProduct = scan.next();
             System.out.println("\nEnter the model of the product: ");
             String modelOfProduct = scan.next();
-            System.out.println("\nSet the price for the product: ");
+            System.out.println("\nEnter the price for the product: ");
             String priceProduct = scan.next();
             if (productExistsInList(brandOfProduct, modelOfProduct)) {
                 System.out.println("Product already exists! Please log in.");
@@ -66,7 +66,7 @@ public String productFileName = "products.txt";
             }else {
                 Product newProduct = new Product(brandOfProduct, modelOfProduct, Double.parseDouble(priceProduct)); //Creating new Customer
                 productList.add(newProduct); //adding to list
-                System.out.println("\nProduct added! " + brandOfProduct + ", " + modelOfProduct + ", " + priceProduct);
+                System.out.println("\nProduct added! " + "\nBrand: " + brandOfProduct + ", " + "\nModel: " + modelOfProduct + ", " + "\nPrice: $" + priceProduct);
             }
             while(true) {
                 System.out.println("\nDo you want to add another product? \n(Yes/No)" +
@@ -88,15 +88,14 @@ public String productFileName = "products.txt";
     public void editProductInformation() {
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("----------------------------------------------------" +
-                "\nProduct List");// Display the list of customers with their index numbers
+        // Display the list of products with their index numbers
         printAllProducts();
 
         // Prompt the user to select a customer to edit
         boolean run = true;
         while (run) {
-            System.out.print("\nEnter the number of the product you want to edit in product list" +
-                    "\nPress 0 to back" +
+            System.out.print("\nEnter the number of the product you want to edit: " +
+                    "\nPress 0 to go back" +
                     "\nChoice: ");
             int productIndex = scan.nextInt();
 
@@ -105,15 +104,15 @@ public String productFileName = "products.txt";
             }
 
             // Check if the provided index is valid
-            else if (productIndex >= 1 && productIndex <= productList.size()) {
+            if (productIndex >= 1 && productIndex <= productList.size()) {
                 Product productToEdit = productList.get(productIndex - 1);
 
                 // Prompt the user to choose which information to edit
                 System.out.println("\n----------------------------------------------------" +
-                        "\nEdit Product Information for " + productToEdit.getBrand() + " " + productToEdit.getModel());
+                        "\nEdit Product Information ");
                 System.out.println("\n1. Name of brand (Current: " + productToEdit.getBrand() + ")");
                 System.out.println("2. Name of model (Current: " + productToEdit.getModel() + ")");
-                System.out.println("3. Product price (Current: " + productToEdit.getPrice() + ")");
+                System.out.println("3. Product price (Current: $" + productToEdit.getPrice() + ")");
                 System.out.println("0. Go back");
                 System.out.print("\nChoice: ");
                 String infoChoice = scan.next();
@@ -150,23 +149,21 @@ public String productFileName = "products.txt";
                     System.out.println("\nProduct information updated.");
                 }
 
-            } else {
+            } else if(productIndex > productList.size()) {
                 System.out.println("Invalid product index. Please enter a valid index.");
             }
         }
     }
 
-    public void pickAProductToRemoveFromList(){
+    public void removeProductFromList(){
         // Create a scanner to read input from the user
         Scanner scan = new Scanner(System.in);
-        // Print the list of products
-        System.out.println("\n----------------------------------------------------" +
-                "\nProduct List\n");
+
         printAllProducts();
 
         // Ask the user which product they want to remove
         System.out.println("\n----------------------------------------------------" +
-                "\nWhich product do you want to remove? Enter a number between 1 and " + this.productList.size() +
+                "\nWhich product do you want to remove? \nEnter a number between 1 and " + this.productList.size() +
                 "\nChoice: ");
         // Read the user's choice and check that it is valid
         int choice = scan.nextInt();
@@ -174,7 +171,7 @@ public String productFileName = "products.txt";
             // Remove the product from the list using the remove method
             Product removed = this.productList.remove(choice - 1);
             // Print a confirmation message
-            System.out.println("\nYou have removed " + removed.getBrand() + ", " + removed.getModel() + ", " + removed.getPrice());
+            System.out.println("\nYou have removed " + "\nBrand: " + removed.getBrand() + ", " + "\nModel: " + removed.getModel() + ", " + "\nPrice: $" + removed.getPrice());
         } else {
             // Print an error message
             System.out.println("\nInvalid choice. You must enter a number between 1 and " + this.productList.size());
@@ -182,11 +179,15 @@ public String productFileName = "products.txt";
     }
 
     public void printAllProducts () {
+        System.out.println("All products: ");
 
         for (int i = 0; i < this.productList.size(); i++) {
             System.out.println((i + 1) + ". " +
+                    "Brand: " +
                     this.productList.get(i).getBrand() + ", " +
+                    "Model: " +
                     this.productList.get(i).getModel() + ", " +
+                    "Price: $" +
                     this.productList.get(i).getPrice());
         }
     }
