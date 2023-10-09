@@ -1,19 +1,15 @@
 package src;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Customer {
-    //Use socialSecurityNumber as username to log in
-    private String socialSecurityNumber;  //Need to be static to make sure that this variable is owned Customer Class and not by any other class
-    private String password;    //Uses to log in
+    private String socialSecurityNumber;
+    private String password;
     private String firstName;
     private String lastName;
     private String email;
 
     public Customer(String socialSecurityNumber,String password, String firstName, String lastName, String email) {
-        this.socialSecurityNumber = socialSecurityNumber; //Uses as username to log in
-        this.password = password; //Uses as password to log in
+        this.socialSecurityNumber = socialSecurityNumber;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

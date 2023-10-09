@@ -8,27 +8,29 @@ import java.util.Scanner;
 
 public class Orders {
 
-    public ArrayList<Order> orderList = new ArrayList<>();
+    private ArrayList<Order> orderList = new ArrayList<>();
 
     private String ordersFileName = "Orders.txt";
 
+    Scanner scanInput = new Scanner(System.in);
+
     Orders() {
-        readOrdersFromFile();
+        readOrdersFromFile(); //(1)
     }
 
-    public void readOrdersFromFile() {
-        if (!createFileForAllOrders()) {
+    private void readOrdersFromFile() { //(1)
+        if (!createFileForAllOrders()) { //(2)
             try {
                 Scanner scan = new Scanner(new File(ordersFileName));
-                while (scan.hasNextLine()) { //if file already exist, a Scanner will read every line of the file and separate with ", "
+                while (scan.hasNextLine()) {
                     String Order = scan.nextLine();
                     String[] orderInfo = Order.split(",");
 
-                    Order tempOrder = new Order( //creating a customer object, with split values and this object will be added to customer list
+                    Order tempOrder = new Order(
                             orderInfo[0],
                             orderInfo[1]
                     );
-                    orderList.add(tempOrder); //added to customerList
+                    orderList.add(tempOrder);
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("Wrong!" + e.getMessage());
@@ -36,7 +38,7 @@ public class Orders {
         }
     }
 
-    boolean createFileForAllOrders() {
+    private boolean createFileForAllOrders() { //(2)
         File file = new File("Orders.txt");
 
         try {
@@ -51,19 +53,8 @@ public class Orders {
         return true;
     }
 
-    public void printAllTransactions() {
-        for (int i = 0; i < this.orderList.size(); i++) {
-            System.out.println((i + 1) + ". " +
-                    "Social Security Number - Username: " +
-                    this.orderList.get(i).getCustomerSSN() + ", " +
-                    "Order info: " +
-                    this.orderList.get(i).getRestOfOrderInfo());
-            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
-        }
-    }
-    public void addToShoppingCart(String customerSSN) {
+    public void addToShoppingCart(String customerSSN) { //(3)
         Products products = new Products();
-        Scanner scan = new Scanner(System.in);
         ArrayList<Product> cart = new ArrayList<>();
 
         while (true) {
@@ -72,7 +63,7 @@ public class Orders {
                     "\nOr input 0 to go back" +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
-            int productIndex = scan.nextInt();
+            int productIndex = scanInput.nextInt();
 
             if (productIndex == 0) {
                 break;
@@ -86,7 +77,6 @@ public class Orders {
                     System.out.println(cart.get(i).formattedToShoppingCart());
                 }
                 System.out.println("----------------------------------------------------");
-                System.out.println("\nProducts");
             } else {
                 System.out.println("Invalid product index.");
             }
@@ -95,23 +85,36 @@ public class Orders {
         makePurchase(cart, customerSSN);
     }
 
-    private String generateReceipt(ArrayList<Product> products, double totalCost) {
-        String receipt = "";
+    private void removeFromShoppingCart(ArrayList<Product> tempCart){ //(4)
 
-        LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("\tdd-MM-yyyy HH:mm:ss"); //Date and time
-        String formattedDate = myDateObj.format(myFormatObj);
-
-        for (Product product : products) {
-            receipt += product.getBrand() + " - " + product.getModel() + " - ";
+        if (tempCart.isEmpty()) {
+            System.out.println("The shopping cart is empty.");
+            return;
         }
 
-        receipt += "$" + totalCost + " " + formattedDate;
+        boolean run = true;
+        while (run) {
+            System.out.println("\nCart contents: ");
+            for (int i = 0; i < tempCart.size(); i++) {
+                System.out.println((i + 1) + ". " + tempCart.get(i).formattedToShoppingCart());
+            }
+            System.out.print("Enter the number of the product you want to remove (or 0 to go back): ");
+            int productToRemove = scanInput.nextInt();
 
-        return receipt;
+            if (productToRemove == 0) {
+                break;
+            }
+
+            if (productToRemove >= 1 && productToRemove <= tempCart.size()) {
+                Product removedProduct = tempCart.remove(productToRemove - 1);
+                System.out.println("Product removed from cart: " + removedProduct.getBrand() + " " + removedProduct.getModel());
+            } else {
+                System.out.println("Invalid product index.");
+            }
+        }
     }
 
-    public void makePurchase(ArrayList<Product> cart, String customerSSN) {
+    private void makePurchase(ArrayList<Product> cart, String customerSSN) { //(5)
         if (cart.isEmpty()) {
             System.out.println("The shopping cart is empty.");
             return;
@@ -121,16 +124,22 @@ public class Orders {
             System.out.println(product.brand + "-" + product.getModel() + " -  $" + product.getPrice());
         }
 
-        // Add logic here to calculate the total cost of the items in the cart
+
+        System.out.print("\nDo you want to remove items from the cart before confirming the purchase? (yes/no): ");
+        String removeOption = scanInput.nextLine();
+
+        if (removeOption.equalsIgnoreCase("yes")) {
+            removeFromShoppingCart(cart);
+        }
+
+
         double totalCost = calculateTotalCost(cart);
 
-        // Display the total cost to the user
         System.out.println("\nTotal cost of the items in the cart: $" + totalCost);
 
-        // Ask the user to confirm the purchase
-        Scanner scanner = new Scanner(System.in);
+
         System.out.print("\nDo you want to confirm the purchase? (yes/no): ");
-        String confirmation = scanner.nextLine();
+        String confirmation = scanInput.nextLine();
 
 
         if (confirmation.equalsIgnoreCase("yes")) {
@@ -147,6 +156,37 @@ public class Orders {
             System.out.println("Purchase cancelled.");
         }
     }
+    private double calculateTotalCost(ArrayList<Product> cart) { //(6)
+        double totalCost = 0.0;
+        for (Product product : cart) {
+            totalCost += product.getPrice();
+        }
+        return totalCost;
+    }
+    private String generateReceipt(ArrayList<Product> products, double totalCost) { //(7)
+        String receipt = "";
+
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); //Date and time
+        String formattedDate = myDateObj.format(myFormatObj);
+
+        for (Product product : products) {
+            receipt += product.getBrand() + " - " + product.getModel() + " - ";
+        }
+
+        receipt += "$" + totalCost + " " + "\tDate and time: " + formattedDate;
+
+        return receipt;
+    }
+
+    public void updateOrdersTextFile() { //(8)
+        try (PrintWriter printWriter = new PrintWriter(new FileWriter(ordersFileName, true))) {
+            Order lastOrder = orderList.get(orderList.size() - 1);
+            printWriter.println(lastOrder.formattedStringsForFile());
+        } catch (IOException e) {
+            System.out.println("Something went wrong when we added Orders to file: " + e.getMessage());
+        }
+    }
 
     public void printOrdersByCustomer(String customerSSN) {
         System.out.println("Orders for Customer with SSN: " + customerSSN);
@@ -158,20 +198,14 @@ public class Orders {
         }
     }
 
-    private double calculateTotalCost(ArrayList<Product> cart) {
-        double totalCost = 0.0;
-        for (Product product : cart) {
-            totalCost += product.getPrice();
-        }
-        return totalCost;
-    }
-
-    public void updateOrdersTextFile() {
-        try (PrintWriter printWriter = new PrintWriter(new FileWriter(ordersFileName, true))) {
-            Order lastOrder = orderList.get(orderList.size() - 1);
-            printWriter.println(lastOrder.formattedStringsForFile());
-        } catch (IOException e) {
-            System.out.println("Something went wrong when we added Orders to file: " + e.getMessage());
+    public void printAllTransactions() {
+        for (int i = 0; i < this.orderList.size(); i++) {
+            System.out.println((i + 1) + ". " +
+                    "Social Security Number - Username: " +
+                    this.orderList.get(i).getCustomerSSN() + ", " +
+                    "Order info: " +
+                    this.orderList.get(i).getRestOfOrderInfo());
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
         }
     }
 }

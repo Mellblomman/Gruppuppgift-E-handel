@@ -6,14 +6,16 @@ import java.util.Scanner;
 
 public class Customers {
     private ArrayList<Customer> customerList = new ArrayList<>();
-    private final String customersFileName = "Customers.txt";
+    private String customersFileName = "Customers.txt";
+
+    Scanner scanInput = new Scanner(System.in);
 
     Orders orders = new Orders();
 
     public Customers() {
         readCustomersFromFile(); //(1) Starting to read customers from txt file Customers
     }
-    public void readCustomersFromFile(){ //(1) Starting to read customers from txt file Customers
+    private void readCustomersFromFile(){ //(1) Starting to read customers from txt file Customers
         if (!createFileWithCustomers()) { //(2) Check if creating a file with customers was unsuccessful
             try {
                 Scanner scan = new Scanner(new File(customersFileName)); //If file already exists, it will get scanned
@@ -36,7 +38,7 @@ public class Customers {
         }
     }
 
-    public boolean createFileWithCustomers() { //(2) Creating a file
+    private boolean createFileWithCustomers() { //(2) Creating a file
         File file = new File(customersFileName);
 
         try {
@@ -51,7 +53,6 @@ public class Customers {
     }
 
     public void customerMenu() { //(3) Customer start menu.
-        Scanner scan = new Scanner(System.in);
 
         boolean run = true;
 
@@ -63,7 +64,7 @@ public class Customers {
                     "\n0. Go back." +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
-            String loginOrRegister = scan.next();
+            String loginOrRegister = scanInput.next();
 
             switch (loginOrRegister) {
 
@@ -88,19 +89,18 @@ public class Customers {
         }
     }
     private boolean registerNewAccount() { //(4) Register new account
-        Scanner scan = new Scanner(System.in);
 
         while (true) {
             System.out.println("Enter your social security number (YYYY-MM-DD-****) (this will be your username): ");
-            String socialSecurityNumber = scan.next();
+            String socialSecurityNumber = scanInput.next();
             System.out.println("Enter Password: ");
-            String password = scan.next();
+            String password = scanInput.next();
             System.out.println("Enter First Name: ");
-            String firstName = scan.next();
+            String firstName = scanInput.next();
             System.out.println("Enter Last Name: ");
-            String lastName = scan.next();
+            String lastName = scanInput.next();
             System.out.println("Enter Your Email: ");
-            String email = scan.next();
+            String email = scanInput.next();
             if (customerExistsInList(socialSecurityNumber, password)) { //(4) Checks if the account already exists on SSN and password
                 System.out.println("Account already exists! Please log in.");
                 return false;
@@ -113,7 +113,7 @@ public class Customers {
             return true;
         }
     }
-    public boolean customerExistsInList(String socialSecurityNumber, String inputPassword) { //(step: (4, 5) Checks if the customer already exist in list
+    private boolean customerExistsInList(String socialSecurityNumber, String inputPassword) { //(step: (4, 5) Checks if the customer already exist in list
         for (Customer customer : customerList) {
             if (customer.getSocialSecurityNumber().equals(socialSecurityNumber) && customer.getPassword().equals(inputPassword)) {
                 return true; // Customer found with matching Social Security Number and Password
@@ -122,14 +122,14 @@ public class Customers {
         return false; // Customer not found, no matching Social Security Number or Password
     }
 
-    public void logInCustomer() { //(5) Asking for log in information,
+    private void logInCustomer() { //(5) Asking for log in information,
+
         Customer customer = new Customer();
-        Scanner scan = new Scanner(System.in);
         System.out.println("\n----------------------------------------------------");
         System.out.println("Enter your social security number (YYYY-MM-DD-****): ");
-        customer.setSocialSecurityNumber(scan.nextLine());
+        customer.setSocialSecurityNumber(scanInput.next());
         System.out.println("\nEnter password: ");
-        customer.setPassword(scan.nextLine());
+        customer.setPassword(scanInput.next());
 
         if (customerExistsInList(customer.getSocialSecurityNumber(), customer.getPassword())) { //(5) Calling customerExistInList method to see if socialsecurity and password is correct
 
@@ -143,14 +143,13 @@ public class Customers {
                         "\n0. Logout" +
                         "\n----------------------------------------------------" +
                         "\nChoice: ");
-                String shopOrHistory = scan.next();
+                String shopOrHistory = scanInput.next();
 
                 switch (shopOrHistory) {
 
                     case "1":
                         System.out.println("\n----------------------------------------------------" +
-                                "\nYou picked shop" +
-                                "\n\nProducts: ");
+                                "\nYou picked shop");
                         orders.addToShoppingCart(customer.getSocialSecurityNumber()); //(6)
                         break;
                     case "2":
@@ -189,8 +188,6 @@ public class Customers {
     }
 
     public void editCustomerInformation() {
-        Scanner scan = new Scanner(System.in);
-
         // Display the list of customers with their index numbers
         printAllCustomers();
 
@@ -200,7 +197,7 @@ public class Customers {
             System.out.print("Enter the number of the customer you want to edit: " +
                     "\nPress 0 to go back" +
                     "\nChoice: ");
-            int customerIndex = scan.nextInt();
+            int customerIndex = scanInput.nextInt();
 
             if(customerIndex == 0) {
                 run = false;
@@ -219,34 +216,34 @@ public class Customers {
                 System.out.println("5. Email (Current: " + customerToEdit.getEmail() + ")");
                 System.out.println("0. Go back");
                 System.out.print("\nEnter the number of the information to edit or press 0 to go back: ");
-                String infoChoice = scan.next();
+                String infoChoice = scanInput.next();
 
                 // Prompt the user for the updated value based on their choice
                 String newValue = "";
                 switch (infoChoice) {
                     case "1":
                         System.out.print("Enter new social security number: ");
-                        newValue = scan.next();
+                        newValue = scanInput.next();
                         customerToEdit.setSocialSecurityNumber(newValue);
                         break;
                     case "2":
                         System.out.print("Enter new password: ");
-                        newValue = scan.next();
+                        newValue = scanInput.next();
                         customerToEdit.setPassword(newValue);
                         break;
                     case "3":
                         System.out.print("Enter new first name: ");
-                        newValue = scan.next();
+                        newValue = scanInput.next();
                         customerToEdit.setFirstName(newValue);
                         break;
                     case "4":
                         System.out.print("Enter new last name: ");
-                        newValue = scan.next();
+                        newValue = scanInput.next();
                         customerToEdit.setLastName(newValue);
                         break;
                     case "5":
                         System.out.print("Enter new email: ");
-                        newValue = scan.next();
+                        newValue = scanInput.next();
                         customerToEdit.setEmail(newValue);
                         break;
                     case "0":
@@ -267,7 +264,7 @@ public class Customers {
         }
     }
 
-    public void updateCustomersTextFile(){
+    private void updateCustomersTextFile(){
         try (PrintStream printStream = new PrintStream(new FileOutputStream(customersFileName))) {
             for (Customer customer : customerList) {
                 String customerData = customer.formattedStringForFile();
