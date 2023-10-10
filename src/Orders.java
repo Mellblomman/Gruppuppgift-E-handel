@@ -181,9 +181,9 @@ public class Orders {
     }
 
     public void updateOrdersTextFile() { //(8)
-        try (PrintWriter printWriter = new PrintWriter(new FileWriter(ordersFileName, true))) {
+        try (PrintStream printStream = new PrintStream(new FileOutputStream(ordersFileName, true))) {
             Order lastOrder = orderList.get(orderList.size() - 1);
-            printWriter.println(lastOrder.formattedStringsForFile());
+            printStream.println(lastOrder.formattedStringsForFile());
         } catch (IOException e) {
             System.out.println("Something went wrong when we added Orders to file: " + e.getMessage());
         }

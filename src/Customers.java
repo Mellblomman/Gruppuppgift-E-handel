@@ -33,7 +33,7 @@ public class Customers {
                     customerList.add(tempCustomer);
                 }
             } catch (FileNotFoundException e) {
-                System.out.println(" FEL!!! " + e.getMessage());
+                System.out.println("Wrong!" + e.getMessage());
             }
         }
     }
@@ -269,7 +269,7 @@ public class Customers {
     }
 
     private void updateCustomersTextFile(){
-        try (PrintStream printStream = new PrintStream(new FileOutputStream(customersFileName))) {
+        try (PrintStream printStream = new PrintStream(new FileOutputStream(customersFileName, false))) {
             for (Customer customer : customerList) {
                 String customerData = customer.formattedStringForFile();
                 printStream.println(customerData);

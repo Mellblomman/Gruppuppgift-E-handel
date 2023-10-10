@@ -207,7 +207,7 @@ Scanner scanInput = new Scanner(System.in);
     }
 
     public void updateProductsTextFile() { //(7)
-        try (PrintStream printStream = new PrintStream(new FileOutputStream(productFileName))) {
+        try (PrintStream printStream = new PrintStream(new FileOutputStream(productFileName, false))) {
             for (Product product : productList) {
                 String productData = product.formattedStringForFile();
                 printStream.println(productData);
