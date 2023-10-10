@@ -2,9 +2,9 @@ package src;
 
 public class Product {
 
-    public String brand;
-    public String model;
-    public double price;
+    private String brand;
+    private String model;
+    private double price;
 
 
     public Product(String brand, String model,double price) {

@@ -121,7 +121,7 @@ public class Orders {
         }
         System.out.println("The products in your cart are: ");
         for (Product product : cart) {
-            System.out.println(product.brand + "-" + product.getModel() + " -  $" + product.getPrice());
+            System.out.println(product.getBrand() + "-" + product.getModel() + " -  $" + product.getPrice());
         }
 
 
