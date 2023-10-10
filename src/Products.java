@@ -164,41 +164,46 @@ Scanner scanInput = new Scanner(System.in);
                 String infoChoice = scanInput.next();
 
                 // Prompt the user for the updated value based on their choice
-                String newValue = "";
-                switch (infoChoice) {
-                    case "1":
-                        System.out.print("\n----------------------------------------------------" +
-                                "\nEnter new brand name: ");
-                        newValue = scanInput.next();
-                        productToEdit.setBrand(newValue);
-                        break;
-                    case "2":
-                        System.out.print("\n----------------------------------------------------" +
-                                "\nEnter new model name: ");
-                        newValue = scanInput.next();
-                        productToEdit.setModel(newValue);
-                        break;
-                    case "3":
-                        System.out.print("\n----------------------------------------------------" +
-                                "\nEnter new price: ");
-                        newValue = scanInput.next();
-                        productToEdit.setPrice(Double.parseDouble(newValue));
-                        break;
-                    case "0":
-                        System.out.println("Go back");
-                        break;
-                    default:
-                        System.out.println("\nInvalid choice. No changes made.");
-                        break;
-                }
-                if (!newValue.isEmpty()) {
-                    System.out.println("\nProduct information updated.");
+                while(run) {
+                    String newValue = "";
+                    switch (infoChoice) {
+                        case "1":
+                            System.out.print("\n----------------------------------------------------" +
+                                    "\nEnter new brand name: ");
+                            newValue = scanInput.next();
+                            productToEdit.setBrand(newValue);
+                            break;
+                        case "2":
+                            System.out.print("\n----------------------------------------------------" +
+                                    "\nEnter new model name: ");
+                            newValue = scanInput.next();
+                            productToEdit.setModel(newValue);
+                            break;
+                        case "3":
+                            System.out.print("\n----------------------------------------------------" +
+                                    "\nEnter new price: ");
+                            newValue = scanInput.next();
+                            productToEdit.setPrice(Double.parseDouble(newValue));
+                            break;
+                        case "0":
+                            System.out.println("Go back");
+                            break;
+                        default:
+                            System.out.println("\nInvalid choice. No changes made.");
+                            break;
+                    }
+
+                    if (!newValue.isEmpty()) {
+                        System.out.println("\nProduct information updated.");
+                    }
+                    run = false;
+
                 }
 
             } else if(productIndex > productList.size()) {
                 System.out.println("Invalid product index. Please enter a valid index.");
             }
-        }
+        } updateProductsTextFile();
     }
 
     public void updateProductsTextFile() { //(7)

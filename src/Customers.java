@@ -219,49 +219,53 @@ public class Customers {
                 String infoChoice = scanInput.next();
 
                 // Prompt the user for the updated value based on their choice
-                String newValue = "";
-                switch (infoChoice) {
-                    case "1":
-                        System.out.print("Enter new social security number: ");
-                        newValue = scanInput.next();
-                        customerToEdit.setSocialSecurityNumber(newValue);
-                        break;
-                    case "2":
-                        System.out.print("Enter new password: ");
-                        newValue = scanInput.next();
-                        customerToEdit.setPassword(newValue);
-                        break;
-                    case "3":
-                        System.out.print("Enter new first name: ");
-                        newValue = scanInput.next();
-                        customerToEdit.setFirstName(newValue);
-                        break;
-                    case "4":
-                        System.out.print("Enter new last name: ");
-                        newValue = scanInput.next();
-                        customerToEdit.setLastName(newValue);
-                        break;
-                    case "5":
-                        System.out.print("Enter new email: ");
-                        newValue = scanInput.next();
-                        customerToEdit.setEmail(newValue);
-                        break;
-                    case "0":
-                        break;  //Going back
+                while(run) {
+                    String newValue = "";
+                    switch (infoChoice) {
+                        case "1":
+                            System.out.print("Enter new social security number: ");
+                            newValue = scanInput.next();
+                            customerToEdit.setSocialSecurityNumber(newValue);
+                            break;
+                        case "2":
+                            System.out.print("Enter new password: ");
+                            newValue = scanInput.next();
+                            customerToEdit.setPassword(newValue);
+                            break;
+                        case "3":
+                            System.out.print("Enter new first name: ");
+                            newValue = scanInput.next();
+                            customerToEdit.setFirstName(newValue);
+                            break;
+                        case "4":
+                            System.out.print("Enter new last name: ");
+                            newValue = scanInput.next();
+                            customerToEdit.setLastName(newValue);
+                            break;
+                        case "5":
+                            System.out.print("Enter new email: ");
+                            newValue = scanInput.next();
+                            customerToEdit.setEmail(newValue);
+                            break;
+                        case "0":
+                            break;  //Going back
 
-                    default:
-                        System.out.println("Invalid choice. No changes made.");
-                        break;
+                        default:
+                            System.out.println("Invalid choice. No changes made.");
+                            break;
+                    }
+                    if (!newValue.isEmpty()) {
+                        System.out.println("Customer information updated.");
+                    }
+                    run = false;
+
                 }
 
-                if (!newValue.isEmpty()) {
-                    System.out.println("Customer information updated.");
-                }
 
             } else if (customerIndex > customerList.size()) {
                 System.out.println("Invalid customer index. Please enter a valid index.");
             }
-        }
+        }updateCustomersTextFile();
     }
 
     private void updateCustomersTextFile(){

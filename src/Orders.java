@@ -126,7 +126,7 @@ public class Orders {
 
 
         System.out.print("\nDo you want to remove items from the cart before confirming the purchase? (yes/no): ");
-        String removeOption = scanInput.nextLine();
+        String removeOption = scanInput.next();
 
         if (removeOption.equalsIgnoreCase("yes")) {
             removeFromShoppingCart(cart);
@@ -139,7 +139,7 @@ public class Orders {
 
 
         System.out.print("\nDo you want to confirm the purchase? (yes/no): ");
-        String confirmation = scanInput.nextLine();
+        String confirmation = scanInput.next();
 
 
         if (confirmation.equalsIgnoreCase("yes")) {
@@ -170,8 +170,9 @@ public class Orders {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"); //Date and time
         String formattedDate = myDateObj.format(myFormatObj);
 
+        receipt += " Products: ";
         for (Product product : products) {
-            receipt += product.getBrand() + " - " + product.getModel() + " - ";
+            receipt += product.getBrand() + " " + product.getModel() + " - ";
         }
 
         receipt += "$" + totalCost + " " + "\tDate and time: " + formattedDate;
