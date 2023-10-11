@@ -24,8 +24,8 @@ public class Admin {
             String inputAdminPasswordForLogin = scan.next();
 
 
-            String adminUserName = "a";
-            String adminPassword = "a";
+            String adminUserName = "admin";
+            String adminPassword = "mlssadmin";
             //(2)
             if (inputAdminUsernameForLogin.equalsIgnoreCase(adminUserName) && inputAdminPasswordForLogin.equalsIgnoreCase(adminPassword)) {
 
