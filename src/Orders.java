@@ -170,7 +170,7 @@ public class Orders {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDate = myDateObj.format(myFormatObj);
 
-        receipt += " Products: ";
+        receipt += "Products: ";
         for (Product product : products) {
             receipt += product.getBrand() + " " + product.getModel() + " - ";
         }
@@ -194,7 +194,6 @@ public class Orders {
         for (Order order : orderList) {
             if (order.getCustomerSSN().equals(customerSSN)) {
                 System.out.println(order.getRestOfOrderInfo());
-                System.out.println("----------------------------------------------------");
             }
         }
     }
