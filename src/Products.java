@@ -18,17 +18,17 @@ Scanner scanInput = new Scanner(System.in);
         if (!createFileWithProducts()) {
             try {
                 Scanner scan = new Scanner(new File(productFileName));
-                while (scan.hasNextLine()) { //if file already exist, a Scanner will read every line of the file and seperate with ", "
+                while (scan.hasNextLine()) {
                     String Products = scan.nextLine();
                     String[] productsInfo = Products.split(",");
 
                     if(productsInfo.length>=3) {
-                        Product tempProducts = new Product( //creating a product object, with split values and this object will be added to products list
+                        Product tempProducts = new Product(
                                 productsInfo[0],
                                 productsInfo[1],
                                 Double.parseDouble(productsInfo[2])
                         );
-                        productList.add(tempProducts); //added to productList
+                        productList.add(tempProducts);
                     }
                 }
             } catch (FileNotFoundException e) {
@@ -37,7 +37,7 @@ Scanner scanInput = new Scanner(System.in);
         }
     }
 
-    public boolean createFileWithProducts() {  //(2)
+    public boolean createFileWithProducts() { //(2)
         File file = new File(productFileName);
 
         try {
@@ -78,8 +78,8 @@ Scanner scanInput = new Scanner(System.in);
                 System.out.println("Product already exists! Please log in.");
 
             }else {
-                Product newProduct = new Product(brandOfProduct, modelOfProduct, Double.parseDouble(priceProduct)); //Creating new Customer
-                productList.add(newProduct); //adding to list
+                Product newProduct = new Product(brandOfProduct, modelOfProduct, Double.parseDouble(priceProduct));
+                productList.add(newProduct);
                 System.out.println("\nProduct added! " + "\nBrand: " + brandOfProduct + ", " + "\nModel: " + modelOfProduct + ", " + "\nPrice: $" + priceProduct);
             }
             while(true) {
@@ -122,22 +122,20 @@ Scanner scanInput = new Scanner(System.in);
                 run = false;
             }
             if (productIndex >= 1 && productIndex <= this.productList.size()) {
-                // Remove the product from the list using the remove method
+
                 Product removed = this.productList.remove(productIndex - 1);
-                // Print a confirmation message
+
                 System.out.println("\nYou have removed " + "\nBrand: " + removed.getBrand() + ", " + "\nModel: " + removed.getModel() + ", " + "\nPrice: $" + removed.getPrice());
             } else if (productIndex > productList.size()) {
-                // Print an error message
+
                 System.out.println("\nInvalid choice. You must enter a number between 1 and " + this.productList.size());
             }
         }
     }
     public void editProductInformation() { //(6)
 
-        // Display the list of products with their index numbers
         printAllProducts();
 
-        // Prompt the user to select a customer to edit
         boolean run = true;
         while (run) {
             System.out.print("\nEnter the number of the product you want to edit: " +
@@ -149,11 +147,9 @@ Scanner scanInput = new Scanner(System.in);
                 run = false;
             }
 
-            // Check if the provided index is valid
             if (productIndex >= 1 && productIndex <= productList.size()) {
                 Product productToEdit = productList.get(productIndex - 1);
 
-                // Prompt the user to choose which information to edit
                 System.out.println("\n----------------------------------------------------" +
                         "\nEdit Product Information ");
                 System.out.println("\n1. Name of brand (Current: " + productToEdit.getBrand() + ")");
@@ -163,7 +159,6 @@ Scanner scanInput = new Scanner(System.in);
                 System.out.print("\nChoice: ");
                 String infoChoice = scanInput.next();
 
-                // Prompt the user for the updated value based on their choice
                 while(run) {
                     String newValue = "";
                     switch (infoChoice) {

@@ -13,12 +13,12 @@ public class Customers {
     Orders orders = new Orders();
 
     public Customers() {
-        readCustomersFromFile(); //(1) Starting to read customers from txt file Customers
+        readCustomersFromFile(); //(1)
     }
-    private void readCustomersFromFile(){ //(1) Starting to read customers from txt file Customers
-        if (!createFileWithCustomers()) { //(2) Check if creating a file with customers was unsuccessful
+    private void readCustomersFromFile(){ //(1)
+        if (!createFileWithCustomers()) { //(2)
             try {
-                Scanner scan = new Scanner(new File(customersFileName)); //If file already exists, it will get scanned
+                Scanner scan = new Scanner(new File(customersFileName));
                 while (scan.hasNextLine()) {
                     String customer = scan.nextLine();
                     String[] customerInfo = customer.split(",");
@@ -38,7 +38,7 @@ public class Customers {
         }
     }
 
-    private boolean createFileWithCustomers() { //(2) Creating a file
+    private boolean createFileWithCustomers() { //(2)
         File file = new File(customersFileName);
 
         try {
@@ -52,7 +52,7 @@ public class Customers {
         return false;
     }
 
-    public void customerMenu() { //(3) Customer start menu.
+    public void customerMenu() { //(3)
 
         boolean run = true;
 
@@ -88,7 +88,7 @@ public class Customers {
             }
         }
     }
-    private boolean registerNewAccount() { //(4) Register new account
+    private boolean registerNewAccount() { //(4)
 
         while (true) {
             System.out.println("Enter your social security number (YYYY-MM-DD-****) (this will be your username): ");
@@ -101,28 +101,28 @@ public class Customers {
             String lastName = scanInput.next();
             System.out.println("Enter Your Email: ");
             String email = scanInput.next();
-            if (customerExistsInList(socialSecurityNumber, password)) { //(4) Checks if the account already exists on SSN and password
+            if (customerExistsInList(socialSecurityNumber, password)) { //(4)
                 System.out.println("Account already exists! Please log in.");
                 return false;
             }
 
-            Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //(4) Creating new Customer
+            Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //(4)
             customerList.add(newCustomer); //adding to list
             System.out.println("Account registered! \nWelcome " + firstName + " " + lastName);
             updateCustomersTextFile();
             return true;
         }
     }
-    private boolean customerExistsInList(String socialSecurityNumber, String inputPassword) { //(step: (4, 5) Checks if the customer already exist in list
+    private boolean customerExistsInList(String socialSecurityNumber, String inputPassword) { //(step: (4, 5)
         for (Customer customer : customerList) {
             if (customer.getSocialSecurityNumber().equals(socialSecurityNumber) && customer.getPassword().equals(inputPassword)) {
-                return true; // Customer found with matching Social Security Number and Password
+                return true;
             }
         }
-        return false; // Customer not found, no matching Social Security Number or Password
+        return false;
     }
 
-    private void logInCustomer() { //(5) Asking for log in information,
+    private void logInCustomer() { //(5)
 
         Customer customer = new Customer();
         System.out.println("\n----------------------------------------------------");
@@ -131,7 +131,7 @@ public class Customers {
         System.out.println("\nEnter password: ");
         customer.setPassword(scanInput.next());
 
-        if (customerExistsInList(customer.getSocialSecurityNumber(), customer.getPassword())) { //(5) Calling customerExistInList method to see if socialsecurity and password is correct
+        if (customerExistsInList(customer.getSocialSecurityNumber(), customer.getPassword())) { //(5)
 
             boolean run = true;
 
@@ -188,10 +188,10 @@ public class Customers {
     }
 
     public void editCustomerInformation() {
-        // Display the list of customers with their index numbers
+
         printAllCustomers();
 
-        // Prompt the user to select a customer to edit
+
         boolean run = true;
         while(run) {
             System.out.print("Enter the number of the customer you want to edit: " +
@@ -203,11 +203,9 @@ public class Customers {
                 run = false;
             }
 
-            // Check if the provided index is valid
             if (customerIndex >= 1 && customerIndex <= customerList.size()) {
                 Customer customerToEdit = customerList.get(customerIndex - 1);
 
-                // Prompt the user to choose which information to edit
                 System.out.println("\nEdit Customer Information ");
                 System.out.println("\n1. Social security number (Current: " + customerToEdit.getSocialSecurityNumber() + ")");
                 System.out.println("2. Password (Current: " + customerToEdit.getPassword() + ")");
@@ -218,7 +216,6 @@ public class Customers {
                 System.out.print("\nEnter the number of the information to edit or press 0 to go back: ");
                 String infoChoice = scanInput.next();
 
-                // Prompt the user for the updated value based on their choice
                 while(run) {
                     String newValue = "";
                     switch (infoChoice) {
@@ -248,7 +245,7 @@ public class Customers {
                             customerToEdit.setEmail(newValue);
                             break;
                         case "0":
-                            break;  //Going back
+                            break;
 
                         default:
                             System.out.println("Invalid choice. No changes made.");

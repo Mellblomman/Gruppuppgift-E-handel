@@ -56,10 +56,10 @@ public class Admin {
                             runAdminMenu = false;
                             break;
                         default:
-                            System.out.println("Wrong input. Choose 1-4");
+                            System.out.println("Wrong input. Choose 1-3 or 0 to go back.");
                     }
                 }
-                runAdminLogIn = false; //Stops while loop to make exiting program work.
+                runAdminLogIn = false;
             } else {
                 System.out.println("Please enter the correct credentials for admin.");
 
@@ -141,7 +141,7 @@ public class Admin {
 
         while (runAdminOrdersMenu) {
 
-            System.out.println("\nManage customers menu" +
+            System.out.println("\nAll Transactions" +
                     "\n1. View all." +
                     "\n0. Go back." +
                     "\n----------------------------------------------------" +
@@ -153,7 +153,7 @@ public class Admin {
                     break;
                 case "0":
                     runAdminOrdersMenu = false;
-                    break; //Going back
+                    break;
                 default:
                     System.out.println("Please choose one of the two options above.");
                     break;

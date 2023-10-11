@@ -3,7 +3,7 @@ package src;
 import java.util.Scanner;
 public class Login
 {
-    public  void loginMenu() {  //(1) Login menu
+    public  void loginMenu() {  //(1)
         Scanner scan = new Scanner(System.in);
         boolean runLoginMenu = true;
         while(runLoginMenu){
@@ -17,7 +17,7 @@ public class Login
                     "     _______\n" +
                     "    [=======]  () ");
             System.out.println("----------------------------------------------------");
-            System.out.println("Please choose which form of login you want to do:");    //(2) Login as admin or customer
+            System.out.println("Please choose which form of login you want to do:");    //(2)
             System.out.println("1. Admin" +
                     "\n2. Customer" +
                     "\n0. Exit" +
@@ -29,11 +29,11 @@ public class Login
             switch(inputChoice){
                 case "1":
                     Admin admin = new Admin();
-                    admin.logInAdmin();     // (3) Go to log in admin
+                    admin.logInAdmin();     // (3)
                     break;
                 case "2":
                     Customers customers = new Customers();
-                    customers.customerMenu(); // (3) Go to log in customer
+                    customers.customerMenu(); // (3)
                     break;
                 case "0":
                     System.out.println("Program is closing.");
