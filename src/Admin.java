@@ -130,7 +130,7 @@ public class Admin {
                     runAdminCustomerMenu = false;
                     break;
                 default:
-                    System.out.println("Please choose one of the two options above.");
+                    System.out.println("Choose 1-2 or 0");
                     break;
             }
         }
