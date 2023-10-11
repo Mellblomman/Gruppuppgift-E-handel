@@ -67,7 +67,7 @@ public class Admin {
         }
     }
 
-    public void productManagement() { // (3)
+    private void productManagement() { // (3)
 
         boolean run = true;
 
@@ -107,7 +107,7 @@ public class Admin {
         }
     }
 
-    public void manageCustomersAsAdmin() { // (4)
+    private void manageCustomersAsAdmin() { // (4)
         boolean runAdminCustomerMenu = true;
 
         while (runAdminCustomerMenu) {
@@ -136,7 +136,7 @@ public class Admin {
         }
     }
 
-    public void customerTransactions() { // (5)
+    private void customerTransactions() { // (5)
         boolean runAdminOrdersMenu = true;
 
         while (runAdminOrdersMenu) {
