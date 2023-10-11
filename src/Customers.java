@@ -107,15 +107,15 @@ public class Customers {
             }
 
             Customer newCustomer = new Customer(socialSecurityNumber, password, firstName, lastName, email); //(4)
-            customerList.add(newCustomer); //adding to list
+            customerList.add(newCustomer);
             System.out.println("Account registered! \nWelcome " + firstName + " " + lastName);
             updateCustomersTextFile();
             return true;
         }
     }
-    private boolean customerExistsInList(String socialSecurityNumber, String inputPassword) { //(step: (4, 5)
+    private boolean customerExistsInList(String socialSecurityNumber, String password) { //(4, 5)
         for (Customer customer : customerList) {
-            if (customer.getSocialSecurityNumber().equals(socialSecurityNumber) && customer.getPassword().equals(inputPassword)) {
+            if (customer.getSocialSecurityNumber().equals(socialSecurityNumber) && customer.getPassword().equals(password)) {
                 return true;
             }
         }
