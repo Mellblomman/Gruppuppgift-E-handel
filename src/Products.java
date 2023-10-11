@@ -10,7 +10,6 @@ private String productFileName = "products.txt";
 
 Scanner scanInput = new Scanner(System.in);
 
-
     public Products(){
         readProductsFromFile(); //(1)
     }
@@ -133,7 +132,6 @@ Scanner scanInput = new Scanner(System.in);
         }
     }
     public void editProductInformation() { //(6)
-
         printAllProducts();
 
         boolean run = true;

@@ -55,7 +55,6 @@ public class Customers {
     public void customerMenu() { //(3)
 
         boolean run = true;
-
         while (run) {
             System.out.println("\n----------------------------------------------------" +
                     "\nCustomer Menu" +
@@ -64,8 +63,8 @@ public class Customers {
                     "\n0. Go back." +
                     "\n----------------------------------------------------" +
                     "\nChoice: ");
-            String loginOrRegister = scanInput.next();
 
+            String loginOrRegister = scanInput.next();
             switch (loginOrRegister) {
 
                 case "1":
@@ -143,8 +142,8 @@ public class Customers {
                         "\n0. Logout" +
                         "\n----------------------------------------------------" +
                         "\nChoice: ");
-                String shopOrHistory = scanInput.next();
 
+                String shopOrHistory = scanInput.next();
                 switch (shopOrHistory) {
 
                     case "1":
@@ -164,7 +163,7 @@ public class Customers {
                         break;
                 }
             }
-        }else{
+        } else {
             System.out.println("Wrong login credentials.");
         }
     }
@@ -188,9 +187,7 @@ public class Customers {
     }
 
     public void editCustomerInformation() {
-
         printAllCustomers();
-
 
         boolean run = true;
         while(run) {
@@ -214,8 +211,8 @@ public class Customers {
                 System.out.println("5. Email (Current: " + customerToEdit.getEmail() + ")");
                 System.out.println("0. Go back");
                 System.out.print("\nEnter the number of the information to edit or press 0 to go back: ");
-                String infoChoice = scanInput.next();
 
+                String infoChoice = scanInput.next();
                 while(run) {
                     String newValue = "";
                     switch (infoChoice) {
@@ -262,7 +259,7 @@ public class Customers {
             } else if (customerIndex > customerList.size()) {
                 System.out.println("Invalid customer index. Please enter a valid index.");
             }
-        }updateCustomersTextFile();
+        } updateCustomersTextFile();
     }
 
     private void updateCustomersTextFile(){

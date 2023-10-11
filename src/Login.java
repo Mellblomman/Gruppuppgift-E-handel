@@ -25,7 +25,6 @@ public class Login
                     "\nChoice: ");
 
             String inputChoice = scan.nextLine();
-
             switch(inputChoice){
                 case "1":
                     Admin admin = new Admin();

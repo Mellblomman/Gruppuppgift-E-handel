@@ -124,7 +124,6 @@ public class Orders {
             System.out.println(product.getBrand() + "-" + product.getModel() + " -  $" + product.getPrice());
         }
 
-
         System.out.print("\nDo you want to remove items from the cart before confirming the purchase? (yes/no): ");
         String removeOption = scanInput.next();
 
@@ -132,15 +131,12 @@ public class Orders {
             removeFromShoppingCart(cart);
         }
 
-
         double totalCost = calculateTotalCost(cart);
 
         System.out.println("\nTotal cost of the items in the cart: $" + totalCost);
 
-
         System.out.print("\nDo you want to confirm the purchase? (yes/no): ");
         String confirmation = scanInput.next();
-
 
         if (confirmation.equalsIgnoreCase("yes")) {
             Order newOrder = new Order(customerSSN, generateReceipt(cart, totalCost));
